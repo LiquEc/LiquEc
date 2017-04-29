@@ -4,8 +4,12 @@
 
 package io.github.liquec.gui.main;
 
+import io.github.liquec.gui.controller.ExitRequestHandler;
+import io.github.liquec.gui.controller.GuiFileHandler;
 import io.github.liquec.gui.controller.MainController;
 import io.github.liquec.gui.common.Placement;
+import io.github.liquec.gui.controller.TitleHandler;
+import io.github.liquec.gui.model.MainModel;
 import io.github.liquec.gui.services.PlacementManager;
 import io.github.liquec.gui.view.ViewFxml;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +31,18 @@ public class LiquEcGui {
 
     @Inject
     private PlacementManager placementManager;
+
+    @Inject
+    private GuiFileHandler guiFileHandler;
+
+    @Inject
+    private ExitRequestHandler exitRequestHandler;
+
+    @Inject
+    private TitleHandler titleHandler;
+
+    @Inject
+    private MainModel model;
 
     public void start(final Stage stage) {
         Parent root = ViewFxml.MAIN.loadNode(mainLoader);
@@ -52,6 +68,11 @@ public class LiquEcGui {
 
     private void initialise(final Stage stage) {
         mainController.initialise(stage);
+        guiFileHandler.initialise(stage);
+        exitRequestHandler.initialise(stage);
+        titleHandler.initialise();
+
+        stage.titleProperty().bind(model.titleProperty());
     }
 
     private void handleKeyEvent(final KeyEvent event) {

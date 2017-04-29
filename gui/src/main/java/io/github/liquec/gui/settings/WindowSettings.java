@@ -17,10 +17,6 @@ public class WindowSettings {
 
     private double y;
 
-    private double splitUsePosition = 0.55;
-
-    private double splitWordPosition = 0.65;
-
     public double getWidth() {
         return width;
     }
@@ -53,22 +49,6 @@ public class WindowSettings {
         this.y = y;
     }
 
-    public double getSplitUsePosition() {
-        return splitUsePosition;
-    }
-
-    public void setSplitUsePosition(final double splitUsePosition) {
-        this.splitUsePosition = splitUsePosition;
-    }
-
-    public double getSplitWordPosition() {
-        return splitWordPosition;
-    }
-
-    public void setSplitWordPosition(final double splitWordPosition) {
-        this.splitWordPosition = splitWordPosition;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -86,8 +66,6 @@ public class WindowSettings {
             .append(height, that.height)
             .append(x, that.x)
             .append(y, that.y)
-            .append(splitUsePosition, that.splitUsePosition)
-            .append(splitWordPosition, that.splitWordPosition)
             .isEquals();
     }
 
@@ -98,8 +76,6 @@ public class WindowSettings {
             .append(height)
             .append(x)
             .append(y)
-            .append(splitUsePosition)
-            .append(splitWordPosition)
             .toHashCode();
     }
 
@@ -110,8 +86,6 @@ public class WindowSettings {
             .append("height", height)
             .append("x", x)
             .append("y", y)
-            .append("splitUsePosition", splitUsePosition)
-            .append("splitWordPosition", splitWordPosition)
             .toString();
     }
 }

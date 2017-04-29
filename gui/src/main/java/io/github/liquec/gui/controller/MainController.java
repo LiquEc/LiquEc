@@ -5,6 +5,8 @@
 package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.github.liquec.gui.model.MainModel;
+import io.github.liquec.gui.status.StatusManager;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -19,61 +21,18 @@ import javax.inject.Singleton;
 @Singleton
 @SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class MainController {
-    public MenuItem menuNew;
 
-    public MenuItem menuOpen;
+    @Inject
+    private MainModel model;
 
-    public MenuItem menuSave;
+    @Inject
+    private StatusManager statusManager;
 
-    public MenuItem menuSaveAs;
-
-    public RadioMenuItem menuEditOn;
-
-    public RadioMenuItem menuEditOff;
-
-    public MenuItem menuExport;
-
-    public MenuItem menuSetupFilters;
-
-    public CheckMenuItem menuEnableFilters;
-
-    public MenuItem menuWebsite;
-
-    public MenuItem menuHowTo;
-
-    public MenuItem menuIssue;
-
-    public MenuItem menuAbout;
-
-    public Button buttonNew;
-
-    public Button buttonOpen;
-
-    public Button buttonSave;
-
-    public Button buttonExport;
-
-    public Button buttonSetupFilters;
-
-    public CheckBox buttonEnableFilters;
-
-    public RadioButton buttonEditOn;
-
-    public RadioButton buttonEditOff;
-
-    public BorderPane mainBorderPane;
-
-    public MenuBar menuBar;
-
-    public StatusBar statusBar;
-
-    public Pane maskerPane;
-
-    public MenuItem menuFind;
-
-    public MenuItem menuExit;
+    @Inject
+    private ExitRequestHandler exitRequestHandler;
 
     public void initialise(final Stage stage) {
+
 
     }
 
@@ -82,6 +41,14 @@ public class MainController {
     }
 
     private void processCloseRequest(final WindowEvent e) {
-
+        if (statusManager.beginExit()) {
+            try {
+                if (exitRequestHandler.handleExitRequest(e)) {
+                    statusManager.markSuccess();
+                }
+            } finally {
+                statusManager.completeAction();
+            }
+        }
     }
 }

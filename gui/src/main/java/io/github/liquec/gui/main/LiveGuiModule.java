@@ -15,8 +15,8 @@ import io.github.liquec.gui.settings.SettingsManagerImpl;
 public class LiveGuiModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(SettingsManager.class).to(SettingsManagerImpl.class);
-        bind(PlacementManager.class).to(PlacementManagerImpl.class);
         bind(EnvironmentManager.class).to(EnvironmentManagerImpl.class);
+        bind(PlacementManager.class).to(PlacementManagerImpl.class);
+        bind(SettingsManager.class).to(SettingsManagerImpl.class);
     }
 }
