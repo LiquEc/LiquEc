@@ -51,7 +51,7 @@ public class TitleHandler {
             title.append(" - Unsaved Changes");
         }
 
-        title.append(" - Liquec");
+        title.append(" - LiquEc");
         model.setTitle(title.toString());
     }
 }
