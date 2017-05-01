@@ -6,6 +6,7 @@ package io.github.liquec.gui.status;
 
 import io.github.liquec.gui.model.StatusModel;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,15 +15,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static javafx.beans.binding.Bindings.when;
+import static javafx.beans.binding.Bindings.*;
 
 @Singleton
 public class StatusManagerImpl implements StatusManager {
     private static final Logger LOG = LoggerFactory.getLogger(StatusManagerImpl.class);
 
+    private static final String DEFAULT_DESCRIPTION = "Liquefaction According to Eurocode";
+
     private static final String NAME_EXIT = "Exit LiquEc";
 
+    private static final String NAME_ABOUT = "About LiquEc";
+
     private String name;
+
+    private final SimpleBooleanProperty sessionAvailable = new SimpleBooleanProperty();
 
     private final SimpleBooleanProperty busy = new SimpleBooleanProperty();
 
@@ -32,13 +39,20 @@ public class StatusManagerImpl implements StatusManager {
 
     @Inject
     public void setStatusModel(final StatusModel model) {
+        model.textProperty().bind(when(busy).then(actionDescription).otherwise(DEFAULT_DESCRIPTION));
         model.busyProperty().bind(busy);
         model.activityProperty().bind(when(busy).then(-1).otherwise(0));
+        model.graphShownProperty().bind(and(sessionAvailable, not(busy)));
     }
 
     @Override
     public boolean beginExit() {
         return begin(NAME_EXIT);
+    }
+
+    @Override
+    public boolean beginAbout() {
+        return begin(NAME_ABOUT);
     }
 
     private boolean begin(final String name) {

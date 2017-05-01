@@ -80,13 +80,16 @@
 .buttonNewIcon {
     -glyph-name: FILE_ALT;
 }
-.buttonExportIcon {
+.buttonEurocodeIcon {
     -glyph-name: SHARE_SQUARE_ALT;
 }
-.buttonSetupFiltersIcon {
-    -glyph-name: FILTER;
+.buttonEurocodeIcon {
+    -glyph-name: EUR;
 }
-.buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonExportIcon, .buttonSetupFiltersIcon {
+.buttonNCSE02Icon {
+    -glyph-name: BOLT;
+}
+.buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonEurocodeIcon, .buttonNCSE02Icon, .buttonSetupFiltersIcon {
     -glyph-size: 24;
 }
 .buttonFilterSessionIcon {

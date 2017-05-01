@@ -23,6 +23,10 @@ public class MainModel {
 
     private final SimpleBooleanProperty sessionOpen = new SimpleBooleanProperty(false);
 
+    private final SimpleBooleanProperty sessionCalculate = new SimpleBooleanProperty(false);
+
+    private final SimpleBooleanProperty sessionClear = new SimpleBooleanProperty(false);
+
     private final SimpleObjectProperty<Path> sessionFile = new SimpleObjectProperty<>(null);
 
     private final SimpleStringProperty documentName = new SimpleStringProperty();
@@ -36,6 +40,8 @@ public class MainModel {
         this.sessionModel = sessionModel;
         this.sessionFile.set(sessionFile);
         sessionOpen.set(true);
+        // session calculate
+        // session clear
         documentName.bind(sessionModel.documentNameProperty());
         changesSaved.bindBidirectional(sessionModel.changesSavedProperty());
     }
@@ -77,6 +83,14 @@ public class MainModel {
 
     public SimpleBooleanProperty sessionOpenProperty() {
         return sessionOpen;
+    }
+
+    public SimpleBooleanProperty sessionCalculateProperty() {
+        return sessionCalculate;
+    }
+
+    public SimpleBooleanProperty sessionClearProperty() {
+        return sessionClear;
     }
 
     public void setSessionFile(final Path sessionFile) {

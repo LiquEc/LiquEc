@@ -7,6 +7,8 @@ package io.github.liquec.gui.status;
 public interface StatusManager {
     boolean beginExit();
 
+    boolean beginAbout();
+
     void markSuccess();
 
     void completeAction();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Open Source Software published under the Apache Licence, Version 2.0.
+  -->
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<Pane fx:id="aboutDialogue" styleClass="about" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.82-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.AboutController">
+    <children>
+        <BorderPane>
+            <top>
+                <HBox>
+                    <children>
+                        <Text styleClass="title,left" text="Liqu" />
+                        <Text styleClass="title,right" text="Ec" />
+                    </children>
+                </HBox>
+            </top>
+            <right>
+                <Button fx:id="buttonClose" mnemonicParsing="false" text="Close" BorderPane.alignment="BOTTOM_RIGHT" />
+            </right>
+            <left>
+                <VBox>
+                    <children>
+                        <Label text="LiquEc is Open Source Software,&#10;published under the Apache Licence, Version 2.0." />
+                        <Label fx:id="labelVersion" text="LiquEc Version: %s." />
+                        <Label text="Copyright (c) 2017 José Luís Pastor Navarro | Pablo Benito González." />
+                        <Hyperlink fx:id="linkWebsite" text="https://liquec.github.io/" styleClass="website" >
+                            <graphic>
+                                <FontAwesomeIconView styleClass="websiteIcon" />
+                            </graphic>
+                        </Hyperlink>
+                        <Hyperlink fx:id="linkTwitter" text="\@liquecapp" styleClass="twitter" >
+                            <graphic>
+                                <FontAwesomeIconView styleClass="twitterIcon" />
+                            </graphic>
+                        </Hyperlink>
+                    </children>
+                </VBox>
+            </left>
+        </BorderPane>
+    </children>
+</Pane>

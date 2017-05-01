@@ -10,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public enum ViewFxml {
-    MAIN("main.fxml");
+    MAIN("main.fxml"),
+    ABOUT("about.fxml")
+    ;
 
     private final String name;
 

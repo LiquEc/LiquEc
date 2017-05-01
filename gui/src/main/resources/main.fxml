@@ -10,6 +10,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -45,6 +46,14 @@
                                             <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit LiquEc" />
                                         </items>
                                     </Menu>
+                                    <Menu fx:id="menuCalculate" mnemonicParsing="false" text="Calculate">
+                                        <items>
+                                            <MenuItem fx:id="menuEurocode" accelerator="Shortcut+E" mnemonicParsing="false" text="Eurocode..." />
+                                            <MenuItem fx:id="menuNCSE02" accelerator="Shortcut+W" mnemonicParsing="false" text="NCSE-02..." />
+                                            <SeparatorMenuItem mnemonicParsing="false" />
+                                            <MenuItem fx:id="menuClear" mnemonicParsing="false" text="Clear LiquEc Data" />
+                                        </items>
+                                    </Menu>
                                     <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
                                         <items>
                                             <MenuItem fx:id="menuWebsite" mnemonicParsing="false" text="LiquEc Website" />
@@ -59,7 +68,7 @@
                                 <items>
                                     <Button fx:id="buttonNew" mnemonicParsing="false" styleClass="buttonNew" text="New">
                                         <tooltip>
-                                            <Tooltip text="Analyse a document and start a new session" />
+                                            <Tooltip text="Start a new session" />
                                         </tooltip>
                                         <graphic>
                                           <FontAwesomeIconView styleClass="buttonNewIcon" />
@@ -82,12 +91,20 @@
                                         </graphic>
                                     </Button>
                                     <Separator orientation="VERTICAL" />
-                                    <Button fx:id="buttonExport" mnemonicParsing="false" styleClass="buttonExport" text="Export Selection">
+                                    <Button fx:id="buttonEurocode" mnemonicParsing="false" styleClass="buttonEurocode" text="Eurocode">
                                         <tooltip>
-                                            <Tooltip text="Export the list of words marked as unknown to a file" />
+                                            <Tooltip text="Calculate with Eurocode" />
                                         </tooltip>
                                         <graphic>
-                                            <FontAwesomeIconView styleClass="buttonExportIcon" />
+                                            <FontAwesomeIconView styleClass="buttonEurocodeIcon" />
+                                        </graphic>
+                                    </Button>
+                                    <Button fx:id="buttonNCSE02" mnemonicParsing="false" styleClass="buttonNCSE02" text="NCSE-02">
+                                        <tooltip>
+                                            <Tooltip text="Calculate with NCSE-02" />
+                                        </tooltip>
+                                        <graphic>
+                                            <FontAwesomeIconView styleClass="buttonNCSE02Icon" />
                                         </graphic>
                                     </Button>
                                 </items>
@@ -121,13 +138,13 @@
                                                   <FontAwesomeIconView styleClass="buttonNewIcon" />
                                               </graphic>
                                           </Label>
-                                           <Label styleClass="new" text="Choose 'New' to start a new calculation." GridPane.columnIndex="1" />
+                                           <Label styleClass="new" text="Choose 'New' to start a new session." GridPane.columnIndex="1" />
                                           <Label styleClass="open" GridPane.rowIndex="1">
                                               <graphic>
                                                   <FontAwesomeIconView styleClass="buttonOpenIcon" />
                                               </graphic>
                                           </Label>
-                                           <Label styleClass="open" text="Choose 'Open' to load a saved calculation." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                           <Label styleClass="open" text="Choose 'Open' to load a saved session." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                </children>

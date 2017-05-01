@@ -12,9 +12,13 @@ import javax.inject.Singleton;
 
 @Singleton
 public class StatusModel {
+    private final SimpleStringProperty text = new SimpleStringProperty();
+
     private final SimpleDoubleProperty activity = new SimpleDoubleProperty();
 
     private final SimpleBooleanProperty busy = new SimpleBooleanProperty();
+
+    private final SimpleBooleanProperty graphShown = new SimpleBooleanProperty();
 
     public SimpleDoubleProperty activityProperty() {
         return activity;
@@ -22,5 +26,13 @@ public class StatusModel {
 
     public SimpleBooleanProperty busyProperty() {
         return busy;
+    }
+
+    public SimpleStringProperty textProperty() {
+        return text;
+    }
+
+    public SimpleBooleanProperty graphShownProperty() {
+        return graphShown;
     }
 }
