@@ -75,21 +75,18 @@
     -glyph-name: SAVE;
 }
 .buttonOpenIcon {
-    -glyph-name: FOLDER_OPEN_ALT;
+    -glyph-name: FOLDER_OPEN;
 }
 .buttonNewIcon {
-    -glyph-name: FILE_ALT;
+    -glyph-name: OPEN_IN_NEW;
 }
-.buttonEurocodeIcon {
-    -glyph-name: SHARE_SQUARE_ALT;
-}
-.buttonEurocodeIcon {
-    -glyph-name: EUR;
+.buttonCalculateIcon {
+    -glyph-name: PLAY_CIRCLE_OUTLINE;
 }
 .buttonNCSE02Icon {
-    -glyph-name: BOLT;
+    -glyph-name: ANDROID;
 }
-.buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonEurocodeIcon, .buttonNCSE02Icon, .buttonSetupFiltersIcon {
+.buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonCalculateIcon, .buttonSetupFiltersIcon {
     -glyph-size: 24;
 }
 .buttonFilterSessionIcon {
@@ -180,10 +177,8 @@
     -fx-stroke-width: 1;
 }
 .title.left {
-    -fx-fill: -gradient-known;
 }
 .title.right {
-    -fx-fill: -gradient-unknown;
 }
 .settings, .filter {
     -fx-padding: 20 20 20 20;

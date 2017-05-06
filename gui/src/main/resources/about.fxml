@@ -4,6 +4,7 @@
   ~ Open Source Software published under the Apache Licence, Version 2.0.
   -->
 
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -14,8 +15,8 @@
             <top>
                 <HBox>
                     <children>
-                        <Text styleClass="title,left" text="Liqu" />
-                        <Text styleClass="title,right" text="Ec" />
+                        <Text styleClass="title" text="Liqu" />
+                        <Text styleClass="title" text="Ec" />
                     </children>
                 </HBox>
             </top>
@@ -30,7 +31,7 @@
                         <Label text="Copyright (c) 2017 José Luís Pastor Navarro | Pablo Benito González." />
                         <Hyperlink fx:id="linkWebsite" text="https://liquec.github.io/" styleClass="website" >
                             <graphic>
-                                <FontAwesomeIconView styleClass="websiteIcon" />
+                                <MaterialIconView styleClass="websiteIcon" />
                             </graphic>
                         </Hyperlink>
                         <Hyperlink fx:id="linkTwitter" text="\@liquecapp" styleClass="twitter" >

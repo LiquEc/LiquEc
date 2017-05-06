@@ -9,9 +9,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import javax.inject.Singleton;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import javax.inject.Singleton;
 
 @Singleton
 public class MainModel {
@@ -24,6 +25,8 @@ public class MainModel {
     private final SimpleBooleanProperty sessionOpen = new SimpleBooleanProperty(false);
 
     private final SimpleBooleanProperty sessionCalculate = new SimpleBooleanProperty(false);
+
+    private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
 
     private final SimpleBooleanProperty sessionClear = new SimpleBooleanProperty(false);
 
@@ -87,6 +90,10 @@ public class MainModel {
 
     public SimpleBooleanProperty sessionCalculateProperty() {
         return sessionCalculate;
+    }
+
+    public SimpleBooleanProperty normativeModeProperty() {
+        return normativeMode;
     }
 
     public SimpleBooleanProperty sessionClearProperty() {

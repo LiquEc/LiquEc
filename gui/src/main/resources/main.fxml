@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -46,10 +47,12 @@
                                             <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit LiquEc" />
                                         </items>
                                     </Menu>
-                                    <Menu fx:id="menuCalculate" mnemonicParsing="false" text="Calculate">
+                                    <Menu fx:id="menuCalculation" mnemonicParsing="false" text="Calculate">
                                         <items>
-                                            <MenuItem fx:id="menuEurocode" accelerator="Shortcut+E" mnemonicParsing="false" text="Eurocode..." />
-                                            <MenuItem fx:id="menuNCSE02" accelerator="Shortcut+W" mnemonicParsing="false" text="NCSE-02..." />
+                                            <RadioMenuItem fx:id="menuNormativeEurocode" mnemonicParsing="false" text="Select Eurocode" />
+                                            <RadioMenuItem fx:id="menuNormativeNCSE02" mnemonicParsing="false" text="Select NCSE-02" />
+                                            <SeparatorMenuItem mnemonicParsing="false" />
+                                            <MenuItem fx:id="menuCalculate" accelerator="Shortcut+E" mnemonicParsing="false" text="Calculate..." />
                                             <SeparatorMenuItem mnemonicParsing="false" />
                                             <MenuItem fx:id="menuClear" mnemonicParsing="false" text="Clear LiquEc Data" />
                                         </items>
@@ -71,7 +74,7 @@
                                             <Tooltip text="Start a new session" />
                                         </tooltip>
                                         <graphic>
-                                          <FontAwesomeIconView styleClass="buttonNewIcon" />
+                                          <MaterialIconView styleClass="buttonNewIcon" />
                                         </graphic>
                                     </Button>
                                     <Button fx:id="buttonOpen" mnemonicParsing="false" styleClass="buttonOpen" text="Open">
@@ -79,7 +82,7 @@
                                             <Tooltip text="Open a saved session" />
                                         </tooltip>
                                         <graphic>
-                                            <FontAwesomeIconView styleClass="buttonOpenIcon" />
+                                            <MaterialIconView styleClass="buttonOpenIcon" />
                                         </graphic>
                                     </Button>
                                     <Button fx:id="buttonSave" mnemonicParsing="false" styleClass="buttonSave" text="Save">
@@ -87,26 +90,28 @@
                                             <Tooltip text="Save the session" />
                                         </tooltip>
                                         <graphic>
-                                            <FontAwesomeIconView styleClass="buttonSaveIcon" />
+                                            <MaterialIconView styleClass="buttonSaveIcon" />
                                         </graphic>
                                     </Button>
                                     <Separator orientation="VERTICAL" />
-                                    <Button fx:id="buttonEurocode" mnemonicParsing="false" styleClass="buttonEurocode" text="Eurocode">
+                                    <Button fx:id="buttonCalculate" mnemonicParsing="false" styleClass="buttonCalculate" text="Calculate">
+                                        <tooltip>
+                                            <Tooltip text="Calculate" />
+                                        </tooltip>
+                                        <graphic>
+                                            <MaterialIconView styleClass="buttonCalculateIcon" />
+                                        </graphic>
+                                    </Button>
+                                    <RadioButton fx:id="buttonNormativeEurocode" mnemonicParsing="false" text="Eurocode">
                                         <tooltip>
                                             <Tooltip text="Calculate with Eurocode" />
                                         </tooltip>
-                                        <graphic>
-                                            <FontAwesomeIconView styleClass="buttonEurocodeIcon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button fx:id="buttonNCSE02" mnemonicParsing="false" styleClass="buttonNCSE02" text="NCSE-02">
+                                    </RadioButton>
+                                    <RadioButton fx:id="buttonNormativeNCSE02" mnemonicParsing="false" text="NCSE-02">
                                         <tooltip>
                                             <Tooltip text="Calculate with NCSE-02" />
                                         </tooltip>
-                                        <graphic>
-                                            <FontAwesomeIconView styleClass="buttonNCSE02Icon" />
-                                        </graphic>
-                                    </Button>
+                                    </RadioButton>
                                 </items>
                             </ToolBar>
                         </children>
@@ -117,8 +122,8 @@
                        <children>
                            <HBox alignment="CENTER">
                                <children>
-                                   <Text styleClass="title,left" text="Liqu" />
-                                   <Text styleClass="title,right" text="Ec" />
+                                   <Text styleClass="title" text="Liqu" />
+                                   <Text styleClass="title" text="Ec" />
                                </children>
                            </HBox>
                            <HBox alignment="CENTER">
@@ -135,13 +140,13 @@
                                        <children>
                                           <Label styleClass="new">
                                               <graphic>
-                                                  <FontAwesomeIconView styleClass="buttonNewIcon" />
+                                                  <MaterialIconView styleClass="buttonNewIcon" />
                                               </graphic>
                                           </Label>
                                            <Label styleClass="new" text="Choose 'New' to start a new session." GridPane.columnIndex="1" />
                                           <Label styleClass="open" GridPane.rowIndex="1">
                                               <graphic>
-                                                  <FontAwesomeIconView styleClass="buttonOpenIcon" />
+                                                  <MaterialIconView styleClass="buttonOpenIcon" />
                                               </graphic>
                                           </Label>
                                            <Label styleClass="open" text="Choose 'Open' to load a saved session." GridPane.columnIndex="1" GridPane.rowIndex="1" />

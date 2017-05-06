@@ -34,9 +34,11 @@ public class MainController {
 
     public MenuItem menuSaveAs;
 
-    public MenuItem menuEurocode;
+    public RadioMenuItem menuNormativeEurocode;
 
-    public MenuItem menuNCSE02;
+    public RadioMenuItem menuNormativeNCSE02;
+
+    public MenuItem menuCalculate;
 
     public MenuItem menuClear;
 
@@ -54,9 +56,11 @@ public class MainController {
 
     public Button buttonOpen;
 
-    public Button buttonEurocode;
+    public Button buttonCalculate;
 
-    public Button buttonNCSE02;
+    public RadioButton buttonNormativeEurocode;
+
+    public RadioButton buttonNormativeNCSE02;
 
     public BorderPane mainBorderPane;
 
@@ -90,14 +94,23 @@ public class MainController {
     public void initialise(final Stage stage) {
         sessionStateHandler.initialise(mainBorderPane);
 
+        buildToggleGroup(buttonNormativeEurocode, buttonNormativeNCSE02);
+        buildToggleGroup(menuNormativeEurocode, menuNormativeNCSE02);
+
         buttonSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSaveAs.disableProperty().bind(not(model.sessionOpenProperty()));
 
-        buttonEurocode.disableProperty().bind(not(model.sessionCalculateProperty()));
-        buttonNCSE02.disableProperty().bind(not(model.sessionCalculateProperty()));
-        menuEurocode.disableProperty().bind(not(model.sessionCalculateProperty()));
-        menuNCSE02.disableProperty().bind(not(model.sessionCalculateProperty()));
+        buttonCalculate.disableProperty().bind(not(model.sessionCalculateProperty()));
+        menuCalculate.disableProperty().bind(not(model.sessionCalculateProperty()));
+        buttonNormativeEurocode.disableProperty().bind(not(model.sessionCalculateProperty()));
+        menuNormativeEurocode.disableProperty().bind(not(model.sessionCalculateProperty()));
+        buttonNormativeNCSE02.disableProperty().bind(not(model.sessionCalculateProperty()));
+        menuNormativeNCSE02.disableProperty().bind(not(model.sessionCalculateProperty()));
+
+        buttonNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
+        menuNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
+        menuNormativeNCSE02.selectedProperty().bindBidirectional(buttonNormativeNCSE02.selectedProperty());
 
         menuClear.disableProperty().bind(not(model.sessionClearProperty()));
 
@@ -108,6 +121,13 @@ public class MainController {
 
         prepareStatusInformation();
 
+    }
+
+    private void buildToggleGroup(final Toggle normativeEurocode, final Toggle normativeNCSE02) {
+        ToggleGroup normativeGroup = new ToggleGroup();
+
+        normativeEurocode.setToggleGroup(normativeGroup);
+        normativeNCSE02.setToggleGroup(normativeGroup);
     }
 
     private void prepareStatusInformation() {
