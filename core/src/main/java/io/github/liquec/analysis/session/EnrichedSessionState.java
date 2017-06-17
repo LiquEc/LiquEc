@@ -4,29 +4,34 @@
 
 package io.github.liquec.analysis.session;
 
-import io.github.liquec.analysis.model.CalculationData;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class SessionState {
-    private String projectName;
+import java.nio.file.Path;
+import java.util.Optional;
 
-    public SessionState() {
-        // No argument constructor to allow use as standard Java Bean
+public class EnrichedSessionState {
+    private final SessionState state;
+
+    private final Path file;
+
+    public EnrichedSessionState(final SessionState state) {
+        this(state, null);
     }
 
-    public SessionState(final CalculationData model) {
-        this.projectName = model.getProjectName();
+    public EnrichedSessionState(final SessionState state, final Path file) {
+        this.state = state;
+        this.file = file;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public SessionState getState() {
+        return state;
     }
 
-    public void setProjectName(final String projectName) {
-        this.projectName = projectName;
+    public Optional<Path> getFile() {
+        return Optional.ofNullable(file);
     }
 
     @Override
@@ -39,24 +44,27 @@ public class SessionState {
             return false;
         }
 
-        SessionState that = (SessionState) o;
+        EnrichedSessionState that = (EnrichedSessionState) o;
 
         return new EqualsBuilder()
-            .append(projectName, that.projectName)
+            .append(state, that.state)
+            .append(file, that.file)
             .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(projectName)
+            .append(state)
+            .append(file)
             .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-            .append("projectName", projectName)
+            .append("file", file)
+            .append("state", state)
             .toString();
     }
 }

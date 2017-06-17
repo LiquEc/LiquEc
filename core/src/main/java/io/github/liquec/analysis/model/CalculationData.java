@@ -5,13 +5,13 @@
 package io.github.liquec.analysis.model;
 
 public final class CalculationData {
-    private final String name;
+    private final String projectName;
 
-    public CalculationData(final String name) {
-        this.name = name;
+    public CalculationData(final String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public enum ViewFxml {
     MAIN("main.fxml"),
+    SESSION("session.fxml"),
     ABOUT("about.fxml")
     ;
 

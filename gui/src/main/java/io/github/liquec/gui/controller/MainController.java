@@ -10,6 +10,7 @@ import io.github.liquec.gui.model.MainModel;
 import io.github.liquec.gui.model.StatusModel;
 import io.github.liquec.gui.services.WebPageTool;
 import io.github.liquec.gui.status.StatusManager;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -80,6 +81,9 @@ public class MainController {
     private StatusManager statusManager;
 
     @Inject
+    private GuiFileHandler guiFileHandler;
+
+    @Inject
     private ExitRequestHandler exitRequestHandler;
 
     @Inject
@@ -96,6 +100,9 @@ public class MainController {
 
         buildToggleGroup(buttonNormativeEurocode, buttonNormativeNCSE02);
         buildToggleGroup(menuNormativeEurocode, menuNormativeNCSE02);
+
+        handler(buttonNew, menuNew, guiFileHandler::handleNewSession);
+        handler(buttonOpen, menuOpen, guiFileHandler::handleOpenSession);
 
         buttonSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSave.disableProperty().bind(not(model.sessionOpenProperty()));
@@ -121,6 +128,13 @@ public class MainController {
 
         prepareStatusInformation();
 
+    }
+
+    private void handler(final Button button, final MenuItem menuItem, final Runnable action) {
+        EventHandler<ActionEvent> handler = e -> action.run();
+
+        button.setOnAction(handler);
+        menuItem.setOnAction(handler);
     }
 
     private void buildToggleGroup(final Toggle normativeEurocode, final Toggle normativeNCSE02) {

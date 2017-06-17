@@ -28,7 +28,7 @@
                     <children>
                         <Label text="LiquEc is Open Source Software,&#10;published under the Apache Licence, Version 2.0." />
                         <Label fx:id="labelVersion" text="LiquEc Version: %s." />
-                        <Label text="Copyright (c) 2017 José Luís Pastor Navarro | Pablo Benito González." />
+                        <Label text="Copyright (c) 2017 José Luis Pastor Navarro | Pablo Benito González." />
                         <Hyperlink fx:id="linkWebsite" text="https://liquec.github.io/" styleClass="website" >
                             <graphic>
                                 <MaterialIconView styleClass="websiteIcon" />

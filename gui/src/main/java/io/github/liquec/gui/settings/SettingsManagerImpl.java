@@ -6,11 +6,13 @@ package io.github.liquec.gui.settings;
 
 import io.github.liquec.analysis.settings.BaseSettingsManager;
 
-import javax.inject.Singleton;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import javax.inject.Singleton;
 
 @Singleton
 public class SettingsManagerImpl extends BaseSettingsManager<LiquEcSettings> implements SettingsManager {
@@ -22,6 +24,16 @@ public class SettingsManagerImpl extends BaseSettingsManager<LiquEcSettings> imp
 
     public SettingsManagerImpl(final Path settingsFile) {
         super(settingsFile, LiquEcSettings.class);
+    }
+
+    @Override
+    public Path getSessionsPath() {
+        return getPath(LiquEcSettings::getSessionsPath);
+    }
+
+    @Override
+    public void setSessionsPath(final Path path) {
+        setPath(LiquEcSettings::setSessionsPath, path);
     }
 
     @Override
@@ -46,6 +58,24 @@ public class SettingsManagerImpl extends BaseSettingsManager<LiquEcSettings> imp
         LiquEcSettings settings = readSettings();
 
         setter.accept(settings, value);
+        writeSettings(settings);
+    }
+
+    private Path getPath(final Function<LiquEcSettings, Path> getter) {
+        LiquEcSettings settings = readSettings();
+        Path path = getter.apply(settings);
+
+        if (path != null && Files.isDirectory(path)) {
+            return path;
+        }
+
+        return Paths.get(System.getProperty("user.home"));
+    }
+
+    private void setPath(final BiConsumer<LiquEcSettings, Path> setter, final Path path) {
+        LiquEcSettings settings = readSettings();
+
+        setter.accept(settings, path);
         writeSettings(settings);
     }
 }

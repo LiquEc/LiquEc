@@ -4,6 +4,7 @@
 
 package io.github.liquec.gui.status;
 
+import io.github.liquec.analysis.session.FileNameTool;
 import io.github.liquec.gui.model.StatusModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -11,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,6 +22,10 @@ import static javafx.beans.binding.Bindings.*;
 @Singleton
 public class StatusManagerImpl implements StatusManager {
     private static final Logger LOG = LoggerFactory.getLogger(StatusManagerImpl.class);
+
+    private static final String NAME_NEW_SESSION = "Start a new LiquEc session";
+
+    private static final String NAME_OPEN_SESSION = "Open a saved LiquEc session";
 
     private static final String DEFAULT_DESCRIPTION = "Liquefaction According to Eurocode";
 
@@ -69,6 +75,16 @@ public class StatusManagerImpl implements StatusManager {
     }
 
     @Override
+    public boolean beginNewSession() {
+        return begin(NAME_NEW_SESSION);
+    }
+
+    @Override
+    public boolean beginOpenSession() {
+        return begin(NAME_OPEN_SESSION);
+    }
+
+    @Override
     public void markSuccess() {
         LOG.debug("Success: {}", name);
     }
@@ -78,5 +94,16 @@ public class StatusManagerImpl implements StatusManager {
         LOG.debug("Complete: {}", name);
         busy.setValue(false);
         gatekeeper.set(false);
+    }
+
+    @Override
+    public void performAction() {
+        LOG.debug("Perform: {}", name);
+    }
+
+    @Override
+    public void performAction(final Path file) {
+        LOG.debug("Perform: {}", name);
+        actionDescription.setValue(String.format("%s: '%s'...", name, FileNameTool.filename(file)));
     }
 }
