@@ -16,8 +16,8 @@
          <children>
             <HBox prefHeight="200.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="labelProjectName" text="Project Name" />
-                  <TextField fx:id="textFieldProjectName" />
+                  <Label styleClass="fieldLabel" text="Project Name:" />
+                  <TextField fx:id="textFieldProjectName" alignment="CENTER_RIGHT" prefColumnCount="4" prefHeight="26.0" prefWidth="300.0" />
                </children>
             </HBox>
          </children>

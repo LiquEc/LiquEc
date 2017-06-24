@@ -27,6 +27,8 @@ public class StatusManagerImpl implements StatusManager {
 
     private static final String NAME_OPEN_SESSION = "Open a saved LiquEc session";
 
+    private static final String NAME_SAVE_SESSION = "Save the LiquEc session";
+
     private static final String DEFAULT_DESCRIPTION = "Liquefaction According to Eurocode";
 
     private static final String NAME_EXIT = "Exit LiquEc";
@@ -82,6 +84,11 @@ public class StatusManagerImpl implements StatusManager {
     @Override
     public boolean beginOpenSession() {
         return begin(NAME_OPEN_SESSION);
+    }
+
+    @Override
+    public boolean beginSaveSession() {
+        return begin(NAME_SAVE_SESSION);
     }
 
     @Override

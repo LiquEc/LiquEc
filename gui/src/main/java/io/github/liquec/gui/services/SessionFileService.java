@@ -6,6 +6,8 @@ package io.github.liquec.gui.services;
 
 import io.github.liquec.analysis.file.FileStreamer;
 import io.github.liquec.analysis.session.EnrichedSessionState;
+import io.github.liquec.analysis.session.SessionSerialiser;
+import io.github.liquec.analysis.session.SessionState;
 
 import java.nio.file.Path;
 import javax.inject.Inject;
@@ -28,4 +30,9 @@ public class SessionFileService {
     public EnrichedSessionState createNewSession(final Path file) {
         return streamer.createNewSession(file);
     }
+
+    public void saveSession(final Path file, final SessionState state) {
+        streamer.saveSession(file, state);
+    }
+
 }

@@ -4,21 +4,38 @@
 
 package io.github.liquec.analysis.session;
 
-import io.github.liquec.analysis.model.CalculationData;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.liquec.analysis.model.GeotechnicalProperties;
+import io.github.liquec.analysis.model.SiteConditions;
+import io.github.liquec.analysis.model.StandardPenetrationTest;
+import org.apache.commons.lang3.builder.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionState {
     private String projectName;
+    private String organization;
+    private SiteConditions siteConditions = new SiteConditions();
+    private GeotechnicalProperties geotechnicalProperties = new GeotechnicalProperties();
+    private List<StandardPenetrationTest> standardPenetrationTestList = new ArrayList<>();
 
     public SessionState() {
         // No argument constructor to allow use as standard Java Bean
     }
 
-    public SessionState(final CalculationData model) {
-        this.projectName = model.getProjectName();
+    public SessionState(
+        final String projectName,
+        final String organization,
+        final SiteConditions siteConditions,
+        final GeotechnicalProperties geotechnicalProperties,
+        final List<StandardPenetrationTest> standardPenetrationTestList) {
+        this.projectName = projectName;
+        this.organization = organization;
+        this.siteConditions = siteConditions;
+        this.geotechnicalProperties = geotechnicalProperties;
+        this.standardPenetrationTestList = standardPenetrationTestList;
     }
 
     public String getProjectName() {
@@ -27,6 +44,38 @@ public class SessionState {
 
     public void setProjectName(final String projectName) {
         this.projectName = projectName;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(final String organization) {
+        this.organization = organization;
+    }
+
+    public SiteConditions getSiteConditions() {
+        return siteConditions;
+    }
+
+    public void setSiteConditions(final SiteConditions siteConditions) {
+        this.siteConditions = siteConditions;
+    }
+
+    public GeotechnicalProperties getGeotechnicalProperties() {
+        return geotechnicalProperties;
+    }
+
+    public void setGeotechnicalProperties(final GeotechnicalProperties geotechnicalProperties) {
+        this.geotechnicalProperties = geotechnicalProperties;
+    }
+
+    public List<StandardPenetrationTest> getStandardPenetrationTestList() {
+        return standardPenetrationTestList;
+    }
+
+    public void setStandardPenetrationTestList(final List<StandardPenetrationTest> standardPenetrationTestList) {
+        this.standardPenetrationTestList = standardPenetrationTestList;
     }
 
     @Override
@@ -55,8 +104,11 @@ public class SessionState {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-            .append("projectName", projectName)
-            .toString();
+        try {
+            return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return new ReflectionToStringBuilder(this, new RecursiveToStringStyle()).toString();
     }
 }

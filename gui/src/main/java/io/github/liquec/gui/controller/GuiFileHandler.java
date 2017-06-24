@@ -89,7 +89,6 @@ public class GuiFileHandler {
                 e -> new LiquEcException("Error creating new LiquEc session"));
 
             guiTaskHandler.executeInBackground(task);
-            LOG.info("New LiquEc session started");
         } else {
             statusManager.completeAction();
         }
@@ -104,20 +103,116 @@ public class GuiFileHandler {
     private void processOpenSession() {
         if (unsavedChangesCheck()) {
             Path file = chooseFile(FileDialogueType.OPEN_SESSION);
-            statusManager.performAction(file);
-            LOG.info("New session from '{}'", file);
+            if (file == null) {
+                statusManager.completeAction();
+            } else {
+                statusManager.performAction(file);
+                LOG.info("New session from '{}'", file);
 
-            GuiTask<EnrichedSessionState> task = new GuiTask<>(
-                guiTaskHandler,
-                statusManager,
-                () -> sessionFileService.createNewSession(file),
-                this::finishOpen,
-                e -> FileErrorTool.open(file, e));
+                GuiTask<EnrichedSessionState> task = new GuiTask<>(
+                    guiTaskHandler,
+                    statusManager,
+                    () -> sessionFileService.createNewSession(file),
+                    this::finishOpen,
+                    e -> FileErrorTool.open(file, e));
 
-            guiTaskHandler.executeInBackground(task);
-            LOG.info("LiquEc session opened");
+                guiTaskHandler.executeInBackground(task);
+            }
         } else {
             statusManager.completeAction();
+        }
+    }
+
+    private void finishOpen(final EnrichedSessionState enrichedState) {
+        SessionState state = enrichedState.getState();
+        SessionModel sessionModel = sessionStateHandler.addSession(state);
+
+        model.replaceSessionModel(sessionModel, enrichedState.getFile().orElse(null));
+    }
+
+    public void handleSave() {
+        if (model.hasSessionFile()) {
+            if (statusManager.beginSaveSession()) {
+                guiTaskHandler.pauseThenExecuteOnGuiThread(this::processSave);
+            }
+        } else {
+            handleSaveAs();
+        }
+    }
+
+    public void handleSaveAs() {
+        if (statusManager.beginSaveSession()) {
+            guiTaskHandler.pauseThenExecuteOnGuiThread(this::processSaveAs);
+        }
+    }
+
+    private void processSaveAs() {
+        Path file = chooseFile(FileDialogueType.SAVE_SESSION);
+
+        if (file == null) {
+            statusManager.completeAction();
+        } else {
+            file = FileNameTool.ensureSessionFileHasSuffix(file);
+            model.setSessionFile(file);
+            processSave();
+        }
+    }
+
+    private void processSave() {
+        Path file = model.getSessionFile();
+
+        statusManager.performAction(file);
+        LOG.info("Saving file '{}'", file);
+
+        GuiTask<Boolean> task = new GuiTask<>(
+            guiTaskHandler,
+            statusManager,
+            () -> saveFile(file, sessionStateHandler.getSessionState()),
+            b -> model.setChangesSaved(true),
+            e -> FileErrorTool.save(file, e)
+        );
+
+        guiTaskHandler.executeInBackground(task);
+    }
+
+    private boolean saveFile(final Path file, final SessionState sessionState) {
+        sessionFileService.saveSession(file, sessionState);
+        return true;
+    }
+
+    private boolean saveChanges() {
+        if (model.hasSessionFile()) {
+            saveChangesInternal();
+            return true;
+        } else {
+            return saveChangesAs();
+        }
+    }
+
+    private boolean saveChangesAs() {
+        Path file = chooseFile(FileDialogueType.SAVE_SESSION);
+
+        if (file == null) {
+            return false;
+        } else {
+            file = FileNameTool.ensureSessionFileHasSuffix(file);
+            model.setSessionFile(file);
+            return saveChangesInternal();
+        }
+    }
+
+    private boolean saveChangesInternal() {
+        Path file = model.getSessionFile();
+
+        try {
+            LOG.info("Saving file '{}'", file);
+            sessionFileService.saveSession(file, sessionStateHandler.getSessionState());
+            model.setChangesSaved(true);
+            return true;
+        } catch (final RuntimeException e) {
+            FileErrorTool.save(file, e);
+
+            return false;
         }
     }
 
@@ -131,64 +226,5 @@ public class GuiFileHandler {
             return null;
         }
     }
-
-    private void finishOpen(final EnrichedSessionState enrichedState) {
-        SessionState state = enrichedState.getState();
-        SessionModel sessionModel = sessionStateHandler.addSession(state);
-
-        model.replaceSessionModel(state, sessionModel, enrichedState.getFile().orElse(null));
-    }
-
-    private boolean saveChanges() {
-//        if (model.hasSessionFile()) {
-//            saveChangesInternal();
-//
-//            return true;
-//        } else {
-//            return saveChangesAs();
-//        }
-        return true;
-    }
-
-//    private boolean saveChangesAs() {
-//        Path file = chooseFile(FileDialogueType.SAVE_SESSION);
-//
-//        if (file == null) {
-//            return false;
-//        } else {
-//            file = FileNameTool.ensureSessionFileHasSuffix(file);
-//
-//            model.setSessionFile(file);
-//
-//            return saveChangesInternal();
-//        }
-//    }
-//
-//    private boolean saveChangesInternal() {
-//        Path file = model.getSessionFile();
-//
-//        try {
-//            LOG.info("Saving file '{}'", file);
-//            sessionFileService.write(file, sessionStateHandler.getSessionState());
-//            model.setChangesSaved(true);
-//
-//            return true;
-//        } catch (final RuntimeException e) {
-//            FileErrorTool.save(file, e);
-//
-//            return false;
-//        }
-//    }
-//
-//    private Path chooseFile(final FileDialogueType type) {
-//        FileDialogue dialogue = fileDialogueFactory.create(type, stage);
-//
-//        dialogue.showChooser();
-//        if (dialogue.isFileSelected()) {
-//            return dialogue.getSelectedFile();
-//        } else {
-//            return null;
-//        }
-//    }
 
 }

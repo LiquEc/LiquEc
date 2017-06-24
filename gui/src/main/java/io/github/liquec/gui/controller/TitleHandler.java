@@ -26,7 +26,6 @@ public class TitleHandler {
         ChangeListener<Object> listener = (o, old, v) -> updateTitle();
 
         model.sessionFileProperty().addListener(listener);
-        model.documentNameProperty().addListener(listener);
         model.changesSavedProperty().addListener(listener);
 
         updateTitle();
@@ -39,12 +38,6 @@ public class TitleHandler {
             title.append(model.getSessionFile().getFileName());
         } else {
             title.append(GuiConstants.UNTITLED);
-        }
-
-        String documentName = model.documentNameProperty().get();
-
-        if (documentName != null) {
-            title.append(" (").append(documentName).append(')');
         }
 
         if (!model.changesSavedProperty().get()) {

@@ -18,8 +18,6 @@ import javax.inject.Singleton;
 public class MainModel {
     private final SimpleStringProperty title = new SimpleStringProperty();
 
-    private SessionState sessionState;
-
     private SessionModel sessionModel;
 
     private final SimpleBooleanProperty sessionOpen = new SimpleBooleanProperty(false);
@@ -32,27 +30,21 @@ public class MainModel {
 
     private final SimpleObjectProperty<Path> sessionFile = new SimpleObjectProperty<>(null);
 
-    private final SimpleStringProperty documentName = new SimpleStringProperty();
-
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
 
-    public void replaceSessionModel(final SessionState sessionState, final SessionModel sessionModel, final Path sessionFile) {
+    public void replaceSessionModel(final SessionModel sessionModel, final Path sessionFile) {
         unbindOldSession();
-
-        this.sessionState = sessionState;
         this.sessionModel = sessionModel;
         this.sessionFile.set(sessionFile);
         sessionOpen.set(true);
         // session calculate
         // session clear
-        documentName.bind(sessionModel.documentNameProperty());
         changesSaved.bindBidirectional(sessionModel.changesSavedProperty());
     }
 
     private void unbindOldSession() {
-        documentNameProperty().unbind();
-        if (sessionState != null) {
-            changesSaved.unbindBidirectional(sessionModel.changesSavedProperty());
+        if (this.sessionModel != null) {
+            changesSaved.unbindBidirectional(this.sessionModel.changesSavedProperty());
         }
     }
 
@@ -66,10 +58,6 @@ public class MainModel {
 
     public void setTitle(final String title) {
         this.title.set(title);
-    }
-
-    public SimpleStringProperty documentNameProperty() {
-        return documentName;
     }
 
     public SimpleBooleanProperty changesSavedProperty() {
@@ -110,10 +98,6 @@ public class MainModel {
 
     public Path getSessionFile() {
         return sessionFile.get();
-    }
-
-    public Optional<SessionState> getSessionState() {
-        return Optional.ofNullable(sessionState);
     }
 
     public Optional<SessionModel> getSessionModel() {

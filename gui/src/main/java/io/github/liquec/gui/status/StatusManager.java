@@ -15,6 +15,8 @@ public interface StatusManager {
 
     boolean beginOpenSession();
 
+    boolean beginSaveSession();
+
     void markSuccess();
 
     void completeAction();

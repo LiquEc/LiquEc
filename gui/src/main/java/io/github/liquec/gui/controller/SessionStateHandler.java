@@ -42,11 +42,11 @@ public class SessionStateHandler {
     }
 
     public SessionState getSessionState() {
-        return model.getSessionState().orElseThrow(() -> new LiquEcException("No session state available"));
+        return model.getSessionModel().orElseThrow(() -> new LiquEcException("No session state available")).getSessionState();
     }
 
     public SessionModel addSession(final SessionState state) {
-        SessionModel sessionModel = new SessionModel(state.getProjectName());
+        SessionModel sessionModel = new SessionModel(state);
         ControllerAndView<SessionController, Node> cav = sessionProvider.get();
         SessionController controller = cav.getController();
         controller.initialise(guiTaskHandler, sessionModel);

@@ -5,9 +5,11 @@
 package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.github.liquec.analysis.core.GuiTaskHandler;
 import io.github.liquec.gui.common.GuiConstants;
 import io.github.liquec.gui.model.MainModel;
 import io.github.liquec.gui.model.StatusModel;
+import io.github.liquec.gui.services.EnvironmentManager;
 import io.github.liquec.gui.services.WebPageTool;
 import io.github.liquec.gui.status.StatusManager;
 import javafx.event.ActionEvent;
@@ -71,6 +73,8 @@ public class MainController {
 
     public Pane maskerPane;
 
+    public MenuItem menuExit;
+
     @Inject
     private MainModel model;
 
@@ -79,6 +83,9 @@ public class MainController {
 
     @Inject
     private StatusManager statusManager;
+
+    @Inject
+    private EnvironmentManager environmentManager;
 
     @Inject
     private GuiFileHandler guiFileHandler;
@@ -95,6 +102,9 @@ public class MainController {
     @Inject
     private SessionStateHandler sessionStateHandler;
 
+    @Inject
+    private GuiTaskHandler guiTaskHandler;
+
     public void initialise(final Stage stage) {
         sessionStateHandler.initialise(mainBorderPane);
 
@@ -103,6 +113,8 @@ public class MainController {
 
         handler(buttonNew, menuNew, guiFileHandler::handleNewSession);
         handler(buttonOpen, menuOpen, guiFileHandler::handleOpenSession);
+        handler(buttonSave, menuSave, guiFileHandler::handleSave);
+        handler(menuSaveAs, guiFileHandler::handleSaveAs);
 
         buttonSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSave.disableProperty().bind(not(model.sessionOpenProperty()));
@@ -128,6 +140,12 @@ public class MainController {
 
         prepareStatusInformation();
 
+        menuExit.setOnAction(e -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
+        menuExit.setVisible(environmentManager.isExitOptionShown());
+    }
+
+    private void handler(final MenuItem menuItem, final Runnable action) {
+        menuItem.setOnAction(e -> action.run());
     }
 
     private void handler(final Button button, final MenuItem menuItem, final Runnable action) {
