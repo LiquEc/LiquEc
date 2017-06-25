@@ -22,11 +22,9 @@ public class MainModel {
 
     private final SimpleBooleanProperty sessionOpen = new SimpleBooleanProperty(false);
 
-    private final SimpleBooleanProperty sessionCalculate = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
 
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
-
-    private final SimpleBooleanProperty sessionClear = new SimpleBooleanProperty(false);
 
     private final SimpleObjectProperty<Path> sessionFile = new SimpleObjectProperty<>(null);
 
@@ -36,15 +34,18 @@ public class MainModel {
         unbindOldSession();
         this.sessionModel = sessionModel;
         this.sessionFile.set(sessionFile);
-        sessionOpen.set(true);
-        // session calculate
+        this.sessionOpen.set(true);
         // session clear
-        changesSaved.bindBidirectional(sessionModel.changesSavedProperty());
+        this.ableToCalculate.bindBidirectional(sessionModel.ableToCalculateProperty());
+        this.normativeMode.bindBidirectional(sessionModel.normativeModeProperty());
+        this.changesSaved.bindBidirectional(sessionModel.changesSavedProperty());
     }
 
     private void unbindOldSession() {
         if (this.sessionModel != null) {
-            changesSaved.unbindBidirectional(this.sessionModel.changesSavedProperty());
+            this.ableToCalculate.unbindBidirectional(this.sessionModel.ableToCalculateProperty());
+            this.normativeMode.unbindBidirectional(this.sessionModel.normativeModeProperty());
+            this.changesSaved.unbindBidirectional(this.sessionModel.changesSavedProperty());
         }
     }
 
@@ -76,16 +77,12 @@ public class MainModel {
         return sessionOpen;
     }
 
-    public SimpleBooleanProperty sessionCalculateProperty() {
-        return sessionCalculate;
+    public SimpleBooleanProperty ableToCalculateProperty() {
+        return ableToCalculate;
     }
 
     public SimpleBooleanProperty normativeModeProperty() {
         return normativeMode;
-    }
-
-    public SimpleBooleanProperty sessionClearProperty() {
-        return sessionClear;
     }
 
     public void setSessionFile(final Path sessionFile) {

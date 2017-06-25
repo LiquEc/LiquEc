@@ -6,14 +6,22 @@ package io.github.liquec.gui.model;
 
 import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
+import io.github.liquec.gui.controller.SessionController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class SessionModel {
+    private static final Logger LOG = LoggerFactory.getLogger(SessionModel.class);
+
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
 
     private final SimpleStringProperty projectName;
     private final SimpleStringProperty organization;
@@ -21,6 +29,7 @@ public final class SessionModel {
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
         this.organization = new SimpleStringProperty(state.getOrganization());
+        this.checkAbleToCalculate();
     }
 
     public String getProjectName() {
@@ -59,6 +68,30 @@ public final class SessionModel {
         this.changesSaved.set(changesSaved);
     }
 
+    public boolean isAbleToCalculate() {
+        return ableToCalculate.get();
+    }
+
+    public SimpleBooleanProperty ableToCalculateProperty() {
+        return ableToCalculate;
+    }
+
+    public void setAbleToCalculate(final boolean ableToCalculate) {
+        this.ableToCalculate.set(ableToCalculate);
+    }
+
+    public boolean isNormativeMode() {
+        return normativeMode.get();
+    }
+
+    public SimpleBooleanProperty normativeModeProperty() {
+        return normativeMode;
+    }
+
+    public void setNormativeMode(final boolean normativeMode) {
+        this.normativeMode.set(normativeMode);
+    }
+
     public SessionState getSessionState() {
         SessionState sessionState = new SessionState();
         sessionState.setProjectName(this.getProjectName());
@@ -79,5 +112,20 @@ public final class SessionModel {
         sessionState.setStandardPenetrationTestList(standardPenetrationTests);
 
         return sessionState;
+    }
+
+    public void clearSessionModelData() {
+        LOG.debug("Deleting session model data...");
+        this.setProjectName(null);
+        this.setOrganization(null);
+        this.setChangesSaved(false);
+        this.checkAbleToCalculate();
+    }
+
+    public void checkAbleToCalculate() {
+        LOG.debug("Checking able to calculate...");
+        LOG.debug("projectName: " + this.getProjectName());
+        this.setAbleToCalculate(!StringUtils.isEmpty(this.getProjectName()));
+        LOG.debug("isAbleToCalculate: " + this.isAbleToCalculate());
     }
 }

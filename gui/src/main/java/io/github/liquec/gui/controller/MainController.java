@@ -115,23 +115,22 @@ public class MainController {
         handler(buttonOpen, menuOpen, guiFileHandler::handleOpenSession);
         handler(buttonSave, menuSave, guiFileHandler::handleSave);
         handler(menuSaveAs, guiFileHandler::handleSaveAs);
+        handler(menuClear, sessionStateHandler::clearSessionModel);
 
         buttonSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSaveAs.disableProperty().bind(not(model.sessionOpenProperty()));
 
-        buttonCalculate.disableProperty().bind(not(model.sessionCalculateProperty()));
-        menuCalculate.disableProperty().bind(not(model.sessionCalculateProperty()));
-        buttonNormativeEurocode.disableProperty().bind(not(model.sessionCalculateProperty()));
-        menuNormativeEurocode.disableProperty().bind(not(model.sessionCalculateProperty()));
-        buttonNormativeNCSE02.disableProperty().bind(not(model.sessionCalculateProperty()));
-        menuNormativeNCSE02.disableProperty().bind(not(model.sessionCalculateProperty()));
+        buttonCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
+        menuCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
+        buttonNormativeEurocode.disableProperty().bind(not(model.ableToCalculateProperty()));
+        menuNormativeEurocode.disableProperty().bind(not(model.ableToCalculateProperty()));
+        buttonNormativeNCSE02.disableProperty().bind(not(model.ableToCalculateProperty()));
+        menuNormativeNCSE02.disableProperty().bind(not(model.ableToCalculateProperty()));
 
         buttonNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
         menuNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
         menuNormativeNCSE02.selectedProperty().bindBidirectional(buttonNormativeNCSE02.selectedProperty());
-
-        menuClear.disableProperty().bind(not(model.sessionClearProperty()));
 
         menuWebsite.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBSITE));
         menuHowTo.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBPAGE_HELP));

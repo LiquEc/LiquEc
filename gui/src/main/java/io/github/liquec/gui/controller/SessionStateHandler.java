@@ -42,7 +42,7 @@ public class SessionStateHandler {
     }
 
     public SessionState getSessionState() {
-        return model.getSessionModel().orElseThrow(() -> new LiquEcException("No session state available")).getSessionState();
+        return model.getSessionModel().orElseThrow(() -> new LiquEcException("No session model available")).getSessionState();
     }
 
     public SessionModel addSession(final SessionState state) {
@@ -52,5 +52,9 @@ public class SessionStateHandler {
         controller.initialise(guiTaskHandler, sessionModel);
         mainBorderPane.setCenter(cav.getView());
         return sessionModel;
+    }
+
+    public void clearSessionModel() {
+        model.getSessionModel().orElseThrow(() -> new LiquEcException("No session model available")).clearSessionModelData();
     }
 }

@@ -15,6 +15,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,21 +33,23 @@ public class SessionController {
 
     public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
-
-        this.textFieldProjectName.setPromptText("Enter project name...");
-
+        // Normative mode
+        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative mode", b.toString(), c.toString()));
+        // Project name
+        this.textFieldProjectName.setPromptText("Enter the project name...");
         Bindings.bindBidirectional(textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
-        manageChangesSaved(this.sessionModel.projectNameProperty());
-
+        this.sessionModel.projectNameProperty().addListener((a, b, c) -> this.manageSessionModelState("Project name", b, c));
     }
 
-    private void manageChangesSaved(final Property<String> property) {
-        property.addListener((arg0, arg1, arg2) -> {
-            LOG.debug(property.getName() + " old value: " + arg1);
-            LOG.debug(property.getName() + " new value: " + arg2);
-            sessionModel.setChangesSaved(false);
-        });
+    private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
+        this.trackValues(name, oldValue, newValue);
+        this.sessionModel.setChangesSaved(false);
+        this.sessionModel.checkAbleToCalculate();
     }
 
+    private void trackValues(final String name, final String oldValue, final String newValue) {
+        LOG.debug(name + " old value: " + oldValue);
+        LOG.debug(name + " new value: " + newValue);
+    }
 
 }
