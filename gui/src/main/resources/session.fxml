@@ -4,23 +4,179 @@
   ~ Open Source Software published under the Apache Licence, Version 2.0.
   -->
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-
-<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="200.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label styleClass="fieldLabel" text="Project Name:" />
-                  <TextField fx:id="textFieldProjectName" alignment="CENTER_RIGHT" prefColumnCount="4" prefHeight="26.0" prefWidth="300.0" />
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </center>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="450.0" prefWidth="1000" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
+    <center>
+        <VBox styleClass="vBoxContent" BorderPane.alignment="CENTER">
+            <children>
+                <GridPane fx:id="basicDataGridPane" styleClass="wrapperGridPaneContent">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" />
+                        <RowConstraints vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <GridPane fx:id="informationGridPane" styleClass="area" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints hgrow="ALWAYS" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
+                                <RowConstraints vgrow="ALWAYS" />
+                            </rowConstraints>
+                            <children>
+                                <Label styleClass="fieldLabel" text="Project Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <TextField fx:id="textFieldProjectName" alignment="CENTER_RIGHT" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label styleClass="fieldLabel" text="Organization:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldOrganization" alignment="CENTER_RIGHT" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            </children>
+                        </GridPane>
+                        <GridPane fx:id="siteConditionsGridPane" styleClass="area" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints hgrow="ALWAYS" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
+                                <RowConstraints vgrow="ALWAYS" />
+                            </rowConstraints>
+                            <children>
+                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (PGA):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label styleClass="fieldLabel" text="Earthquake Magnitude (MW):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </GridPane>
+                <BorderPane>
+                    <center>
+                        <BorderPane styleClass="area" BorderPane.alignment="CENTER">
+                            <top>
+                                <GridPane fx:id="geothechnicalPropertiesGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="ALWAYS" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label styleClass="fieldLabel" text="Ground Water Table Depth (GWT):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    </children>
+                                </GridPane>
+                            </top>
+                            <center>
+                                <ListView BorderPane.alignment="CENTER" />
+                            </center>
+                            <bottom>
+                                <GridPane fx:id="layersButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="ALWAYS" />
+                                    </rowConstraints>
+                                    <children>
+                                        <HBox styleClass="buttonsHBox" alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button mnemonicParsing="false" styleClass="buttonAdd" text="Add">
+                                                    <tooltip>
+                                                        <Tooltip text="Add a new layer" />
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <MaterialIconView styleClass="buttonAddIcon" />
+                                                    </graphic>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                </Button>
+                                                <Button mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
+                                                    <tooltip>
+                                                        <Tooltip text="Remove the last layer" />
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <MaterialIconView styleClass="buttonRemoveIcon" />
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </bottom>
+                            <BorderPane.margin>
+                                <Insets bottom="0" left="0" right="0" top="15" />
+                            </BorderPane.margin>
+                        </BorderPane>
+                    </center>
+                    <right>
+                        <BorderPane styleClass="area" BorderPane.alignment="CENTER">
+                            <top>
+                                <GridPane fx:id="standardPenetrationTestGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="ALWAYS" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label styleClass="fieldLabel" text="Standard Penetration Test (SPT):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    </children>
+                                </GridPane>
+                            </top>
+                            <center>
+                                <ListView BorderPane.alignment="CENTER" />
+                            </center>
+                            <bottom>
+                                <GridPane fx:id="standardPenetrationTestButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="ALWAYS" />
+                                    </rowConstraints>
+                                    <children>
+                                        <HBox styleClass="buttonsHBox" alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button mnemonicParsing="false" styleClass="buttonAdd" text="Add">
+                                                    <tooltip>
+                                                        <Tooltip text="Add a new layer" />
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <MaterialIconView styleClass="buttonAddIcon" />
+                                                    </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
+                                                    <tooltip>
+                                                        <Tooltip text="Remove the last layer" />
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <MaterialIconView styleClass="buttonRemoveIcon" />
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </bottom>
+                            <BorderPane.margin>
+                                <Insets bottom="0" left="15" right="0" top="15" />
+                            </BorderPane.margin>
+                        </BorderPane>
+                    </right>
+                </BorderPane>
+            </children>
+        </VBox>
+    </center>
+    <right>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </right>
 </BorderPane>

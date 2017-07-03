@@ -15,6 +15,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,22 @@ import static io.github.liquec.gui.common.FieldValueTool.*;
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
+    public GridPane basicDataGridPane;
+
+    public GridPane informationGridPane;
+
+    public GridPane siteConditionsGridPane;
+
     public TextField textFieldProjectName;
 
     private SessionModel sessionModel;
 
     public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
+        // Grids
+        this.basicDataGridPane.setHgap(15);
+        this.informationGridPane.setVgap(10);
+        this.siteConditionsGridPane.setVgap(10);
         // Normative mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative mode", b.toString(), c.toString()));
         // Project name
