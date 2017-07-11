@@ -6,23 +6,34 @@
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane prefHeight="776.0" prefWidth="1116.0" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
     <center>
-        <VBox styleClass="vBoxContent" BorderPane.alignment="CENTER">
-            <children>
-                <GridPane fx:id="basicDataGridPane" styleClass="wrapperGridPaneContent">
+        <BorderPane>
+         <top>
+                <GridPane fx:id="basicDataGridPane" hgap="15.0" styleClass="wrapperGridPaneContent" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" />
                         <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints vgrow="ALWAYS" />
-                        <RowConstraints vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <GridPane fx:id="informationGridPane" styleClass="area" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <GridPane fx:id="informationGridPane" styleClass="area" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="ALWAYS" maxWidth="120.0" minWidth="120.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
@@ -38,7 +49,7 @@
                                 <TextField fx:id="textFieldOrganization" alignment="CENTER_RIGHT" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
-                        <GridPane fx:id="siteConditionsGridPane" styleClass="area" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <GridPane fx:id="siteConditionsGridPane" styleClass="area" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="ALWAYS" maxWidth="230.0" minWidth="230.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
@@ -56,7 +67,9 @@
                         </GridPane>
                     </children>
                 </GridPane>
-                <BorderPane>
+         </top>
+         <center>
+                <BorderPane BorderPane.alignment="CENTER">
                     <center>
                         <BorderPane styleClass="area" BorderPane.alignment="CENTER">
                             <BorderPane.margin>
@@ -165,7 +178,7 @@
                     <right>
                         <BorderPane styleClass="area" BorderPane.alignment="CENTER">
                             <BorderPane.margin>
-                                <Insets bottom="0" left="15" right="0" top="15" />
+                                <Insets bottom="0" left="15" right="15" top="15" />
                             </BorderPane.margin>
                             <top>
                                 <GridPane fx:id="standardPenetrationTestGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -226,10 +239,10 @@
                         </BorderPane>
                     </right>
                 </BorderPane>
-            </children>
-        </VBox>
+         </center>
+        </BorderPane>
     </center>
     <right>
-        <Pane maxWidth="260.0" minWidth="260.0" BorderPane.alignment="CENTER" />
+        <Pane fx:id="graphicPane" styleClass="area" maxWidth="260.0" minWidth="260.0" BorderPane.alignment="CENTER" />
     </right>
 </BorderPane>

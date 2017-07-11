@@ -63,10 +63,6 @@ public class SessionController {
 
     public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
-        // Grids
-        this.basicDataGridPane.setHgap(15);
-        this.informationGridPane.setVgap(10);
-        this.siteConditionsGridPane.setVgap(10);
         // Normative Mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative mode", b.toString(), c.toString()));
         // Project Name
