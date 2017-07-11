@@ -11,6 +11,7 @@ import io.github.liquec.gui.common.Placement;
 import io.github.liquec.gui.controller.TitleHandler;
 import io.github.liquec.gui.model.MainModel;
 import io.github.liquec.gui.services.PlacementManager;
+import io.github.liquec.gui.settings.LiquEcDimensions;
 import io.github.liquec.gui.view.ViewFxml;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,6 +58,10 @@ public class LiquEcGui {
         Placement placement = placementManager.getMainWindow();
 
         stage.setScene(scene);
+        stage.setMinWidth(LiquEcDimensions.MIN_WIDTH.getDimension());
+        stage.setMinHeight(LiquEcDimensions.MIN_HEIGHT.getDimension());
+//        stage.setMaxWidth(LiquEcDimensions.MAX_WIDTH.getDimension());
+//        stage.setMaxHeight(LiquEcDimensions.MAX_HEIGHT.getDimension());
         stage.setWidth(placement.getWidth());
         stage.setHeight(placement.getHeight());
         if (placement.isPositioned()) {

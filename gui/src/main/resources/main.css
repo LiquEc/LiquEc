@@ -2,6 +2,8 @@
    -colour-done: royalblue;
    -colour-remaining: lightcoral;
    -colour-about-link: #0095C9;
+   -colour-background-header: #000;
+   -colour-text-header: #fff;
 }
 .buttonSaveIcon {
     -glyph-name: SAVE;
@@ -77,4 +79,8 @@
 }
 .main .buttonsHBox {
     -fx-spacing: 4;
+}
+/*table*/
+.table-view .column-header .label {
+  -fx-text-alignment: center;
 }

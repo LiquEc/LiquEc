@@ -8,7 +8,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="450.0" prefWidth="1000" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
+<BorderPane prefHeight="776.0" prefWidth="1116.0" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
     <center>
         <VBox styleClass="vBoxContent" BorderPane.alignment="CENTER">
             <children>
@@ -24,7 +24,7 @@
                     <children>
                         <GridPane fx:id="informationGridPane" styleClass="area" GridPane.columnIndex="0" GridPane.rowIndex="0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints hgrow="ALWAYS" maxWidth="120.0" minWidth="120.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
                             </columnConstraints>
                             <rowConstraints>
@@ -40,7 +40,7 @@
                         </GridPane>
                         <GridPane fx:id="siteConditionsGridPane" styleClass="area" GridPane.columnIndex="1" GridPane.rowIndex="0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints hgrow="ALWAYS" maxWidth="230.0" minWidth="230.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
                             </columnConstraints>
                             <rowConstraints>
@@ -59,10 +59,13 @@
                 <BorderPane>
                     <center>
                         <BorderPane styleClass="area" BorderPane.alignment="CENTER">
+                            <BorderPane.margin>
+                                <Insets bottom="0" left="0" right="0" top="15" />
+                            </BorderPane.margin>
                             <top>
                                 <GridPane fx:id="geothechnicalPropertiesGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="260.0" minWidth="260.0" />
                                         <ColumnConstraints hgrow="ALWAYS" />
                                     </columnConstraints>
                                     <rowConstraints>
@@ -75,7 +78,52 @@
                                 </GridPane>
                             </top>
                             <center>
-                                <ListView BorderPane.alignment="CENTER" />
+                                <TableView styleClass="table" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="startDepthTableColumn" editable="false" maxWidth="70.0" minWidth="70.0" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Start Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                            </graphic>
+                                        </TableColumn>
+                                        <TableColumn fx:id="finalDepthTableColumn" editable="false" maxWidth="70.0" minWidth="70.0" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Final Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                            </graphic>
+                                        </TableColumn>
+                                        <TableColumn fx:id="soilTypeTableColumn" editable="false" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Soil Type" textAlignment="CENTER" wrapText="true" />
+                                            </graphic>
+                                        </TableColumn>
+                                        <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false" text="Soil Unit Weight (KN/m3)">
+                                            <columns>
+                                                <TableColumn fx:id="aboveGWTTableColumn" editable="false" minWidth="50.0" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" text="Above GWT" textAlignment="CENTER" wrapText="true" />
+                                                    </graphic>
+                                                </TableColumn>
+                                                <TableColumn fx:id="belowGWTTableColumn" editable="false" minWidth="50.0" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" text="Below GWT" textAlignment="CENTER" wrapText="true" />
+                                                    </graphic>
+                                                </TableColumn>
+                                            </columns>
+                                        </TableColumn>
+                                        <TableColumn fx:id="finesContentTableColumn" editable="false" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Fines Content (%)" textAlignment="CENTER" wrapText="true" />
+                                            </graphic>
+                                        </TableColumn>
+                                        <TableColumn fx:id="liquefactionTableColumn" editable="false" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Liquefaction" textAlignment="CENTER" wrapText="true" />
+                                            </graphic>
+                                        </TableColumn>
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TableView>
                             </center>
                             <bottom>
                                 <GridPane fx:id="layersButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -86,7 +134,7 @@
                                         <RowConstraints vgrow="ALWAYS" />
                                     </rowConstraints>
                                     <children>
-                                        <HBox styleClass="buttonsHBox" alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+                                        <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
                                             <children>
                                                 <Button mnemonicParsing="false" styleClass="buttonAdd" text="Add">
                                                     <tooltip>
@@ -112,13 +160,13 @@
                                     </children>
                                 </GridPane>
                             </bottom>
-                            <BorderPane.margin>
-                                <Insets bottom="0" left="0" right="0" top="15" />
-                            </BorderPane.margin>
                         </BorderPane>
                     </center>
                     <right>
                         <BorderPane styleClass="area" BorderPane.alignment="CENTER">
+                            <BorderPane.margin>
+                                <Insets bottom="0" left="15" right="0" top="15" />
+                            </BorderPane.margin>
                             <top>
                                 <GridPane fx:id="standardPenetrationTestGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <columnConstraints>
@@ -133,7 +181,15 @@
                                 </GridPane>
                             </top>
                             <center>
-                                <ListView BorderPane.alignment="CENTER" />
+                                <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn editable="false" sortable="false" text="Depth (m)" />
+                                        <TableColumn editable="false" sortable="false" text="SPT Blow Counts (N)" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TableView>
                             </center>
                             <bottom>
                                 <GridPane fx:id="standardPenetrationTestButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -144,7 +200,7 @@
                                         <RowConstraints vgrow="ALWAYS" />
                                     </rowConstraints>
                                     <children>
-                                        <HBox styleClass="buttonsHBox" alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+                                        <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
                                             <children>
                                                 <Button mnemonicParsing="false" styleClass="buttonAdd" text="Add">
                                                     <tooltip>
@@ -167,9 +223,6 @@
                                     </children>
                                 </GridPane>
                             </bottom>
-                            <BorderPane.margin>
-                                <Insets bottom="0" left="15" right="0" top="15" />
-                            </BorderPane.margin>
                         </BorderPane>
                     </right>
                 </BorderPane>
@@ -177,6 +230,6 @@
         </VBox>
     </center>
     <right>
-        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+        <Pane maxWidth="260.0" minWidth="260.0" BorderPane.alignment="CENTER" />
     </right>
 </BorderPane>
