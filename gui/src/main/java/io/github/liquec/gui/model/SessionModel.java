@@ -8,6 +8,7 @@ import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
 import io.github.liquec.gui.controller.SessionController;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -25,10 +26,16 @@ public final class SessionModel {
 
     private final SimpleStringProperty projectName;
     private final SimpleStringProperty organization;
+    private final SimpleStringProperty peakGroundAceleration;
+    private final SimpleStringProperty earthquakeMagnitude;
+    private final SimpleStringProperty groundWaterTableDepth;
 
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
         this.organization = new SimpleStringProperty(state.getOrganization());
+        this.peakGroundAceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAceleration() == null? "" : String.valueOf(state.getSiteConditions().getPeakGroundAceleration()));
+        this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null? "" : String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
+        this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null? "" : (String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth())));
         this.checkAbleToCalculate();
     }
 
@@ -55,6 +62,44 @@ public final class SessionModel {
     public void setOrganization(final String organization) {
         this.organization.set(organization);
     }
+
+    public String getPeakGroundAceleration() {
+        return peakGroundAceleration.get();
+    }
+
+    public SimpleStringProperty peakGroundAcelerationProperty() {
+        return peakGroundAceleration;
+    }
+
+    public void setPeakGroundAceleration(final String peakGroundAceleration) {
+        this.peakGroundAceleration.set(peakGroundAceleration);
+    }
+
+    public String getEarthquakeMagnitude() {
+        return earthquakeMagnitude.get();
+    }
+
+    public SimpleStringProperty earthquakeMagnitudeProperty() {
+        return earthquakeMagnitude;
+    }
+
+    public void setEarthquakeMagnitude(final String earthquakeMagnitude) {
+        this.earthquakeMagnitude.set(earthquakeMagnitude);
+    }
+
+    public String getGroundWaterTableDepth() {
+        return groundWaterTableDepth.get();
+    }
+
+    public SimpleStringProperty groundWaterTableDepthProperty() {
+        return groundWaterTableDepth;
+    }
+
+    public void setGroundWaterTableDepth(final String groundWaterTableDepth) {
+        this.groundWaterTableDepth.set(groundWaterTableDepth);
+    }
+
+    //
 
     public boolean isChangesSaved() {
         return changesSaved.get();
@@ -98,12 +143,12 @@ public final class SessionModel {
         sessionState.setOrganization(this.getOrganization());
 
         SiteConditions siteConditions = new SiteConditions();
-        siteConditions.setPeakGroundAceleration(null);
-        siteConditions.setEarthquakeMagnitude(null);
+        siteConditions.setPeakGroundAceleration(StringUtils.isEmpty(this.getPeakGroundAceleration())? null : Float.valueOf(this.getPeakGroundAceleration()));
+        siteConditions.setEarthquakeMagnitude(StringUtils.isEmpty(this.getEarthquakeMagnitude())? null : Float.valueOf(this.getEarthquakeMagnitude()));
         sessionState.setSiteConditions(siteConditions);
 
         GeotechnicalProperties geotechnicalProperties = new GeotechnicalProperties();
-        geotechnicalProperties.setGroundWaterTableDepth(null);
+        geotechnicalProperties.setGroundWaterTableDepth(StringUtils.isEmpty(this.getGroundWaterTableDepth())? null : Float.valueOf(this.getGroundWaterTableDepth()));
         List<SoilLayer> soilLayerList = new ArrayList<>();
         geotechnicalProperties.setSoilLayers(soilLayerList);
         sessionState.setGeotechnicalProperties(geotechnicalProperties);

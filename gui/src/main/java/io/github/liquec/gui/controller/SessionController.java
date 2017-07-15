@@ -29,6 +29,8 @@ import static io.github.liquec.gui.common.FieldValueTool.*;
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
+    public Label soilUnitWeightLabel;
+
     public GridPane basicDataGridPane;
 
     public GridPane informationGridPane;
@@ -45,38 +47,35 @@ public class SessionController {
 
     public TextField textFieldGroundWaterTableDepth;
 
-    public TableColumn startDepthTableColumn;
 
-    public TableColumn finalDepthTableColumn;
-
-    public TableColumn soilTypeTableColumn;
-
-    public TableColumn aboveGWTTableColumn;
-
-    public TableColumn belowGWTTableColumn;
-
-    public TableColumn finesContentTableColumn;
-
-    public TableColumn liquefactionTableColumn;
 
     private SessionModel sessionModel;
 
     public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
+        // Labels
+//        soilUnitWeightLabel.setText("Soil Unit Weight (KN/m<sup>3</sup>)");
+        System.out.println("Soil Unit Weight (KN/m" + '\u2073' + ")");
         // Normative Mode
-        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative mode", b.toString(), c.toString()));
+        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative Mode", b.toString(), c.toString()));
         // Project Name
-        this.textFieldProjectName.setPromptText("Enter the project name...");
-        Bindings.bindBidirectional(textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
-        this.sessionModel.projectNameProperty().addListener((a, b, c) -> this.manageSessionModelState("Project name", b, c));
+        Bindings.bindBidirectional(this.textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
+        this.sessionModel.projectNameProperty().addListener((a, b, c) -> this.manageSessionModelState("Project Name", b, c));
         // Organization
-        this.textFieldOrganization.setPromptText("Enter the organization name...");
+        Bindings.bindBidirectional(this.textFieldOrganization.textProperty(), this.sessionModel.organizationProperty());
+        this.sessionModel.organizationProperty().addListener((a, b, c) -> this.manageSessionModelState("Organization", b, c));
         // Peak Ground Aceleration
-        this.textFieldPeakGroundAceleration.setPromptText("Enter the peak ground aceleration...");
+        Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
+        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
+        this.sessionModel.peakGroundAcelerationProperty().addListener((a, b, c) -> this.manageSessionModelState("Peak Ground Aceleration", b, c));
         // Earthquake Magnitude
-        this.textFieldEarthquakeMagnitude.setPromptText("Enter the earthquake magnitude...");
+        Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
+        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldEarthquakeMagnitude,"\\d{0,1}([\\.]\\d{0,1})?", b, c));
+        this.sessionModel.earthquakeMagnitudeProperty().addListener((a, b, c) -> this.manageSessionModelState("Earthquake Magnitude", b, c));
         // Ground Water Table Depth
-        this.textFieldGroundWaterTableDepth.setPromptText("Enter the ground water table depth...");
+        Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
+        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
+        this.sessionModel.groundWaterTableDepthProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
         // Layer Table
 
     }
@@ -85,6 +84,12 @@ public class SessionController {
         this.trackValues(name, oldValue, newValue);
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
+    }
+
+    private void validateNumberValue(final TextField textField, final String regex, final String oldValue, final String newValue) {
+        if (!newValue.matches(regex)) {
+            textField.setText(oldValue);
+        }
     }
 
     private void trackValues(final String name, final String oldValue, final String newValue) {

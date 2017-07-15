@@ -79,6 +79,15 @@
 .main .buttonsHBox {
     -fx-spacing: 4;
 }
+.main .columnHeaderText {
+    -fx-font-weight: normal;
+    -fx-font-size: 12;
+}
+.main .columnHeaderTextUpper {
+    -fx-font-weight: normal;
+    -fx-font-size: smaller;
+    -fx-translate-y: -2;
+}
 /* table */
 .main .placeholderLabel {
     -fx-text-fill: #aeaeae;
