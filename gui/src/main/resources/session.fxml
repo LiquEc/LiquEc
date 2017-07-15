@@ -6,28 +6,18 @@
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<BorderPane styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane prefWidth="1140.0" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
     <center>
         <BorderPane>
-         <top>
+            <top>
                 <GridPane fx:id="basicDataGridPane" hgap="15.0" styleClass="wrapperGridPaneContent" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" />
                         <ColumnConstraints hgrow="ALWAYS" />
-                  <ColumnConstraints />
+                        <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints vgrow="ALWAYS" />
@@ -67,8 +57,8 @@
                         </GridPane>
                     </children>
                 </GridPane>
-         </top>
-         <center>
+            </top>
+            <center>
                 <BorderPane BorderPane.alignment="CENTER">
                     <center>
                         <BorderPane styleClass="area" BorderPane.alignment="CENTER">
@@ -92,44 +82,86 @@
                             </top>
                             <center>
                                 <TableView styleClass="table" BorderPane.alignment="CENTER">
+                                    <placeholder>
+                                        <Label styleClass="placeholderLabel" text="Enter a layer...">
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </placeholder>
                                     <columns>
-                                        <TableColumn fx:id="startDepthTableColumn" editable="false" maxWidth="70.0" minWidth="70.0" sortable="false">
+                                        <TableColumn fx:id="startDepthTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
-                                                <Label alignment="CENTER" text="Start Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" text="Start &#10;Depth (m)" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="finalDepthTableColumn" editable="false" maxWidth="70.0" minWidth="70.0" sortable="false">
+                                        <TableColumn fx:id="finalDepthTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
-                                                <Label alignment="CENTER" text="Final Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" text="Final &#10;Depth (m)" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="soilTypeTableColumn" editable="false" sortable="false">
+                                        <TableColumn fx:id="soilTypeTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
-                                                <Label alignment="CENTER" text="Soil Type" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" text="Soil Type" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false" text="Soil Unit Weight (KN/m3)">
+                                        <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false">
                                             <columns>
-                                                <TableColumn fx:id="aboveGWTTableColumn" editable="false" minWidth="50.0" sortable="false">
+                                                <TableColumn fx:id="aboveGWTTableColumn" editable="false" minWidth="70.0" prefWidth="70.0" sortable="false">
                                                     <graphic>
-                                                        <Label alignment="CENTER" text="Above GWT" textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" text="Above GWT" textAlignment="CENTER" wrapText="true">
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
                                                     </graphic>
                                                 </TableColumn>
-                                                <TableColumn fx:id="belowGWTTableColumn" editable="false" minWidth="50.0" sortable="false">
+                                                <TableColumn fx:id="belowGWTTableColumn" editable="false" minWidth="70.0" prefWidth="70.0" sortable="false">
                                                     <graphic>
-                                                        <Label alignment="CENTER" text="Below GWT" textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" text="Below GWT" textAlignment="CENTER" wrapText="true">
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
                                                     </graphic>
                                                 </TableColumn>
                                             </columns>
-                                        </TableColumn>
-                                        <TableColumn fx:id="finesContentTableColumn" editable="false" sortable="false">
                                             <graphic>
-                                                <Label alignment="CENTER" text="Fines Content (%)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" text="Soil Unit Weight (KN/m3)" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="liquefactionTableColumn" editable="false" sortable="false">
+                                        <TableColumn fx:id="finesContentTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
-                                                <Label alignment="CENTER" text="Liquefaction" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" text="Fines &#10;Content (%)" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </graphic>
+                                        </TableColumn>
+                                        <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="70.0" prefWidth="70.0" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Liquefaction" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
                                             </graphic>
                                         </TableColumn>
                                     </columns>
@@ -194,10 +226,36 @@
                                 </GridPane>
                             </top>
                             <center>
-                                <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TableView minWidth="180.0" prefWidth="180" styleClass="table" BorderPane.alignment="CENTER">
+                                    <placeholder>
+                                        <Label styleClass="placeholderLabel" text="Enter a SPT..." >
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </placeholder>
                                     <columns>
-                                        <TableColumn editable="false" sortable="false" text="Depth (m)" />
-                                        <TableColumn editable="false" sortable="false" text="SPT Blow Counts (N)" />
+                                        <TableColumn fx:id="sptDepthTableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="Depth (m)" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </graphic>
+                                        </TableColumn>
+                                        <TableColumn fx:id="sptBlowCountsableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
+                                            <graphic>
+                                                <Label alignment="CENTER" text="SPT Blow &#10;Counts (N)" textAlignment="CENTER" wrapText="true">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                    <padding>
+                                                        <Insets bottom="5.0" top="5.0" />
+                                                    </padding>
+                                                </Label>
+                                            </graphic>
+                                        </TableColumn>
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -239,10 +297,10 @@
                         </BorderPane>
                     </right>
                 </BorderPane>
-         </center>
+            </center>
         </BorderPane>
     </center>
     <right>
-        <Pane fx:id="graphicPane" styleClass="area" maxWidth="260.0" minWidth="260.0" BorderPane.alignment="CENTER" />
+        <Pane fx:id="graphicPane" maxWidth="260.0" minWidth="260.0" styleClass="area" BorderPane.alignment="CENTER" />
     </right>
 </BorderPane>
