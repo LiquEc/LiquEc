@@ -4,6 +4,7 @@
 
 package io.github.liquec.gui.model;
 
+import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
 import io.github.liquec.gui.controller.SessionController;
@@ -33,9 +34,12 @@ public final class SessionModel {
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
         this.organization = new SimpleStringProperty(state.getOrganization());
-        this.peakGroundAceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAceleration() == null? "" : String.valueOf(state.getSiteConditions().getPeakGroundAceleration()));
-        this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null? "" : String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
-        this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null? "" : (String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth())));
+        this.peakGroundAceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAceleration() == null ? "" :
+            String.valueOf(state.getSiteConditions().getPeakGroundAceleration()));
+        this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null ? "" :
+            String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
+        this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null ? "" :
+            (String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth())));
         this.checkAbleToCalculate();
     }
 
@@ -143,12 +147,12 @@ public final class SessionModel {
         sessionState.setOrganization(this.getOrganization());
 
         SiteConditions siteConditions = new SiteConditions();
-        siteConditions.setPeakGroundAceleration(StringUtils.isEmpty(this.getPeakGroundAceleration())? null : Float.valueOf(this.getPeakGroundAceleration()));
-        siteConditions.setEarthquakeMagnitude(StringUtils.isEmpty(this.getEarthquakeMagnitude())? null : Float.valueOf(this.getEarthquakeMagnitude()));
+        siteConditions.setPeakGroundAceleration(StringUtils.isEmpty(this.getPeakGroundAceleration()) ? null : Float.valueOf(this.getPeakGroundAceleration()));
+        siteConditions.setEarthquakeMagnitude(StringUtils.isEmpty(this.getEarthquakeMagnitude()) ? null : Float.valueOf(this.getEarthquakeMagnitude()));
         sessionState.setSiteConditions(siteConditions);
 
         GeotechnicalProperties geotechnicalProperties = new GeotechnicalProperties();
-        geotechnicalProperties.setGroundWaterTableDepth(StringUtils.isEmpty(this.getGroundWaterTableDepth())? null : Float.valueOf(this.getGroundWaterTableDepth()));
+        geotechnicalProperties.setGroundWaterTableDepth(StringUtils.isEmpty(this.getGroundWaterTableDepth()) ? null : Float.valueOf(this.getGroundWaterTableDepth()));
         List<SoilLayer> soilLayerList = new ArrayList<>();
         geotechnicalProperties.setSoilLayers(soilLayerList);
         sessionState.setGeotechnicalProperties(geotechnicalProperties);
@@ -169,8 +173,25 @@ public final class SessionModel {
 
     public void checkAbleToCalculate() {
         LOG.debug("Checking able to calculate...");
-        LOG.debug("projectName: " + this.getProjectName());
-        this.setAbleToCalculate(!StringUtils.isEmpty(this.getProjectName()));
+        boolean ableToCalculate = true;
+        try {
+            LOG.debug("peakGroundAceleration: " + this.getPeakGroundAceleration());
+            if (StringUtils.isEmpty(this.getPeakGroundAceleration())) {
+                throw new LiquEcException("peakGroundAceleration");
+            }
+            LOG.debug("earthquakeMagnitude: " + this.getEarthquakeMagnitude());
+            if (StringUtils.isEmpty(this.getEarthquakeMagnitude())) {
+                throw new LiquEcException("earthquakeMagnitude");
+            }
+            LOG.debug("groundWaterTableDepth: " + this.getGroundWaterTableDepth());
+            if (StringUtils.isEmpty(this.getGroundWaterTableDepth())) {
+                throw new LiquEcException("groundWaterTableDepth");
+            }
+        } catch (LiquEcException e) {
+            LOG.debug("Empty required value: " + e.getMessage());
+            ableToCalculate = false;
+        }
+        this.setAbleToCalculate(ableToCalculate);
         LOG.debug("isAbleToCalculate: " + this.isAbleToCalculate());
     }
 }
