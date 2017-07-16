@@ -62,8 +62,8 @@
                                 <RowConstraints vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
-                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (PGA):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter peak ground aceleration (g)..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter the peak ground aceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                 <Label styleClass="fieldLabel" text="Earthquake Magnitude (MW):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                 <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" promptText="Enter the earthquake magnitude..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
@@ -81,15 +81,15 @@
                             <top>
                                 <GridPane fx:id="geothechnicalPropertiesGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="260.0" minWidth="260.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="280.0" minWidth="280.0" />
                                         <ColumnConstraints hgrow="ALWAYS" />
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints vgrow="ALWAYS" />
                                     </rowConstraints>
                                     <children>
-                                        <Label styleClass="fieldLabel" text="Ground Water Table Depth (GWT):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the ground water table depth (m)..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the ground water table depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                     </children>
                                 </GridPane>
                             </top>

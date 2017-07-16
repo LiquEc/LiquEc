@@ -29,8 +29,6 @@ import static io.github.liquec.gui.common.FieldValueTool.*;
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
-    public Label soilUnitWeightLabel;
-
     public GridPane basicDataGridPane;
 
     public GridPane informationGridPane;
@@ -53,9 +51,6 @@ public class SessionController {
 
     public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
-        // Labels
-//        soilUnitWeightLabel.setText("Soil Unit Weight (KN/m<sup>3</sup>)");
-        System.out.println("Soil Unit Weight (KN/m" + '\u2073' + ")");
         // Normative Mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative Mode", b.toString(), c.toString()));
         // Project Name
@@ -67,14 +62,20 @@ public class SessionController {
         // Peak Ground Aceleration
         Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
         this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
+        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.removeZeroValues(this.textFieldPeakGroundAceleration, b, c));
+        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.fillWithZerosToTheLeft(this.textFieldPeakGroundAceleration, b, c, "00"));
         this.sessionModel.peakGroundAcelerationProperty().addListener((a, b, c) -> this.manageSessionModelState("Peak Ground Aceleration", b, c));
         // Earthquake Magnitude
         Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
         this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldEarthquakeMagnitude,"\\d{0,1}([\\.]\\d{0,1})?", b, c));
+        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.removeZeroValues(this.textFieldEarthquakeMagnitude, b, c));
+        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.fillWithZerosToTheLeft(this.textFieldEarthquakeMagnitude, b, c, "0"));
         this.sessionModel.earthquakeMagnitudeProperty().addListener((a, b, c) -> this.manageSessionModelState("Earthquake Magnitude", b, c));
         // Ground Water Table Depth
         Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
-        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
+        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldGroundWaterTableDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
+        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.removeZeroValues(this.textFieldGroundWaterTableDepth, b, c));
+        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.fillWithZerosToTheLeft(this.textFieldGroundWaterTableDepth, b, c, "00"));
         this.sessionModel.groundWaterTableDepthProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
         // Layer Table
 
@@ -89,6 +90,20 @@ public class SessionController {
     private void validateNumberValue(final TextField textField, final String regex, final String oldValue, final String newValue) {
         if (!newValue.matches(regex)) {
             textField.setText(oldValue);
+        }
+    }
+
+    private void removeZeroValues(final TextField textField, final Boolean oldValue, final Boolean newValue) {
+        if (newValue) return;
+        if (textField.getText().matches("([0]|[0][0])(\\.|\\.[0]|\\.[0][0])?")) {
+            textField.setText("");
+        }
+    }
+
+    private void fillWithZerosToTheLeft(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros) {
+        if (newValue) return;
+        if (textField.getText().matches("(\\d)+[\\.]")) {
+            textField.setText(textField.getText() + zeros);
         }
     }
 

@@ -60,8 +60,8 @@ public class LiquEcGui {
         stage.setScene(scene);
         stage.setMinWidth(LiquEcDimensions.MIN_WIDTH.getDimension());
         stage.setMinHeight(LiquEcDimensions.MIN_HEIGHT.getDimension());
-        stage.setMaxWidth(LiquEcDimensions.MAX_WIDTH.getDimension());
-        stage.setMaxHeight(LiquEcDimensions.MAX_HEIGHT.getDimension());
+//        stage.setMaxWidth(LiquEcDimensions.MAX_WIDTH.getDimension());
+//        stage.setMaxHeight(LiquEcDimensions.MAX_HEIGHT.getDimension());
         stage.setWidth(placement.getWidth());
         stage.setHeight(placement.getHeight());
         if (placement.isPositioned()) {
