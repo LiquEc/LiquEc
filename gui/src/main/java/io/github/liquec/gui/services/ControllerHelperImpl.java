@@ -5,6 +5,7 @@
 package io.github.liquec.gui.services;
 
 import javafx.scene.control.TextField;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,10 +34,15 @@ public class ControllerHelperImpl implements ControllerHelper {
         if (newValue) {
             return;
         }
+        if (StringUtils.isEmpty(zeros)) {
+            return;
+        }
         if (textField.getText().matches("(\\d)+[\\.]")) {
             textField.setText(textField.getText() + zeros);
         } else if (textField.getText().matches("(\\d)+")) {
             textField.setText(textField.getText() + "." + zeros);
+        } else if (textField.getText().matches("(\\d)+[\\.]\\d") && zeros.length() == 2) {
+            textField.setText(textField.getText() + "0");
         }
     }
 

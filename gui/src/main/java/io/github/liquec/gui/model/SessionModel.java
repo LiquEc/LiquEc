@@ -24,6 +24,8 @@ public final class SessionModel {
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty ableToRemoveLastLayer = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty ableToRemoveLastSPT = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty projectName;
     private final SimpleStringProperty organization;
@@ -141,6 +143,30 @@ public final class SessionModel {
         this.normativeMode.set(normativeMode);
     }
 
+    public boolean isAbleToRemoveLastLayer() {
+        return ableToRemoveLastLayer.get();
+    }
+
+    public SimpleBooleanProperty ableToRemoveLastLayerProperty() {
+        return ableToRemoveLastLayer;
+    }
+
+    public void setAbleToRemoveLastLayer(final boolean ableToRemoveLastLayer) {
+        this.ableToRemoveLastLayer.set(ableToRemoveLastLayer);
+    }
+
+    public boolean isAbleToRemoveLastSPT() {
+        return ableToRemoveLastSPT.get();
+    }
+
+    public SimpleBooleanProperty ableToRemoveLastSPTProperty() {
+        return ableToRemoveLastSPT;
+    }
+
+    public void setAbleToRemoveLastSPT(final boolean ableToRemoveLastSPT) {
+        this.ableToRemoveLastSPT.set(ableToRemoveLastSPT);
+    }
+
     public SessionState getSessionState() {
         SessionState sessionState = new SessionState();
         sessionState.setProjectName(this.getProjectName());
@@ -193,5 +219,15 @@ public final class SessionModel {
         }
         this.setAbleToCalculate(ableToCalculate);
         LOG.debug("isAbleToCalculate: " + this.isAbleToCalculate());
+    }
+
+    public void checkAbleToRemoveLastLayer() {
+        LOG.debug("Checking able to remove last layer...");
+
+    }
+
+    public void checkAbleToRemoveLastSPT() {
+        LOG.debug("Checking able to remove last SPT...");
+
     }
 }
