@@ -266,7 +266,7 @@
                                     <children>
                                         <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
                                             <children>
-                                                <Button fx:id="addNewSPTButton"  mnemonicParsing="false" styleClass="buttonAdd" text="Add">
+                                                <Button fx:id="addNewSptButton"  mnemonicParsing="false" styleClass="buttonAdd" text="Add">
                                                     <tooltip>
                                                         <Tooltip text="Add a new SPT" />
                                                     </tooltip>
@@ -274,7 +274,7 @@
                                                         <MaterialIconView styleClass="buttonAddIcon" />
                                                     </graphic>
                                                 </Button>
-                                                <Button fx:id="removeLastSPTButton" mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
+                                                <Button fx:id="removeLastSptButton" mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
                                                     <tooltip>
                                                         <Tooltip text="Remove the last SPT" />
                                                     </tooltip>

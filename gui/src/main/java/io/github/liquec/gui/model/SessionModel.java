@@ -25,7 +25,7 @@ public final class SessionModel {
     private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToRemoveLastLayer = new SimpleBooleanProperty(false);
-    private final SimpleBooleanProperty ableToRemoveLastSPT = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty ableToRemoveLastSpt = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty projectName;
     private final SimpleStringProperty organization;
@@ -155,16 +155,16 @@ public final class SessionModel {
         this.ableToRemoveLastLayer.set(ableToRemoveLastLayer);
     }
 
-    public boolean isAbleToRemoveLastSPT() {
-        return ableToRemoveLastSPT.get();
+    public boolean isAbleToRemoveLastSpt() {
+        return ableToRemoveLastSpt.get();
     }
 
-    public SimpleBooleanProperty ableToRemoveLastSPTProperty() {
-        return ableToRemoveLastSPT;
+    public SimpleBooleanProperty ableToRemoveLastSptProperty() {
+        return ableToRemoveLastSpt;
     }
 
-    public void setAbleToRemoveLastSPT(final boolean ableToRemoveLastSPT) {
-        this.ableToRemoveLastSPT.set(ableToRemoveLastSPT);
+    public void setAbleToRemoveLastSpt(final boolean ableToRemoveLastSpt) {
+        this.ableToRemoveLastSpt.set(ableToRemoveLastSpt);
     }
 
     public SessionState getSessionState() {
@@ -202,15 +202,15 @@ public final class SessionModel {
         boolean ableToCalculate = true;
         try {
             LOG.debug("peakGroundAceleration: " + this.getPeakGroundAceleration());
-            if (StringUtils.isEmpty(this.getPeakGroundAceleration())) {
+            if (StringUtils.isEmpty(this.getPeakGroundAceleration()) || Float.valueOf(this.getPeakGroundAceleration()) == 0) {
                 throw new LiquEcException("peakGroundAceleration");
             }
             LOG.debug("earthquakeMagnitude: " + this.getEarthquakeMagnitude());
-            if (StringUtils.isEmpty(this.getEarthquakeMagnitude())) {
+            if (StringUtils.isEmpty(this.getEarthquakeMagnitude()) || Float.valueOf(this.getEarthquakeMagnitude()) == 0) {
                 throw new LiquEcException("earthquakeMagnitude");
             }
             LOG.debug("groundWaterTableDepth: " + this.getGroundWaterTableDepth());
-            if (StringUtils.isEmpty(this.getGroundWaterTableDepth())) {
+            if (StringUtils.isEmpty(this.getGroundWaterTableDepth()) || Float.valueOf(this.getGroundWaterTableDepth()) == 0) {
                 throw new LiquEcException("groundWaterTableDepth");
             }
         } catch (LiquEcException e) {
@@ -226,7 +226,7 @@ public final class SessionModel {
 
     }
 
-    public void checkAbleToRemoveLastSPT() {
+    public void checkAbleToRemoveLastSpt() {
         LOG.debug("Checking able to remove last SPT...");
 
     }

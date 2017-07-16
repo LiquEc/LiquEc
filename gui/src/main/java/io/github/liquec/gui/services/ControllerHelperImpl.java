@@ -20,21 +20,15 @@ public class ControllerHelperImpl implements ControllerHelper {
     }
 
     @Override
-    public void removeZeroValues(final TextField textField, final Boolean oldValue, final Boolean newValue) {
-        if (newValue) {
-            return;
-        }
-        if (textField.getText().matches("([0]|[0][0])(\\.|\\.[0]|\\.[0][0])?")) {
-            textField.setText("");
-        }
-    }
-
-    @Override
-    public void fillWithZerosToTheLeft(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros) {
+    public void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros) {
         if (newValue) {
             return;
         }
         if (StringUtils.isEmpty(zeros)) {
+            return;
+        }
+        if (textField.getText().matches("([0]|[0][0])(\\.|\\.[0]|\\.[0][0])?")) {
+            textField.setText("");
             return;
         }
         if (textField.getText().matches("(\\d)+[\\.]")) {
