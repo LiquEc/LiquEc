@@ -7,23 +7,14 @@ package io.github.liquec.gui.controller;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.analysis.core.GuiTaskHandler;
 import io.github.liquec.gui.model.SessionModel;
+import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.text.TableView;
-
-import static io.github.liquec.gui.common.FieldValueTool.*;
+import javax.inject.Inject;
 
 @SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class SessionController {
@@ -45,14 +36,15 @@ public class SessionController {
 
     public TextField textFieldGroundWaterTableDepth;
 
-
-
     private SessionModel sessionModel;
+
+    @Inject
+    private ControllerHelper controllerHelper;
 
     public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
         // Normative Mode
-        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.trackValues("Normative Mode", b.toString(), c.toString()));
+        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString()));
         // Project Name
         Bindings.bindBidirectional(this.textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
         this.sessionModel.projectNameProperty().addListener((a, b, c) -> this.manageSessionModelState("Project Name", b, c));
@@ -61,55 +53,30 @@ public class SessionController {
         this.sessionModel.organizationProperty().addListener((a, b, c) -> this.manageSessionModelState("Organization", b, c));
         // Peak Ground Aceleration
         Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
-        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
-        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.removeZeroValues(this.textFieldPeakGroundAceleration, b, c));
-        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.fillWithZerosToTheLeft(this.textFieldPeakGroundAceleration, b, c, "00"));
+        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
+        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.controllerHelper.removeZeroValues(this.textFieldPeakGroundAceleration, b, c));
+        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.controllerHelper.fillWithZerosToTheLeft(this.textFieldPeakGroundAceleration, b, c, "00"));
         this.sessionModel.peakGroundAcelerationProperty().addListener((a, b, c) -> this.manageSessionModelState("Peak Ground Aceleration", b, c));
         // Earthquake Magnitude
         Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
-        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldEarthquakeMagnitude,"\\d{0,1}([\\.]\\d{0,1})?", b, c));
-        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.removeZeroValues(this.textFieldEarthquakeMagnitude, b, c));
-        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.fillWithZerosToTheLeft(this.textFieldEarthquakeMagnitude, b, c, "0"));
+        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"\\d{0,1}([\\.]\\d{0,1})?", b, c));
+        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.controllerHelper.removeZeroValues(this.textFieldEarthquakeMagnitude, b, c));
+        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.controllerHelper.fillWithZerosToTheLeft(this.textFieldEarthquakeMagnitude, b, c, "0"));
         this.sessionModel.earthquakeMagnitudeProperty().addListener((a, b, c) -> this.manageSessionModelState("Earthquake Magnitude", b, c));
         // Ground Water Table Depth
         Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
-        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.validateNumberValue(this.textFieldGroundWaterTableDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
-        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.removeZeroValues(this.textFieldGroundWaterTableDepth, b, c));
-        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.fillWithZerosToTheLeft(this.textFieldGroundWaterTableDepth, b, c, "00"));
+        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
+        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.removeZeroValues(this.textFieldGroundWaterTableDepth, b, c));
+        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.fillWithZerosToTheLeft(this.textFieldGroundWaterTableDepth, b, c, "00"));
         this.sessionModel.groundWaterTableDepthProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
         // Layer Table
 
     }
 
     private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
-        this.trackValues(name, oldValue, newValue);
+        this.controllerHelper.trackValues(name, oldValue, newValue);
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
-    }
-
-    private void validateNumberValue(final TextField textField, final String regex, final String oldValue, final String newValue) {
-        if (!newValue.matches(regex)) {
-            textField.setText(oldValue);
-        }
-    }
-
-    private void removeZeroValues(final TextField textField, final Boolean oldValue, final Boolean newValue) {
-        if (newValue) return;
-        if (textField.getText().matches("([0]|[0][0])(\\.|\\.[0]|\\.[0][0])?")) {
-            textField.setText("");
-        }
-    }
-
-    private void fillWithZerosToTheLeft(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros) {
-        if (newValue) return;
-        if (textField.getText().matches("(\\d)+[\\.]")) {
-            textField.setText(textField.getText() + zeros);
-        }
-    }
-
-    private void trackValues(final String name, final String oldValue, final String newValue) {
-        LOG.debug(name + " old value: " + oldValue);
-        LOG.debug(name + " new value: " + newValue);
     }
 
 }
