@@ -49,7 +49,7 @@ public class SessionStateHandler {
         SessionModel sessionModel = new SessionModel(state);
         ControllerAndView<SessionController, Node> cav = sessionProvider.get();
         SessionController controller = cav.getController();
-        controller.initialise(guiTaskHandler, sessionModel);
+        controller.initialise(sessionModel);
         mainBorderPane.setCenter(cav.getView());
         return sessionModel;
     }

@@ -42,8 +42,8 @@ public class ControllerHelperImpl implements ControllerHelper {
 
     @Override
     public void trackValues(final String name, final String oldValue, final String newValue) {
-        LOG.debug(name + " old value: " + oldValue);
-        LOG.debug(name + " new value: " + newValue);
+        LOG.debug(name + " - oldValue: " + oldValue);
+        LOG.debug(name + " - newValue: " + newValue);
     }
 
 }

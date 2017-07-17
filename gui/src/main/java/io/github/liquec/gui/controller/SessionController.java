@@ -9,7 +9,10 @@ import io.github.liquec.analysis.core.GuiTaskHandler;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
@@ -23,12 +26,6 @@ import static javafx.beans.binding.Bindings.not;
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
-    public GridPane basicDataGridPane;
-
-    public GridPane informationGridPane;
-
-    public GridPane siteConditionsGridPane;
-
     public TextField textFieldProjectName;
 
     public TextField textFieldOrganization;
@@ -39,7 +36,11 @@ public class SessionController {
 
     public TextField textFieldGroundWaterTableDepth;
 
+    public Button addNewLayerButton;
+
     public Button removeLastLayerButton;
+
+    public Button addNewSptButton;
 
     public Button removeLastSptButton;
 
@@ -48,11 +49,18 @@ public class SessionController {
     @Inject
     private ControllerHelper controllerHelper;
 
-    public void initialise(final GuiTaskHandler guiTaskHandler, final SessionModel sessionModel) {
+    @Inject
+    private LayerHandler layerHandler;
+
+    public void initialise(final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
+
         // Buttons
         removeLastLayerButton.disableProperty().bind(not(this.sessionModel.ableToRemoveLastLayerProperty()));
         removeLastSptButton.disableProperty().bind(not(this.sessionModel.ableToRemoveLastSptProperty()));
+
+        handler(addNewLayerButton, this::processLayerProperties);
+
         // Normative Mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString()));
         // Project Name
@@ -86,6 +94,15 @@ public class SessionController {
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToRemoveLastLayer();
         this.sessionModel.checkAbleToRemoveLastSpt();
+    }
+
+    private void handler(final Button button, final Runnable action) {
+        EventHandler<ActionEvent> handler = e -> action.run();
+        button.setOnAction(handler);
+    }
+
+    private void processLayerProperties() {
+        layerHandler.show("0.00");
     }
 
 }

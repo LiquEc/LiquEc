@@ -107,3 +107,6 @@
   -fx-background-radius: 1.4, 0, 0;
   -fx-padding: 1;
 }
+.layer {
+    -fx-padding: 20 20 20 20;
+}
