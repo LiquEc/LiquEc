@@ -6,14 +6,16 @@ package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.analysis.core.GuiTaskHandler;
+import io.github.liquec.analysis.model.SoilLayer;
+import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +45,22 @@ public class SessionController {
     public Button addNewSptButton;
 
     public Button removeLastSptButton;
+
+    public TableView<LayerRow> tableLayer;
+
+    public TableColumn<LayerRow, String> startDepthTableColumn;
+
+    public TableColumn<LayerRow, String> finalDepthTableColumn;
+
+    public TableColumn<LayerRow, String> soilTypeTableColumn;
+
+    public TableColumn<LayerRow, String> soilUnitWeightAboveGwtTableColumn;
+
+    public TableColumn<LayerRow, String> soilUnitWeightBelowGwtTableColumn;
+
+    public TableColumn<LayerRow, String> finesContentTableColumn;
+
+    public TableColumn<LayerRow, String> liquefactionTableColumn;
 
     private SessionModel sessionModel;
 
@@ -84,7 +102,16 @@ public class SessionController {
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
         this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00"));
+
         // Layer Table
+        startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
+        finalDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().finalDepthProperty());
+        soilTypeTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilTypeProperty());
+        soilUnitWeightAboveGwtTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilUnitWeightAboveGwtProperty());
+        soilUnitWeightBelowGwtTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilUnitWeightBelowGwtProperty());
+        finesContentTableColumn.setCellValueFactory(cellData -> cellData.getValue().finesContentProperty());
+        liquefactionTableColumn.setCellValueFactory(cellData -> cellData.getValue().liquefactionProperty());
+        tableLayer.setItems(this.sessionModel.getLayerData());
 
     }
 
@@ -102,7 +129,7 @@ public class SessionController {
     }
 
     private void processLayerProperties() {
-        layerHandler.show("0.00");
+        layerHandler.show(this.sessionModel);
     }
 
 }

@@ -7,10 +7,13 @@ package io.github.liquec.gui.model;
 import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
+import io.github.liquec.gui.common.LiquefactionEnum;
 import io.github.liquec.gui.controller.SessionController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,8 @@ public final class SessionModel {
     private final SimpleStringProperty earthquakeMagnitude;
     private final SimpleStringProperty groundWaterTableDepth;
 
+    private final ObservableList<LayerRow> layerData = FXCollections.observableArrayList();
+
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
         this.organization = new SimpleStringProperty(state.getOrganization());
@@ -42,7 +47,25 @@ public final class SessionModel {
             String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
         this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null ? "" :
             (String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth())));
+        this.initializeLayerData(state.getGeotechnicalProperties().getSoilLayers());
         this.checkAbleToCalculate();
+    }
+
+    private void initializeLayerData(final List<SoilLayer> soilLayers) {
+        for (SoilLayer soilLayer : soilLayers) {
+            layerData.add(this.buildLayerRow(soilLayer));
+        }
+    }
+
+    private LayerRow buildLayerRow(final SoilLayer soilLayer) {
+        return new LayerRow(
+            String.valueOf(soilLayer.getStartDepth()),
+            String.valueOf(soilLayer.getFinalDepth()),
+            String.valueOf(soilLayer.getSoilType()),
+            String.valueOf(soilLayer.getSoilUnitWeight().getAboveGwt()),
+            String.valueOf(soilLayer.getSoilUnitWeight().getBelowGwt()),
+            String.valueOf(soilLayer.getFinesContent()),
+            LiquefactionEnum.getDescription(soilLayer.getCheckLiquefaction()));
     }
 
     public String getProjectName() {
@@ -103,6 +126,10 @@ public final class SessionModel {
 
     public void setGroundWaterTableDepth(final String groundWaterTableDepth) {
         this.groundWaterTableDepth.set(groundWaterTableDepth);
+    }
+
+    public ObservableList<LayerRow> getLayerData() {
+        return layerData;
     }
 
     //
@@ -179,14 +206,35 @@ public final class SessionModel {
 
         GeotechnicalProperties geotechnicalProperties = new GeotechnicalProperties();
         geotechnicalProperties.setGroundWaterTableDepth(StringUtils.isEmpty(this.getGroundWaterTableDepth()) ? null : Float.valueOf(this.getGroundWaterTableDepth()));
-        List<SoilLayer> soilLayerList = new ArrayList<>();
-        geotechnicalProperties.setSoilLayers(soilLayerList);
+        geotechnicalProperties.setSoilLayers(this.buildSoilLayerList());
         sessionState.setGeotechnicalProperties(geotechnicalProperties);
 
         List<StandardPenetrationTest> standardPenetrationTests = new ArrayList<>();
         sessionState.setStandardPenetrationTestList(standardPenetrationTests);
 
         return sessionState;
+    }
+
+    private List<SoilLayer> buildSoilLayerList() {
+        final List<SoilLayer> soilLayerList = new ArrayList<>();
+        for (LayerRow layerRow : this.getLayerData()) {
+            soilLayerList.add(this.buildSoilLayer(layerRow));
+        }
+        return soilLayerList;
+    }
+
+    private SoilLayer buildSoilLayer(final LayerRow layerRow) {
+        final SoilLayer soilLayer = new SoilLayer();
+        soilLayer.setStartDepth(StringUtils.isEmpty(layerRow.getStartDepth()) ? null : Float.valueOf(layerRow.getStartDepth()));
+        soilLayer.setFinalDepth(StringUtils.isEmpty(layerRow.getFinalDepth()) ? null : Float.valueOf(layerRow.getFinalDepth()));
+        soilLayer.setSoilType(layerRow.getSoilType());
+        final SoilUnitWeight soilUnitWeight = new SoilUnitWeight();
+        soilUnitWeight.setAboveGwt(StringUtils.isEmpty(layerRow.getSoilUnitWeightAboveGwt()) ? null : Float.valueOf(layerRow.getSoilUnitWeightAboveGwt()));
+        soilUnitWeight.setBelowGwt(StringUtils.isEmpty(layerRow.getSoilUnitWeightBelowGwt()) ? null : Float.valueOf(layerRow.getSoilUnitWeightBelowGwt()));
+        soilLayer.setSoilUnitWeight(soilUnitWeight);
+        soilLayer.setFinesContent(StringUtils.isEmpty(layerRow.getFinesContent()) ? null : Float.valueOf(layerRow.getFinesContent()));
+        soilLayer.setCheckLiquefaction(LiquefactionEnum.getLiquefaction(layerRow.getLiquefaction()));
+        return soilLayer;
     }
 
     public void clearSessionModelData() {

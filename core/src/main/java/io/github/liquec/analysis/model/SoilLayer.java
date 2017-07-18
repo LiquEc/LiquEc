@@ -7,7 +7,7 @@ package io.github.liquec.analysis.model;
 public class SoilLayer {
     private Float startDepth;
     private Float finalDepth;
-    private SoilType soilType;
+    private String soilType;
     private SoilUnitWeight soilUnitWeight;
     private Float finesContent;
     private Boolean checkLiquefaction;
@@ -16,7 +16,7 @@ public class SoilLayer {
         // No argument constructor to allow use as standard Java Bean
     }
 
-    public SoilLayer(final Float startDepth, final Float finalDepth, final SoilType soilType, final SoilUnitWeight soilUnitWeight, final Float finesContent, final Boolean checkLiquefaction) {
+    public SoilLayer(final Float startDepth, final Float finalDepth, final String soilType, final SoilUnitWeight soilUnitWeight, final Float finesContent, final Boolean checkLiquefaction) {
         this.startDepth = startDepth;
         this.finalDepth = finalDepth;
         this.soilType = soilType;
@@ -41,11 +41,11 @@ public class SoilLayer {
         this.finalDepth = finalDepth;
     }
 
-    public SoilType getSoilType() {
+    public String getSoilType() {
         return soilType;
     }
 
-    public void setSoilType(final SoilType soilType) {
+    public void setSoilType(final String soilType) {
         this.soilType = soilType;
     }
 

@@ -5,31 +5,31 @@
 package io.github.liquec.analysis.model;
 
 public class SoilUnitWeight {
-    private Float aboveGHT;
-    private Float belowGWT;
+    private Float aboveGwt;
+    private Float belowGwt;
 
     public SoilUnitWeight() {
         // No argument constructor to allow use as standard Java Bean
     }
 
-    public SoilUnitWeight(final Float aboveGHT, final Float belowGWT) {
-        this.aboveGHT = aboveGHT;
-        this.belowGWT = belowGWT;
+    public SoilUnitWeight(final Float aboveGwt, final Float belowGwt) {
+        this.aboveGwt = aboveGwt;
+        this.belowGwt = belowGwt;
     }
 
-    public Float getAboveGHT() {
-        return aboveGHT;
+    public Float getAboveGwt() {
+        return aboveGwt;
     }
 
-    public void setAboveGHT(final Float aboveGHT) {
-        this.aboveGHT = aboveGHT;
+    public void setAboveGwt(final Float aboveGwt) {
+        this.aboveGwt = aboveGwt;
     }
 
-    public Float getBelowGWT() {
-        return belowGWT;
+    public Float getBelowGwt() {
+        return belowGwt;
     }
 
-    public void setBelowGWT(final Float belowGWT) {
-        this.belowGWT = belowGWT;
+    public void setBelowGwt(final Float belowGwt) {
+        this.belowGwt = belowGwt;
     }
 }

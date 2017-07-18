@@ -107,6 +107,19 @@
   -fx-background-radius: 1.4, 0, 0;
   -fx-padding: 1;
 }
+.table-row-cell:filled:selected {
+  -fx-background: -fx-control-inner-background ;
+  -fx-background-color: -fx-table-cell-border-color, -fx-background ;
+  -fx-background-insets: 0, 0 0 1 0 ;
+  -fx-table-cell-border-color: derive(-fx-color, 5%);
+}
+.table-row-cell:odd:filled:selected {
+  -fx-background: -fx-control-inner-background-alt ;
+}
+/* modal layer */
 .layer {
     -fx-padding: 20 20 20 20;
 }
+
+
+
