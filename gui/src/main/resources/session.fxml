@@ -49,24 +49,16 @@
                                 <RowConstraints vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
-                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (g):" GridPane.columnIndex="0" GridPane.rowIndex="0" >
-                                    <tooltip>
-                                        <Tooltip text="Range of supported values: [0.01g-99.99g]" />
-                                    </tooltip>
-                                </Label>
+                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter the peak ground aceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" >
                                     <tooltip>
-                                        <Tooltip text="Range of supported values: [0.01g-99.99g]" />
+                                        <Tooltip text="Range of supported values: { 0.01g - 99.99g }" />
                                     </tooltip>
                                 </TextField>
-                                <Label styleClass="fieldLabel" text="Earthquake Magnitude (MW):" GridPane.columnIndex="0" GridPane.rowIndex="1" >
-                                    <tooltip>
-                                        <Tooltip text="Range of supported values: [0.1MW-9.9MW]" />
-                                    </tooltip>
-                                </Label>
+                                <Label styleClass="fieldLabel" text="Earthquake Magnitude (MW):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                 <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" promptText="Enter the earthquake magnitude..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" >
                                     <tooltip>
-                                        <Tooltip text="Range of supported values: [0.1MW-9.9MW]" />
+                                        <Tooltip text="Range of supported values: { 0.1MW - 9.9MW }" />
                                     </tooltip>
                                 </TextField>
                             </children>
@@ -91,14 +83,10 @@
                                         <RowConstraints vgrow="ALWAYS" />
                                     </rowConstraints>
                                     <children>
-                                        <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" >
-                                            <tooltip>
-                                                <Tooltip text="Range of supported values: [0.01m-99.99m]" />
-                                            </tooltip>
-                                        </Label>
+                                        <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                         <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the ground water table depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" >
                                             <tooltip>
-                                                <Tooltip text="Range of supported values: [0.01m-99.99m]" />
+                                                <Tooltip text="Range of supported values: { 0.01m - 99.99m }" />
                                             </tooltip>
                                         </TextField>
                                     </children>
@@ -114,29 +102,29 @@
                                         </Label>
                                     </placeholder>
                                     <columns>
-                                        <TableColumn fx:id="startDepthTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
+                                        <TableColumn fx:id="startDepthTableColumn" editable="false" minWidth="55.0" prefWidth="55.0" sortable="false">
                                             <graphic>
                                                 <Label styleClass="columnHeaderText" alignment="CENTER" text="Start &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="finalDepthTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
+                                        <TableColumn fx:id="finalDepthTableColumn" editable="false" minWidth="55.0" prefWidth="55.0" sortable="false">
                                             <graphic>
                                                 <Label styleClass="columnHeaderText" alignment="CENTER" text="Final &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="soilTypeTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
+                                        <TableColumn fx:id="soilTypeTableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Soil Type" textAlignment="CENTER" wrapText="true" />
+                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Soil Type Description" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
                                         <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false">
                                             <columns>
-                                                <TableColumn fx:id="soilUnitWeightAboveGwtTableColumn" editable="false" minWidth="70.0" prefWidth="70.0" sortable="false">
+                                                <TableColumn fx:id="soilUnitWeightAboveGwtTableColumn" editable="false" minWidth="65.0" prefWidth="65.0" sortable="false">
                                                     <graphic>
                                                         <Label styleClass="columnHeaderText" alignment="CENTER" text="Above GWT" textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
                                                 </TableColumn>
-                                                <TableColumn fx:id="soilUnitWeightBelowGwtTableColumn" editable="false" minWidth="70.0" prefWidth="70.0" sortable="false">
+                                                <TableColumn fx:id="soilUnitWeightBelowGwtTableColumn" editable="false" minWidth="65.0" prefWidth="65.0" sortable="false">
                                                     <graphic>
                                                         <Label styleClass="columnHeaderText" alignment="CENTER" text="Below GWT" textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
@@ -159,7 +147,7 @@
                                                 <Label styleClass="columnHeaderText" alignment="CENTER" text="Fines &#10;Content (%)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="70.0" prefWidth="70.0" sortable="false">
+                                        <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
                                                 <Label styleClass="columnHeaderText" alignment="CENTER" text="Liquefaction" textAlignment="CENTER" wrapText="true" />
                                             </graphic>

@@ -79,11 +79,11 @@
 .main .buttonsHBox {
     -fx-spacing: 4;
 }
-.main .columnHeaderText {
+.main .columnHeaderText, .formLayer .cellText {
     -fx-font-weight: normal;
     -fx-font-size: 12;
 }
-.main .columnHeaderTextUpper {
+.main .columnHeaderTextUpper, .formLayer .cellTextUpper {
     -fx-font-weight: normal;
     -fx-font-size: smaller;
     -fx-translate-y: -2;
@@ -115,6 +115,9 @@
 }
 .table-row-cell:odd:filled:selected {
   -fx-background: -fx-control-inner-background-alt ;
+}
+.table-column {
+  -fx-alignment: center;
 }
 /* modal layer */
 .layer {

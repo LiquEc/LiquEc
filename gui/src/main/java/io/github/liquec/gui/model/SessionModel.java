@@ -132,6 +132,14 @@ public final class SessionModel {
         return layerData;
     }
 
+    public void removeLastLayer() {
+        LOG.debug("layerData initial size: " + this.layerData.size());
+        if (this.layerData.size() > 0) {
+            this.layerData.remove(this.layerData.size() - 1);
+        }
+        LOG.debug("layerData final size: " + this.layerData.size());
+    }
+
     //
 
     public boolean isChangesSaved() {
@@ -261,8 +269,12 @@ public final class SessionModel {
             if (StringUtils.isEmpty(this.getGroundWaterTableDepth()) || Float.valueOf(this.getGroundWaterTableDepth()) == 0) {
                 throw new LiquEcException("groundWaterTableDepth");
             }
+            LOG.debug("layers: " + this.layerData.size());
+            if (this.layerData.size() == 0) {
+                throw new LiquEcException("geotechnicalLayer");
+            }
         } catch (LiquEcException e) {
-            LOG.debug("Empty required value: " + e.getMessage());
+            LOG.debug("Required value: " + e.getMessage());
             ableToCalculate = false;
         }
         this.setAbleToCalculate(ableToCalculate);
@@ -271,7 +283,7 @@ public final class SessionModel {
 
     public void checkAbleToRemoveLastLayer() {
         LOG.debug("Checking able to remove last layer...");
-
+        this.setAbleToRemoveLastLayer(this.layerData.size() > 0);
     }
 
     public void checkAbleToRemoveLastSpt() {

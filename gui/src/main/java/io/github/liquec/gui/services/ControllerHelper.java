@@ -10,8 +10,10 @@ public interface ControllerHelper {
 
     void validateNumberValue(final TextField textField, final String regex, final String oldValue, final String newValue);
 
-    void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros);
+    void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros, final boolean remove);
 
     void trackValues(final String name, final String oldValue, final String newValue);
+
+    void manageStringsValues(final TextField textField, final String oldValue, final String newValue, final int maxLength);
 
 }

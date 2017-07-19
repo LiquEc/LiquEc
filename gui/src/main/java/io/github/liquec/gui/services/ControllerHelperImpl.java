@@ -20,15 +20,30 @@ public class ControllerHelperImpl implements ControllerHelper {
     }
 
     @Override
-    public void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros) {
+    public void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros, final boolean remove) {
         if (newValue) {
             return;
         }
         if (StringUtils.isEmpty(zeros)) {
             return;
         }
+        if (remove) {
+            this.removeZeros(textField);
+        }
+        this.fillZeros(textField, zeros);
+    }
+
+    private void removeZeros(final TextField textField) {
+        if (StringUtils.isEmpty(textField.getText())) {
+            return;
+        }
         if (textField.getText().matches("([0]|[0][0])(\\.|\\.[0]|\\.[0][0])?")) {
             textField.setText("");
+        }
+    }
+
+    private void fillZeros(final TextField textField, final String zeros) {
+        if (StringUtils.isEmpty(textField.getText())) {
             return;
         }
         if (textField.getText().matches("(\\d)+[\\.]")) {
@@ -44,6 +59,19 @@ public class ControllerHelperImpl implements ControllerHelper {
     public void trackValues(final String name, final String oldValue, final String newValue) {
         LOG.debug(name + " - oldValue: " + oldValue);
         LOG.debug(name + " - newValue: " + newValue);
+    }
+
+    @Override
+    public void manageStringsValues(final TextField textField, final String oldValue, final String newValue, final int maxLength) {
+        if (StringUtils.isEmpty(textField.getText())) {
+            return;
+        }
+        LOG.debug("initial value: " + textField.getText());
+        if (textField.getText().length() > maxLength) {
+            textField.setText(oldValue);
+        }
+        textField.setText(textField.getText().toUpperCase());
+        LOG.debug("final value: " + textField.getText());
     }
 
 }

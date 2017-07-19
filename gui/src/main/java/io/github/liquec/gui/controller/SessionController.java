@@ -78,6 +78,7 @@ public class SessionController {
         removeLastSptButton.disableProperty().bind(not(this.sessionModel.ableToRemoveLastSptProperty()));
 
         handler(addNewLayerButton, this::processLayerProperties);
+        handler(removeLastLayerButton, this::removeLastLayer);
 
         // Normative Mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString()));
@@ -91,17 +92,17 @@ public class SessionController {
         Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
         this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Peak Ground Aceleration", b, c));
         this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
-        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAceleration, b, c, "00"));
+        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAceleration, b, c, "00", true));
         // Earthquake Magnitude
         Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
         this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Earthquake Magnitude", b, c));
         this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"\\d{0,1}([\\.]\\d{0,1})?", b, c));
-        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldEarthquakeMagnitude, b, c, "0"));
+        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldEarthquakeMagnitude, b, c, "0", true));
         // Ground Water Table Depth
         Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
-        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00"));
+        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
 
         // Layer Table
         startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
@@ -130,6 +131,13 @@ public class SessionController {
 
     private void processLayerProperties() {
         layerHandler.show(this.sessionModel);
+    }
+
+    private void removeLastLayer() {
+        this.sessionModel.removeLastLayer();
+        this.sessionModel.setChangesSaved(false);
+        this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToRemoveLastLayer();
     }
 
 }

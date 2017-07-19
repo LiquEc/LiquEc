@@ -19,13 +19,15 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
+import static javafx.beans.binding.Bindings.not;
+
 @SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class LayerController {
     private static final Logger LOG = LoggerFactory.getLogger(LayerController.class);
 
-    public TextField textFieldStartDepth;
+    public Label valueStartDepth;
 
-    public TextField textFieldFinalDepth;
+    public TextField textFieldLayerThickness;
 
     public TextField textFieldSoilType;
 
@@ -49,33 +51,53 @@ public class LayerController {
 
     private LayerModel layerModel;
 
+    private String startDepth;
+
     @Inject
     private ControllerHelper controllerHelper;
 
     public void initialise(final Stage stage, final SessionModel sessionModel) {
         this.stage = stage;
         this.sessionModel = sessionModel;
-        this.layerModel = new LayerModel(this.retrieveStartDepth());
+        this.initializeStartDepth();
+        this.layerModel = new LayerModel();
 
         buildToggleGroup(liquefactionYesRadioButton, liquefactionNoRadioButton);
 
         // Start Depth
-        Bindings.bindBidirectional(this.textFieldStartDepth.textProperty(), this.layerModel.startDepthProperty());
+        this.valueStartDepth.setText(this.startDepth);
 
-        // Final Depth
-        Bindings.bindBidirectional(this.textFieldFinalDepth.textProperty(), this.layerModel.finalDepthProperty());
+        // Buttons
+        buttonOk.disableProperty().bind(not(this.layerModel.ableToAddProperty()));
+
+        // Layer Thickness
+        Bindings.bindBidirectional(this.textFieldLayerThickness.textProperty(), this.layerModel.layerThicknessProperty());
+        this.textFieldLayerThickness.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Layer Thickness", b, c));
+        this.textFieldLayerThickness.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldLayerThickness,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
+        this.textFieldLayerThickness.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldLayerThickness, b, c, "00", true));
 
         // Soil Type
         Bindings.bindBidirectional(this.textFieldSoilType.textProperty(), this.layerModel.soilTypeProperty());
+        this.textFieldSoilType.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Type", b, c));
+        this.textFieldSoilType.textProperty().addListener((a, b, c) -> this.controllerHelper.manageStringsValues(this.textFieldSoilType, b, c, 12));
 
         // Soil Unit Weight Above Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightAboveGwt.textProperty(), this.layerModel.soilUnitWeightAboveGwtProperty());
+        this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
+        this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightAboveGwt,"\\d{0,2}([\\.]\\d{0,1})?", b, c));
+        this.textFieldSoilUnitWeightAboveGwt.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightAboveGwt, b, c, "0", true));
 
         // Soil Unit Weight Below Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightBelowGwt.textProperty(), this.layerModel.soilUnitWeightBelowGwtProperty());
+        this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) -> this.manageLayerModelState("SSoil Unit Weight Below Gwt", b, c));
+        this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"\\d{0,2}([\\.]\\d{0,1})?", b, c));
+        this.textFieldSoilUnitWeightBelowGwt.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightBelowGwt, b, c, "0", true));
 
         // Fines Content
         Bindings.bindBidirectional(this.textFieldFinesContent.textProperty(), this.layerModel.finesContentProperty());
+        this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
+        this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldFinesContent,"\\d{0,2}([\\.]\\d{0,1})?", b, c));
+        this.textFieldFinesContent.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldFinesContent, b, c, "0", false));
 
         // Liquefaction
         liquefactionYesRadioButton.selectedProperty().bindBidirectional(layerModel.layerLiquefactionProperty());
@@ -87,17 +109,23 @@ public class LayerController {
 
     }
 
-    private String retrieveStartDepth() {
+    private void initializeStartDepth() {
         if (this.sessionModel.getLayerData().size() == 0) {
-            return "0.00";
+            this.startDepth = "0.00";
+            return;
         }
-        return this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth();
+        this.startDepth = this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth();
     }
 
     private void buildToggleGroup(final Toggle liquefactionYes, final Toggle liquefactionNo) {
         ToggleGroup normativeGroup = new ToggleGroup();
         liquefactionYes.setToggleGroup(normativeGroup);
         liquefactionNo.setToggleGroup(normativeGroup);
+    }
+
+    private void manageLayerModelState(final String name, final String oldValue, final String newValue) {
+        this.controllerHelper.trackValues(name, oldValue, newValue);
+        this.layerModel.checkAbleToAdd();
     }
 
     private void saveLayer() {
@@ -110,13 +138,19 @@ public class LayerController {
 
     private LayerRow buildLayerRow() {
         return new LayerRow(
-            this.layerModel.getStartDepth(),
-            this.layerModel.getFinalDepth(),
-            this.layerModel.getSoilType(),
+            this.startDepth,
+            this.calculateFinalDepth(),
+            this.layerModel.getSoilType().toUpperCase(),
             this.layerModel.getSoilUnitWeightAboveGwt(),
             this.layerModel.getSoilUnitWeightBelowGwt(),
             this.layerModel.getFinesContent(),
             LiquefactionEnum.getDescription(this.layerModel.isLayerLiquefaction()));
+    }
+
+    private String calculateFinalDepth() {
+        final Float startDepth = Float.valueOf(this.startDepth);
+        final Float layerThickness = Float.valueOf(this.layerModel.getLayerThickness());
+        return String.valueOf(startDepth + layerThickness);
     }
 
     private void exit() {

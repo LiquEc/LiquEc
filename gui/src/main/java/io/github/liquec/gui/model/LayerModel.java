@@ -25,16 +25,14 @@ public final class LayerModel {
     private final SimpleBooleanProperty ableToAdd = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty layerLiquefaction = new SimpleBooleanProperty(true);
 
-    private final SimpleStringProperty startDepth;
-    private final SimpleStringProperty finalDepth;
+    private final SimpleStringProperty layerThickness;
     private final SimpleStringProperty soilType;
     private final SimpleStringProperty soilUnitWeightAboveGwt;
     private final SimpleStringProperty soilUnitWeightBelowGwt;
     private final SimpleStringProperty finesContent;
 
-    public LayerModel(final String startDepth) {
-        this.startDepth = new SimpleStringProperty(startDepth);
-        this.finalDepth = new SimpleStringProperty();
+    public LayerModel() {
+        this.layerThickness = new SimpleStringProperty();
         this.soilType = new SimpleStringProperty();
         this.soilUnitWeightAboveGwt = new SimpleStringProperty();
         this.soilUnitWeightBelowGwt = new SimpleStringProperty();
@@ -66,28 +64,16 @@ public final class LayerModel {
         this.layerLiquefaction.set(layerLiquefaction);
     }
 
-    public String getStartDepth() {
-        return startDepth.get();
+    public String getLayerThickness() {
+        return layerThickness.get();
     }
 
-    public SimpleStringProperty startDepthProperty() {
-        return startDepth;
+    public SimpleStringProperty layerThicknessProperty() {
+        return layerThickness;
     }
 
-    public void setStartDepth(final String startDepth) {
-        this.startDepth.set(startDepth);
-    }
-
-    public String getFinalDepth() {
-        return finalDepth.get();
-    }
-
-    public SimpleStringProperty finalDepthProperty() {
-        return finalDepth;
-    }
-
-    public void setFinalDepth(final String finalDepth) {
-        this.finalDepth.set(finalDepth);
+    public void setLayerThickness(final String layerThickness) {
+        this.layerThickness.set(layerThickness);
     }
 
     public String getSoilType() {
@@ -142,24 +128,20 @@ public final class LayerModel {
         LOG.debug("Checking able to add...");
         boolean ableToAdd = true;
         try {
-            LOG.debug("startDepth: " + this.getStartDepth());
-            if (StringUtils.isEmpty(this.getStartDepth())) {
-                throw new LiquEcException("startDepth");
-            }
-            LOG.debug("finalDepth: " + this.getFinalDepth());
-            if (StringUtils.isEmpty(this.getFinalDepth())) {
-                throw new LiquEcException("finalDepth");
+            LOG.debug("layerThickness: " + this.getLayerThickness());
+            if (StringUtils.isEmpty(this.getLayerThickness()) || Float.valueOf(this.getLayerThickness()) == 0) {
+                throw new LiquEcException("layerThickness");
             }
             LOG.debug("soilType: " + this.getSoilType());
             if (StringUtils.isEmpty(this.getSoilType())) {
                 throw new LiquEcException("soilType");
             }
             LOG.debug("soilUnitWeightAboveGwt: " + this.getSoilUnitWeightAboveGwt());
-            if (StringUtils.isEmpty(this.getSoilUnitWeightAboveGwt())) {
+            if (StringUtils.isEmpty(this.getSoilUnitWeightAboveGwt()) || Float.valueOf(this.getSoilUnitWeightAboveGwt()) == 0) {
                 throw new LiquEcException("soilUnitWeightAboveGwt");
             }
             LOG.debug("soilUnitWeightBelowGwt: " + this.getSoilUnitWeightBelowGwt());
-            if (StringUtils.isEmpty(this.getSoilUnitWeightBelowGwt())) {
+            if (StringUtils.isEmpty(this.getSoilUnitWeightBelowGwt()) || Float.valueOf(this.getSoilUnitWeightBelowGwt()) == 0) {
                 throw new LiquEcException("soilUnitWeightBelowGwt");
             }
             LOG.debug("finesContent: " + this.getFinesContent());
@@ -167,7 +149,7 @@ public final class LayerModel {
                 throw new LiquEcException("finesContent");
             }
         } catch (LiquEcException e) {
-            LOG.debug("Empty required value: " + e.getMessage());
+            LOG.debug("Required value: " + e.getMessage());
             ableToAdd = false;
         }
         this.setAbleToAdd(ableToAdd);
