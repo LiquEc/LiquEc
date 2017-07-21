@@ -6,6 +6,7 @@
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -50,13 +51,13 @@
                             </rowConstraints>
                             <children>
                                 <Label styleClass="fieldLabel" text="Peak Ground Aceleration (g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter the peak ground aceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" >
+                                <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter the peak ground aceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <tooltip>
                                         <Tooltip text="Range of supported values: { 0.01g - 99.99g }" />
                                     </tooltip>
                                 </TextField>
                                 <Label styleClass="fieldLabel" text="Earthquake Magnitude (MW):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" promptText="Enter the earthquake magnitude..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+                                <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" promptText="Enter the earthquake magnitude..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <tooltip>
                                         <Tooltip text="Range of supported values: { 0.1MW - 9.9MW }" />
                                     </tooltip>
@@ -84,7 +85,7 @@
                                     </rowConstraints>
                                     <children>
                                         <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the ground water table depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" >
+                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the ground water table depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                             <tooltip>
                                                 <Tooltip text="Range of supported values: { 0.01m - 99.99m }" />
                                             </tooltip>
@@ -104,34 +105,34 @@
                                     <columns>
                                         <TableColumn fx:id="startDepthTableColumn" editable="false" minWidth="55.0" prefWidth="55.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Start &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Start &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
                                         <TableColumn fx:id="finalDepthTableColumn" editable="false" minWidth="55.0" prefWidth="55.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Final &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Final &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
                                         <TableColumn fx:id="soilTypeTableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Soil Type Description" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Soil Type Description" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
                                         <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false">
                                             <columns>
                                                 <TableColumn fx:id="soilUnitWeightAboveGwtTableColumn" editable="false" minWidth="65.0" prefWidth="65.0" sortable="false">
                                                     <graphic>
-                                                        <Label styleClass="columnHeaderText" alignment="CENTER" text="Above GWT" textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Above GWT" textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
                                                 </TableColumn>
                                                 <TableColumn fx:id="soilUnitWeightBelowGwtTableColumn" editable="false" minWidth="65.0" prefWidth="65.0" sortable="false">
                                                     <graphic>
-                                                        <Label styleClass="columnHeaderText" alignment="CENTER" text="Below GWT" textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Below GWT" textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
                                                 </TableColumn>
                                             </columns>
                                             <graphic>
-                                                <Label fx:id="soilUnitWeightLabel" alignment="CENTER" text="" textAlignment="CENTER" wrapText="true" >
+                                                <Label fx:id="soilUnitWeightLabel" alignment="CENTER" text="" textAlignment="CENTER" wrapText="true">
                                                     <graphic>
                                                         <TextFlow>
                                                             <Text styleClass="columnHeaderText">Soil Unit Weight (KN/m</Text>
@@ -144,12 +145,12 @@
                                         </TableColumn>
                                         <TableColumn fx:id="finesContentTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Fines &#10;Content (%)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Fines &#10;Content (%)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
                                         <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="60.0" prefWidth="60.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Liquefaction" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Liquefaction" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
                                     </columns>
@@ -214,7 +215,7 @@
                                 </GridPane>
                             </top>
                             <center>
-                                <TableView minWidth="180.0" prefWidth="180" styleClass="table" BorderPane.alignment="CENTER">
+                                <TableView fx:id="sptLayer" minWidth="180.0" prefWidth="180" styleClass="table" BorderPane.alignment="CENTER">
                                     <placeholder>
                                         <Label styleClass="placeholderLabel" text="Enter a SPT...">
                                             <font>
@@ -225,12 +226,12 @@
                                     <columns>
                                         <TableColumn fx:id="sptDepthTableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true" />
                                             </graphic>
                                         </TableColumn>
-                                        <TableColumn fx:id="sptBlowCountsableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
+                                        <TableColumn fx:id="sptBlowCountsTableColumn" editable="false" minWidth="90.0" prefWidth="90.0" sortable="false">
                                             <graphic>
-                                                <Label styleClass="columnHeaderText" alignment="CENTER" text="SPT Blow &#10;Counts (N)" textAlignment="CENTER" wrapText="true">
+                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="SPT Blow &#10;Counts (N)" textAlignment="CENTER" wrapText="true">
                                                     <padding>
                                                         <Insets bottom="5.0" top="5.0" />
                                                     </padding>
@@ -254,7 +255,7 @@
                                     <children>
                                         <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
                                             <children>
-                                                <Button fx:id="addNewSptButton"  mnemonicParsing="false" styleClass="buttonAdd" text="Add">
+                                                <Button fx:id="addNewSptButton" mnemonicParsing="false" styleClass="buttonAdd" text="Add">
                                                     <tooltip>
                                                         <Tooltip text="Add a new SPT" />
                                                     </tooltip>
@@ -282,6 +283,34 @@
         </BorderPane>
     </center>
     <right>
-        <Pane fx:id="graphicPane" maxWidth="260.0" minWidth="260.0" styleClass="area" BorderPane.alignment="CENTER" />
+        <HBox styleClass="area">
+            <children>
+                <AnchorPane fx:id="graphicLayerPane" maxWidth="200.0" minWidth="200.0" >
+                    <children>
+                        <StackedAreaChart fx:id="layerStackedAreaChart" title="Depth (m)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <xAxis>
+                                <NumberAxis fx:id="xAxisStackedAreaChart" side="TOP" autoRanging="false" lowerBound="0" upperBound="100"  tickUnit="25" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxisStackedAreaChart" side="LEFT" autoRanging="true" lowerBound="0" upperBound="100" tickUnit="10" />
+                            </yAxis>
+                        </StackedAreaChart>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="graphicStpPane" maxWidth="200.0" minWidth="200.0" >
+                    <children>
+                        <LineChart fx:id="sptLineChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <xAxis>
+                                <NumberAxis fx:id="xAxisLineChart" side="TOP" autoRanging="false" lowerBound="0" upperBound="100" tickUnit="25"  />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxisLineChart" side="LEFT" autoRanging="true" lowerBound="0" upperBound="100"  tickUnit="10" />
+                            </yAxis>
+                        </LineChart>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+
     </right>
 </BorderPane>

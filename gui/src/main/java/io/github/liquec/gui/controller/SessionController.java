@@ -5,18 +5,24 @@
 package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.github.liquec.analysis.core.GuiTaskHandler;
-import io.github.liquec.analysis.model.SoilLayer;
+import io.github.liquec.gui.chart.InverseData;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
+import io.github.liquec.gui.model.SptRow;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +68,24 @@ public class SessionController {
 
     public TableColumn<LayerRow, String> liquefactionTableColumn;
 
+    public StackedAreaChart<Number, Number> layerStackedAreaChart;
+
+    public NumberAxis xAxisStackedAreaChart;
+
+    public NumberAxis yAxisStackedAreaChart;
+
+    public TableView<SptRow> sptLayer;
+
+    public TableColumn<SptRow, String> sptDepthTableColumn;
+
+    public TableColumn<SptRow, String> sptBlowCountsTableColumn;
+
+    public LineChart<Number, Number> sptLineChart;
+
+    public NumberAxis xAxisLineChart;
+
+    public NumberAxis yAxisLineChart;
+
     private SessionModel sessionModel;
 
     @Inject
@@ -69,6 +93,9 @@ public class SessionController {
 
     @Inject
     private LayerHandler layerHandler;
+
+    @Inject
+    private SptHandler sptHandler;
 
     public void initialise(final SessionModel sessionModel) {
         this.sessionModel = sessionModel;
@@ -79,6 +106,8 @@ public class SessionController {
 
         handler(addNewLayerButton, this::processLayerProperties);
         handler(removeLastLayerButton, this::removeLastLayer);
+        handler(addNewSptButton, this::processSptProperties);
+        handler(removeLastSptButton, this::removeLastSpt);
 
         // Normative Mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString()));
@@ -105,15 +134,37 @@ public class SessionController {
         this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
 
         // Layer Table
-        startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
-        finalDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().finalDepthProperty());
-        soilTypeTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilTypeProperty());
-        soilUnitWeightAboveGwtTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilUnitWeightAboveGwtProperty());
-        soilUnitWeightBelowGwtTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilUnitWeightBelowGwtProperty());
-        finesContentTableColumn.setCellValueFactory(cellData -> cellData.getValue().finesContentProperty());
-        liquefactionTableColumn.setCellValueFactory(cellData -> cellData.getValue().liquefactionProperty());
-        tableLayer.setItems(this.sessionModel.getLayerData());
+        this.startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
+        this.finalDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().finalDepthProperty());
+        this.soilTypeTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilTypeProperty());
+        this.soilUnitWeightAboveGwtTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilUnitWeightAboveGwtProperty());
+        this.soilUnitWeightBelowGwtTableColumn.setCellValueFactory(cellData -> cellData.getValue().soilUnitWeightBelowGwtProperty());
+        this.finesContentTableColumn.setCellValueFactory(cellData -> cellData.getValue().finesContentProperty());
+        this.liquefactionTableColumn.setCellValueFactory(cellData -> cellData.getValue().liquefactionProperty());
+        this.tableLayer.setItems(this.sessionModel.getLayerData());
 
+        // Area Chart
+        this.yAxisStackedAreaChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisStackedAreaChart) {
+            @Override
+            public String toString(final Number value) {
+                return (value.doubleValue() == 0)? value.toString() : String.format("%7.1f", -value.doubleValue());
+            }
+        });
+        this.layerStackedAreaChart.setData(this.sessionModel.getLayerChartData());
+
+        // Spt Table
+        this.sptDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptDepthProperty());
+        this.sptBlowCountsTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptBlowCountsProperty());
+        this.sptLayer.setItems(this.sessionModel.getSptData());
+
+        // Line Chart
+        this.yAxisLineChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisLineChart) {
+            @Override
+            public String toString(final Number value) {
+                return (value.doubleValue() == 0)? value.toString() : String.format("%7.1f", -value.doubleValue());
+            }
+        });
+        this.sptLineChart.setData(this.sessionModel.getSptChartData());
     }
 
     private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
@@ -135,9 +186,22 @@ public class SessionController {
 
     private void removeLastLayer() {
         this.sessionModel.removeLastLayer();
+        this.sessionModel.removeLastChartLayer();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToRemoveLastLayer();
+    }
+
+    private void processSptProperties() {
+        sptHandler.show(this.sessionModel);
+    }
+
+    private void removeLastSpt() {
+        this.sessionModel.removeLastSpt();
+        this.sessionModel.removeLastChartSpt();
+        this.sessionModel.setChangesSaved(false);
+        this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToRemoveLastSpt();
     }
 
 }

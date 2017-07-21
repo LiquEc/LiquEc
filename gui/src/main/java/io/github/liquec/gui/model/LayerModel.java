@@ -125,7 +125,7 @@ public final class LayerModel {
     }
 
     public void checkAbleToAdd() {
-        LOG.debug("Checking able to add...");
+        LOG.debug("Checking able to add a layer...");
         boolean ableToAdd = true;
         try {
             LOG.debug("layerThickness: " + this.getLayerThickness());

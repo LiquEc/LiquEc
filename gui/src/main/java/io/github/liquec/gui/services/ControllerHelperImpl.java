@@ -70,7 +70,7 @@ public class ControllerHelperImpl implements ControllerHelper {
         if (textField.getText().length() > maxLength) {
             textField.setText(oldValue);
         }
-        textField.setText(textField.getText().toUpperCase());
+        textField.setText(textField.getText().toLowerCase());
         LOG.debug("final value: " + textField.getText());
     }
 

@@ -6,12 +6,16 @@ package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.analysis.core.GuiTaskHandler;
+import io.github.liquec.gui.chart.InverseData;
 import io.github.liquec.gui.common.LiquefactionEnum;
 import io.github.liquec.gui.model.LayerModel;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -96,7 +100,7 @@ public class LayerController {
         // Fines Content
         Bindings.bindBidirectional(this.textFieldFinesContent.textProperty(), this.layerModel.finesContentProperty());
         this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
-        this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldFinesContent,"\\d{0,2}([\\.]\\d{0,1})?", b, c));
+        this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldFinesContent,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
         this.textFieldFinesContent.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldFinesContent, b, c, "0", false));
 
         // Liquefaction
@@ -130,6 +134,7 @@ public class LayerController {
 
     private void saveLayer() {
         this.sessionModel.getLayerData().add(this.buildLayerRow());
+        this.sessionModel.getLayerChartData().add(this.buildLayerChartData());
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToRemoveLastLayer();
@@ -139,18 +144,28 @@ public class LayerController {
     private LayerRow buildLayerRow() {
         return new LayerRow(
             this.startDepth,
-            this.calculateFinalDepth(),
-            this.layerModel.getSoilType().toUpperCase(),
+            String.valueOf(this.getFloatValueFinalDepth()),
+            this.layerModel.getSoilType().toLowerCase(),
             this.layerModel.getSoilUnitWeightAboveGwt(),
             this.layerModel.getSoilUnitWeightBelowGwt(),
             this.layerModel.getFinesContent(),
             LiquefactionEnum.getDescription(this.layerModel.isLayerLiquefaction()));
     }
 
-    private String calculateFinalDepth() {
+    private XYChart.Series<Number,Number> buildLayerChartData() {
+        final XYChart.Series<Number, Number> series = new XYChart.Series();
+        series.setName(this.layerModel.getSoilType().toLowerCase());
+        final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
+        data.add(InverseData.getXYChartInverseData(0.0f, Float.valueOf(this.layerModel.getLayerThickness())));
+        data.add(InverseData.getXYChartInverseData(100.0f, Float.valueOf(this.layerModel.getLayerThickness())));
+        series.setData(data);
+        return series;
+    }
+
+    private Float getFloatValueFinalDepth() {
         final Float startDepth = Float.valueOf(this.startDepth);
         final Float layerThickness = Float.valueOf(this.layerModel.getLayerThickness());
-        return String.valueOf(startDepth + layerThickness);
+        return startDepth + layerThickness;
     }
 
     private void exit() {

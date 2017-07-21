@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Open Source Software published under the Apache Licence, Version 2.0.
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane styleClass="layer" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SptController">
+    <top>
+        <Label styleClass="description" text="Standard Penetration Test" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <Label styleClass="fieldLabel" text="SPT Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="textFieldSptDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <tooltip>
+                        <Tooltip text="Range of supported values: { 0.01m - 99.99m }" />
+                    </tooltip>
+                </TextField>
+
+                <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT Blow Counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <tooltip>
+                        <Tooltip text="Range of supported values: { 0N - 100N }" />
+                    </tooltip>
+                </TextField>
+            </children>
+        </GridPane>
+    </center>
+    <bottom>
+        <ButtonBar styleClass="buttonBar" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="buttonOk" mnemonicParsing="false" text="Confirm SPT" />
+                <Button fx:id="buttonCancel" mnemonicParsing="false" text="Cancel" />
+            </buttons>
+        </ButtonBar>
+    </bottom>
+</BorderPane>

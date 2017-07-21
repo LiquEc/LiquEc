@@ -7,6 +7,7 @@ package io.github.liquec.gui.model;
 import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
+import io.github.liquec.gui.chart.InverseData;
 import io.github.liquec.gui.common.LiquefactionEnum;
 import io.github.liquec.gui.controller.SessionController;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,6 +15,7 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,10 @@ public final class SessionModel {
     private final SimpleStringProperty groundWaterTableDepth;
 
     private final ObservableList<LayerRow> layerData = FXCollections.observableArrayList();
+    private final ObservableList<XYChart.Series<Number, Number>> layerChartData = FXCollections.observableArrayList();
+
+    private final ObservableList<SptRow> sptData = FXCollections.observableArrayList();
+    private final ObservableList<XYChart.Series<Number, Number>> sptChartData = FXCollections.observableArrayList();
 
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
@@ -48,12 +54,29 @@ public final class SessionModel {
         this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null ? "" :
             (String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth())));
         this.initializeLayerData(state.getGeotechnicalProperties().getSoilLayers());
+        this.initializeLayerChartData(state.getGeotechnicalProperties().getSoilLayers());
+        this.initializeSptData(state.getStandardPenetrationTestList());
+        this.initializeSptChartData(state.getStandardPenetrationTestList());
         this.checkAbleToCalculate();
+        this.checkAbleToRemoveLastLayer();
+        this.checkAbleToRemoveLastSpt();
     }
 
     private void initializeLayerData(final List<SoilLayer> soilLayers) {
         for (SoilLayer soilLayer : soilLayers) {
             layerData.add(this.buildLayerRow(soilLayer));
+        }
+    }
+
+    private void initializeLayerChartData(final List<SoilLayer> soilLayers) {
+        for (SoilLayer soilLayer : soilLayers) {
+            final XYChart.Series<Number, Number> series = new XYChart.Series();
+            series.setName(soilLayer.getSoilType());
+            final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
+            data.add(InverseData.getXYChartInverseData(0.0f, soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
+            data.add(InverseData.getXYChartInverseData(100.0f, soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
+            series.setData(data);
+            layerChartData.add(series);
         }
     }
 
@@ -66,6 +89,28 @@ public final class SessionModel {
             String.valueOf(soilLayer.getSoilUnitWeight().getBelowGwt()),
             String.valueOf(soilLayer.getFinesContent()),
             LiquefactionEnum.getDescription(soilLayer.getCheckLiquefaction()));
+    }
+
+    private void initializeSptData(final List<StandardPenetrationTest> standardPenetrationTestList) {
+        for (StandardPenetrationTest standardPenetrationTest : standardPenetrationTestList) {
+            sptData.add(this.buildSptRow(standardPenetrationTest));
+        }
+    }
+
+    private void initializeSptChartData(final List<StandardPenetrationTest> standardPenetrationTestList) {
+        final XYChart.Series<Number, Number> series = new XYChart.Series();
+        series.setName("SPT Line");
+        for (StandardPenetrationTest standardPenetrationTest : standardPenetrationTestList) {
+            series.getData().add(InverseData.getXYChartInverseData(standardPenetrationTest.getSptBlowCounts(), standardPenetrationTest.getDepth()));
+        }
+        sptChartData.add(series);
+    }
+
+    private SptRow buildSptRow(final StandardPenetrationTest standardPenetrationTest) {
+        return new SptRow(
+            String.valueOf(standardPenetrationTest.getDepth()),
+            String.valueOf(standardPenetrationTest.getSptBlowCounts())
+        );
     }
 
     public String getProjectName() {
@@ -133,11 +178,43 @@ public final class SessionModel {
     }
 
     public void removeLastLayer() {
-        LOG.debug("layerData initial size: " + this.layerData.size());
         if (this.layerData.size() > 0) {
             this.layerData.remove(this.layerData.size() - 1);
         }
-        LOG.debug("layerData final size: " + this.layerData.size());
+    }
+
+    public ObservableList<XYChart.Series<Number, Number>> getLayerChartData() {
+        return layerChartData;
+    }
+
+    public void removeLastChartLayer() {
+        if (this.layerChartData.size() > 0) {
+            this.layerChartData.remove(this.layerChartData.size() - 1);
+        }
+    }
+
+    public ObservableList<SptRow> getSptData() {
+        return sptData;
+    }
+
+    public void removeLastSpt() {
+        if (this.sptData.size() > 0) {
+            this.sptData.remove(this.sptData.size() - 1);
+        }
+    }
+
+    public ObservableList<XYChart.Series<Number, Number>> getSptChartData() {
+        return sptChartData;
+    }
+
+    public XYChart.Series<Number, Number> getSptChartDataSeries() {
+        return sptChartData.get(0);
+    }
+
+    public void removeLastChartSpt() {
+        if (this.getSptChartDataSeries().getData().size() > 0) {
+            this.getSptChartDataSeries().getData().remove(this.getSptChartDataSeries().getData().size() - 1);
+        }
     }
 
     //
@@ -217,8 +294,7 @@ public final class SessionModel {
         geotechnicalProperties.setSoilLayers(this.buildSoilLayerList());
         sessionState.setGeotechnicalProperties(geotechnicalProperties);
 
-        List<StandardPenetrationTest> standardPenetrationTests = new ArrayList<>();
-        sessionState.setStandardPenetrationTestList(standardPenetrationTests);
+        sessionState.setStandardPenetrationTestList(this.buildStandardPenetrationTests());
 
         return sessionState;
     }
@@ -243,6 +319,21 @@ public final class SessionModel {
         soilLayer.setFinesContent(StringUtils.isEmpty(layerRow.getFinesContent()) ? null : Float.valueOf(layerRow.getFinesContent()));
         soilLayer.setCheckLiquefaction(LiquefactionEnum.getLiquefaction(layerRow.getLiquefaction()));
         return soilLayer;
+    }
+
+    private List<StandardPenetrationTest> buildStandardPenetrationTests() {
+        List<StandardPenetrationTest> standardPenetrationTests = new ArrayList<>();
+        for (SptRow sptRow : this.getSptData()) {
+            standardPenetrationTests.add(this.buildStandardPenetrationTest(sptRow));
+        }
+        return standardPenetrationTests;
+    }
+
+    private StandardPenetrationTest buildStandardPenetrationTest(final SptRow sptRow) {
+        StandardPenetrationTest standardPenetrationTest = new StandardPenetrationTest();
+        standardPenetrationTest.setDepth(StringUtils.isEmpty(sptRow.getSptDepth()) ? null : Float.valueOf(sptRow.getSptDepth()));
+        standardPenetrationTest.setDepth(StringUtils.isEmpty(sptRow.getSptBlowCounts()) ? null : Float.valueOf(sptRow.getSptBlowCounts()));
+        return standardPenetrationTest;
     }
 
     public void clearSessionModelData() {
@@ -288,6 +379,6 @@ public final class SessionModel {
 
     public void checkAbleToRemoveLastSpt() {
         LOG.debug("Checking able to remove last SPT...");
-
+        this.setAbleToRemoveLastSpt(this.sptData.size() > 0);
     }
 }
