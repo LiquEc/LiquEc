@@ -6,25 +6,10 @@
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.StackedAreaChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
-
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane prefWidth="1140.0" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
     <center>
         <BorderPane>
@@ -304,7 +289,7 @@
                     <children>
                         <StackedAreaChart fx:id="layerStackedAreaChart" title="Depth (m)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="100" fx:id="xAxisStackedAreaChart" />
+                                <NumberAxis fx:id="xAxisStackedAreaChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="100" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxisStackedAreaChart" autoRanging="false" lowerBound="-100" side="LEFT" tickUnit="10" upperBound="0" />
@@ -314,14 +299,14 @@
                 </AnchorPane>
                 <AnchorPane fx:id="graphicStpPane" maxWidth="200.0" minWidth="200.0">
                     <children>
-                        <LineChart fx:id="sptLineChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScatterChart fx:id="sptScatterChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="100" fx:id="xAxisLineChart" />
+                                <NumberAxis fx:id="xAxisScatterChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="100" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="yAxisLineChart" autoRanging="false" lowerBound="-100" side="LEFT" tickUnit="10" upperBound="0" />
+                                <NumberAxis fx:id="yAxisScatterChart" autoRanging="false" lowerBound="-100" side="LEFT" tickUnit="10" upperBound="0" />
                             </yAxis>
-                        </LineChart>
+                        </ScatterChart>
                     </children>
                 </AnchorPane>
             </children>

@@ -13,8 +13,8 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -78,11 +78,11 @@ public class SessionController {
 
     public TableColumn<SptRow, String> sptBlowCountsTableColumn;
 
-    public LineChart<Number, Number> sptLineChart;
+    public ScatterChart<Number, Number> sptScatterChart;
 
-    public NumberAxis xAxisLineChart;
+    public NumberAxis xAxisScatterChart;
 
-    public NumberAxis yAxisLineChart;
+    public NumberAxis yAxisScatterChart;
 
     private SessionModel sessionModel;
 
@@ -113,25 +113,36 @@ public class SessionController {
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString()));
         // Project Name
         Bindings.bindBidirectional(this.textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
-        this.textFieldProjectName.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Project Name", b, c));
+        this.textFieldProjectName.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Project Name", b, c));
         // Organization
         Bindings.bindBidirectional(this.textFieldOrganization.textProperty(), this.sessionModel.organizationProperty());
-        this.textFieldOrganization.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Organization", b, c));
+        this.textFieldOrganization.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Organization", b, c));
         // Peak Ground Aceleration
         Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
-        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Peak Ground Aceleration", b, c));
-        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"(\\d{0,1}([\\.]\\d{0,2})?)|10|10\\.|10\\.0|10\\.00", b, c));
-        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAceleration, b, c, "00", true));
+        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Peak Ground Aceleration", b, c));
+        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"(\\d{0,1}([\\.]\\d{0,2})?)|10|10\\.|10\\.0|10\\.00", b, c));
+        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAceleration, b, c, "00", true));
         // Earthquake Magnitude
         Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
-        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Earthquake Magnitude", b, c));
-        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"(\\d{0,1}([\\.]\\d{0,1})?)|10|10\\.|10\\.0", b, c));
-        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldEarthquakeMagnitude, b, c, "0", true));
+        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Earthquake Magnitude", b, c));
+        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"(\\d{0,1}([\\.]\\d{0,1})?)|10|10\\.|10\\.0", b, c));
+        this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldEarthquakeMagnitude, b, c, "0", true));
         // Ground Water Table Depth
         Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
-        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
-        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
-        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
+        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Ground Water Table Depth", b, c));
+        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
+        this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
 
         // Layer Table
         this.startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
@@ -159,16 +170,16 @@ public class SessionController {
         this.sptBlowCountsTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptBlowCountsProperty());
         this.sptLayer.setItems(this.sessionModel.getSptData());
 
-        // Line Chart
-        this.yAxisLineChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisLineChart) {
+        // Scatter Chart
+        this.yAxisScatterChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisScatterChart) {
             @Override
             public String toString(final Number value) {
                 return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
-        this.sptLineChart.setData(this.sessionModel.getSptChartData());
-        this.sessionModel.getSptChartDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageLineCharAutoRanging());
-        this.manageLineCharAutoRanging();
+        this.sptScatterChart.setData(this.sessionModel.getSptChartData());
+        this.sessionModel.getSptChartDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageScatterChartAutoRanging());
+        this.manageScatterChartAutoRanging();
     }
 
     private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
@@ -218,9 +229,12 @@ public class SessionController {
         }
     }
 
-    private void manageLineCharAutoRanging() {
-        if (!this.yAxisLineChart.isAutoRanging()) {
-            this.yAxisLineChart.setAutoRanging(this.sessionModel.getSptChartDataSeries().getData().size() > 0);
+    private void manageScatterChartAutoRanging() {
+        if (!this.xAxisScatterChart.isAutoRanging()) {
+            this.xAxisScatterChart.setAutoRanging(this.sessionModel.getSptChartDataSeries().getData().size() > 0);
+        }
+        if (!this.yAxisScatterChart.isAutoRanging()) {
+            this.yAxisScatterChart.setAutoRanging(this.sessionModel.getSptChartDataSeries().getData().size() > 0);
         }
     }
 
