@@ -95,7 +95,7 @@ public class LayerController {
         this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) ->
             this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
         this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightAboveGwt,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
+            this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightAboveGwt,"((1|2|3|4)?\\d{0,1}([\\.]\\d{0,1})?)|50|50\\.|50\\.0", b, c));
         this.textFieldSoilUnitWeightAboveGwt.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightAboveGwt, b, c, "0", true));
 
@@ -104,7 +104,7 @@ public class LayerController {
         this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
             this.manageLayerModelState("SSoil Unit Weight Below Gwt", b, c));
         this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
+            this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"((1|2|3|4)?\\d{0,1}([\\.]\\d{0,1})?)|50|50\\.|50\\.0", b, c));
         this.textFieldSoilUnitWeightBelowGwt.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightBelowGwt, b, c, "0", true));
 

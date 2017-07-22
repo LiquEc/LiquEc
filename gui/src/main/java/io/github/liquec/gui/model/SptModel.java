@@ -16,11 +16,11 @@ public final class SptModel {
 
     private final SimpleBooleanProperty ableToAdd = new SimpleBooleanProperty(false);
 
-    private final SimpleStringProperty sptDepth;
+    private final SimpleStringProperty sptIncreaseDepth;
     private final SimpleStringProperty sptBlowCounts;
 
     public SptModel() {
-        this.sptDepth = new SimpleStringProperty();
+        this.sptIncreaseDepth = new SimpleStringProperty();
         this.sptBlowCounts = new SimpleStringProperty();
         this.checkAbleToAdd();
     }
@@ -37,16 +37,16 @@ public final class SptModel {
         this.ableToAdd.set(ableToAdd);
     }
 
-    public String getSptDepth() {
-        return sptDepth.get();
+    public String getSptIncreaseDepth() {
+        return sptIncreaseDepth.get();
     }
 
-    public SimpleStringProperty sptDepthProperty() {
-        return sptDepth;
+    public SimpleStringProperty sptIncreaseDepthProperty() {
+        return sptIncreaseDepth;
     }
 
-    public void setSptDepth(final String sptDepth) {
-        this.sptDepth.set(sptDepth);
+    public void setSptIncreaseDepth(final String sptIncreaseDepth) {
+        this.sptIncreaseDepth.set(sptIncreaseDepth);
     }
 
     public String getSptBlowCounts() {
@@ -65,9 +65,9 @@ public final class SptModel {
         LOG.debug("Checking able to add a SPT...");
         boolean ableToAdd = true;
         try {
-            LOG.debug("sptDepth: " + this.getSptDepth());
-            if (StringUtils.isEmpty(this.getSptDepth())) {
-                throw new LiquEcException("sptDepth");
+            LOG.debug("sptIncreaseDepth: " + this.getSptIncreaseDepth());
+            if (StringUtils.isEmpty(this.getSptIncreaseDepth())) {
+                throw new LiquEcException("sptIncreaseDepth");
             }
             LOG.debug("sptBlowCounts: " + this.getSptBlowCounts());
             if (StringUtils.isEmpty(this.getSptBlowCounts())) {

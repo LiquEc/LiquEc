@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -28,7 +29,9 @@ import static javafx.beans.binding.Bindings.not;
 public class SptController {
     private static final Logger LOG = LoggerFactory.getLogger(SptController.class);
 
-    public TextField textFieldSptDepth;
+    public Label valueLastSptDepth;
+
+    public TextField textFieldSptIncreaseDepth;
 
     public TextField textFieldSptBlowCounts;
 
@@ -42,34 +45,53 @@ public class SptController {
 
     private SptModel sptModel;
 
+    private String lastSptDepth;
+
     @Inject
     private ControllerHelper controllerHelper;
 
     public void initialise(final Stage stage, final SessionModel sessionModel) {
         this.stage = stage;
         this.sessionModel = sessionModel;
+        this.initializeLastSptDepth();
         this.sptModel = new SptModel();
+
+        // Start Last SPT Depth
+        this.valueLastSptDepth.setText(this.lastSptDepth);
 
         // Buttons
         buttonOk.disableProperty().bind(not(this.sptModel.ableToAddProperty()));
 
-        // Layer Thickness
-        Bindings.bindBidirectional(this.textFieldSptDepth.textProperty(), this.sptModel.sptDepthProperty());
-        this.textFieldSptDepth.textProperty().addListener((a, b, c) -> this.manageLayerModelState("SPT Depth", b, c));
-        this.textFieldSptDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSptDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
-        this.textFieldSptDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSptDepth, b, c, "00", true));
+        // SPT Increase Depth
+        Bindings.bindBidirectional(this.textFieldSptIncreaseDepth.textProperty(), this.sptModel.sptIncreaseDepthProperty());
+        this.textFieldSptIncreaseDepth.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("SPT Increase Depth", b, c));
+        this.textFieldSptIncreaseDepth.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldSptIncreaseDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
+        this.textFieldSptIncreaseDepth.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldSptIncreaseDepth, b, c, "00", true));
 
-        // Fines Content
+        // SPT Blow Counts
         Bindings.bindBidirectional(this.textFieldSptBlowCounts.textProperty(), this.sptModel.sptBlowCountsProperty());
-        this.textFieldSptBlowCounts.textProperty().addListener((a, b, c) -> this.manageLayerModelState("SPT Blow Counts", b, c));
-        this.textFieldSptBlowCounts.textProperty().addListener(
-            (a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSptBlowCounts,"(\\d{0,2})|100", b, c));
-        this.textFieldSptBlowCounts.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSptBlowCounts, b, c, "0", false));
+        this.textFieldSptBlowCounts.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("SPT Blow Counts", b, c));
+        this.textFieldSptBlowCounts.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldSptBlowCounts,"(\\d{0,2})|100", b, c));
+        this.textFieldSptBlowCounts.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldSptBlowCounts, b, c, "0", false));
 
         // Buttons
         buttonOk.setOnAction(e -> saveSpt());
         buttonCancel.setOnAction(e -> exit());
 
+    }
+
+    private void initializeLastSptDepth() {
+        if (this.sessionModel.getSptData().size() == 0) {
+            this.lastSptDepth = "0.00";
+            return;
+        }
+        this.lastSptDepth = this.sessionModel.getSptData().get(this.sessionModel.getSptData().size() - 1).getSptDepth();
     }
 
     private void manageLayerModelState(final String name, final String oldValue, final String newValue) {
@@ -89,12 +111,26 @@ public class SptController {
 
     private SptRow buildSptRow() {
         return new SptRow(
-            this.sptModel.getSptDepth(),
+            this.getFormattedNumber(String.valueOf(this.getFloatValueSptDepth())),
             this.sptModel.getSptBlowCounts());
     }
 
     private void addSptChartData() {
-        this.sessionModel.getSptChartDataSeries().getData().add(InverseData.getXyChartInverseData(Integer.valueOf(this.sptModel.getSptBlowCounts()), Float.valueOf(this.sptModel.getSptDepth())));
+        this.sessionModel.getSptChartDataSeries().getData().add(
+            InverseData.getXyChartInverseData(Integer.valueOf(this.sptModel.getSptBlowCounts()), this.getFloatValueSptDepth()));
+    }
+
+    private Float getFloatValueSptDepth() {
+        final Float lastSptDepth = Float.valueOf(this.lastSptDepth);
+        final Float sptIncreaseDepth = Float.valueOf(this.sptModel.getSptIncreaseDepth());
+        return lastSptDepth + sptIncreaseDepth;
+    }
+
+    private String getFormattedNumber(final String number) {
+        if (number.matches("(\\d)+[\\.]\\d")) {
+            return number + "0";
+        }
+        return number;
     }
 
     private void exit() {

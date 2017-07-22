@@ -7,29 +7,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane styleClass="layer" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SptController">
-    <top>
-        <Label styleClass="description" text="Standard Penetration Test" BorderPane.alignment="CENTER" />
-    </top>
     <center>
         <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="160.0" minWidth="160.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="260.0" minWidth="260.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints vgrow="ALWAYS" />
                 <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label styleClass="fieldLabel" text="SPT Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <TextField fx:id="textFieldSptDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label styleClass="fieldLabel" text="Last SPT Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="valueLastSptDepth" styleClass="fieldLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label styleClass="fieldLabel" text="SPT Increase Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="textFieldSptIncreaseDepth" alignment="CENTER_RIGHT" promptText="Enter the increase..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
                         <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
                     </tooltip>
                 </TextField>
 
-                <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT Blow Counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT Blow Counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <tooltip>
                         <Tooltip text="Range of supported values: { 0(N) - 100(N) }" />
                     </tooltip>

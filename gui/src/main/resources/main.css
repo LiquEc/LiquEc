@@ -79,14 +79,16 @@
 .main .buttonsHBox {
     -fx-spacing: 4;
 }
-.main .columnHeaderText, .formLayer .cellText {
+.main .columnHeaderText {
     -fx-font-weight: normal;
     -fx-font-size: 12;
 }
-.formLayer .cellText {
+.cellText {
+    -fx-font-weight: normal;
+    -fx-font-size: 12;
     -fx-translate-y: 2;
 }
-.main .columnHeaderTextUpper, .formLayer .cellTextUpper {
+.main .columnHeaderTextUpper, .cellTextUpper {
     -fx-font-weight: normal;
     -fx-font-size: smaller;
     -fx-translate-y: -2;
@@ -111,13 +113,13 @@
   -fx-padding: 1;
 }
 .table-row-cell:filled:selected {
-  -fx-background: -fx-control-inner-background ;
-  -fx-background-color: -fx-table-cell-border-color, -fx-background ;
+  -fx-background: -fx-control-inner-background;
+  -fx-background-color: -fx-table-cell-border-color, -fx-background;
   -fx-background-insets: 0, 0 0 1 0 ;
   -fx-table-cell-border-color: derive(-fx-color, 5%);
 }
 .table-row-cell:odd:filled:selected {
-  -fx-background: -fx-control-inner-background-alt ;
+  -fx-background: -fx-control-inner-background-alt;
 }
 .table-column {
   -fx-alignment: center;

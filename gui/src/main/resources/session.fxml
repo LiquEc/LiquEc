@@ -90,9 +90,9 @@
                                 <Insets bottom="0" left="0" right="0" top="15" />
                             </BorderPane.margin>
                             <top>
-                                <GridPane fx:id="geothechnicalPropertiesGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <GridPane fx:id="geotechnicalPropertiesGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="250.0" minWidth="250.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="270.0" minWidth="270.0" />
                                         <ColumnConstraints hgrow="ALWAYS" />
                                     </columnConstraints>
                                     <rowConstraints>
@@ -100,7 +100,7 @@
                                     </rowConstraints>
                                     <children>
                                         <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the ground water table depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                             <tooltip>
                                                 <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
                                             </tooltip>
@@ -150,9 +150,9 @@
                                                 <Label fx:id="soilUnitWeightLabel" alignment="CENTER" text="" textAlignment="CENTER" wrapText="true">
                                                     <graphic>
                                                         <TextFlow>
-                                                            <Text styleClass="columnHeaderText">Soil Unit Weight (KN/m</Text>
-                                                            <Text styleClass="columnHeaderTextUpper">3</Text>
-                                                            <Text styleClass="columnHeaderText">)</Text>
+                                                            <Text styleClass="cellText">Soil Unit Weight (KN/m</Text>
+                                                            <Text styleClass="cellTextUpper">3</Text>
+                                                            <Text styleClass="cellText">)</Text>
                                                         </TextFlow>
                                                     </graphic>
                                                 </Label>

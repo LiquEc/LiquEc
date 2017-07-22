@@ -20,9 +20,9 @@
 
 <BorderPane styleClass="layer" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.LayerController">
     <center>
-        <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="20.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="200.0" minWidth="200.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="160.0" minWidth="160.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="260.0" minWidth="260.0" />
             </columnConstraints>
             <rowConstraints>
@@ -61,7 +61,7 @@
                 </Label>
                 <TextField fx:id="textFieldSoilUnitWeightAboveGwt" alignment="CENTER_RIGHT" promptText="Enter the weight above GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 100.0(KN/m3) }" />
+                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 50.0(KN/m3) }" />
                     </tooltip>
                 </TextField>
 
@@ -76,7 +76,7 @@
                 </Label>
                 <TextField fx:id="textFieldSoilUnitWeightBelowGwt" alignment="CENTER_RIGHT" promptText="Enter the weight below GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 100.0(KN/m3) }" />
+                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 50.0(KN/m3) }" />
                     </tooltip>
                 </TextField>
 
