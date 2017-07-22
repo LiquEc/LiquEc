@@ -56,7 +56,7 @@ public class SptController {
         // Layer Thickness
         Bindings.bindBidirectional(this.textFieldSptDepth.textProperty(), this.sptModel.sptDepthProperty());
         this.textFieldSptDepth.textProperty().addListener((a, b, c) -> this.manageLayerModelState("SPT Depth", b, c));
-        this.textFieldSptDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSptDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
+        this.textFieldSptDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSptDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
         this.textFieldSptDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSptDepth, b, c, "00", true));
 
         // Fines Content
@@ -82,6 +82,7 @@ public class SptController {
         addSptChartData();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToAddSpt();
         this.sessionModel.checkAbleToRemoveLastSpt();
         this.exit();
     }
@@ -93,7 +94,7 @@ public class SptController {
     }
 
     private void addSptChartData() {
-        this.sessionModel.getSptChartDataSeries().getData().add(InverseData.getXYChartInverseData(Float.valueOf(this.sptModel.getSptBlowCounts()), Float.valueOf(this.sptModel.getSptDepth())));
+        this.sessionModel.getSptChartDataSeries().getData().add(InverseData.getXyChartInverseData(Integer.valueOf(this.sptModel.getSptBlowCounts()), Float.valueOf(this.sptModel.getSptDepth())));
     }
 
     private void exit() {

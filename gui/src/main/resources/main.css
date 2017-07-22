@@ -83,6 +83,9 @@
     -fx-font-weight: normal;
     -fx-font-size: 12;
 }
+.formLayer .cellText {
+    -fx-translate-y: 2;
+}
 .main .columnHeaderTextUpper, .formLayer .cellTextUpper {
     -fx-font-weight: normal;
     -fx-font-size: smaller;
@@ -119,10 +122,26 @@
 .table-column {
   -fx-alignment: center;
 }
+/* charts */
+.series-spt *.chart-series-area-fill{
+    -fx-fill: #aab597;
+}
 /* modal layer */
 .layer {
     -fx-padding: 20 20 20 20;
 }
+.formLayer {
+    -fx-padding: 20 20 20 20;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 1;
+}
+.buttonBar {
+    -fx-padding: 20 0 0 0;
+}
+.radioLiquefaction {
+    -fx-padding: 0 20 0 0;
+}
+
 
 
 

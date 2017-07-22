@@ -24,14 +24,14 @@
                 <Label styleClass="fieldLabel" text="SPT Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <TextField fx:id="textFieldSptDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01m - 99.99m }" />
+                        <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
                     </tooltip>
                 </TextField>
 
                 <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT Blow Counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0N - 100N }" />
+                        <Tooltip text="Range of supported values: { 0(N) - 100(N) }" />
                     </tooltip>
                 </TextField>
             </children>
@@ -40,7 +40,7 @@
     <bottom>
         <ButtonBar styleClass="buttonBar" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="buttonOk" mnemonicParsing="false" text="Confirm SPT" />
+                <Button fx:id="buttonOk" mnemonicParsing="false" text="Add SPT" />
                 <Button fx:id="buttonCancel" mnemonicParsing="false" text="Cancel" />
             </buttons>
         </ButtonBar>

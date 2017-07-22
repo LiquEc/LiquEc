@@ -4,19 +4,26 @@
   ~ Open Source Software published under the Apache Licence, Version 2.0.
   -->
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
 <BorderPane styleClass="layer" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.LayerController">
-    <top>
-        <Label styleClass="description" text="Geotechnical Layer Properties" BorderPane.alignment="CENTER" />
-    </top>
     <center>
-        <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="20.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="200.0" minWidth="200.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="260.0" minWidth="260.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints vgrow="ALWAYS" />
@@ -35,7 +42,7 @@
                 <Label styleClass="fieldLabel" text="Layer Thickness (m):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="textFieldLayerThickness" alignment="CENTER_RIGHT" promptText="Enter the layer thickness..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01m - 99.99m }" />
+                        <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
                     </tooltip>
                 </TextField>
 
@@ -43,48 +50,48 @@
                 <TextField fx:id="textFieldSoilType" alignment="CENTER_RIGHT" promptText="Enter the soil type description..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                 <Label styleClass="fieldLabel" text="Soil Unit Weight:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <Label styleClass="fieldLabel" text="" GridPane.columnIndex="0" GridPane.rowIndex="4" >
+                <Label styleClass="fieldLabel" text="" GridPane.columnIndex="0" GridPane.rowIndex="4">
                     <graphic>
-                        <TextFlow>
+                        <TextFlow prefWidth="210.0" textAlignment="CENTER">
                             <Text styleClass="cellText">Above GWT (KN/m</Text>
                             <Text styleClass="cellTextUpper">3</Text>
                             <Text styleClass="cellText">): </Text>
                         </TextFlow>
                     </graphic>
                 </Label>
-                <TextField fx:id="textFieldSoilUnitWeightAboveGwt" alignment="CENTER_RIGHT" promptText="Enter the soil unit weight above GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <TextField fx:id="textFieldSoilUnitWeightAboveGwt" alignment="CENTER_RIGHT" promptText="Enter the weight above GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01KN/m3 - 99.99KN/m3 }" />
+                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 100.0(KN/m3) }" />
                     </tooltip>
                 </TextField>
 
-                <Label styleClass="fieldLabel" text="" GridPane.columnIndex="0" GridPane.rowIndex="5" >
+                <Label styleClass="fieldLabel" text="" GridPane.columnIndex="0" GridPane.rowIndex="5">
                     <graphic>
-                        <TextFlow>
+                        <TextFlow prefWidth="210.0" textAlignment="CENTER">
                             <Text styleClass="cellText">Below GWT (KN/m</Text>
                             <Text styleClass="cellTextUpper">3</Text>
                             <Text styleClass="cellText">): </Text>
                         </TextFlow>
                     </graphic>
                 </Label>
-                <TextField fx:id="textFieldSoilUnitWeightBelowGwt" alignment="CENTER_RIGHT" promptText="Enter the soil unit weight below GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <TextField fx:id="textFieldSoilUnitWeightBelowGwt" alignment="CENTER_RIGHT" promptText="Enter the weight below GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01KN/m3 - 99.99KN/m3 }" />
+                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 100.0(KN/m3) }" />
                     </tooltip>
                 </TextField>
 
                 <Label styleClass="fieldLabel" text="Fines Content (%):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                 <TextField fx:id="textFieldFinesContent" alignment="CENTER_RIGHT" promptText="Enter the fines content..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.00% - 100.00% }" />
+                        <Tooltip text="Range of supported values: { 0.0(%) - 100.0(%) }" />
                     </tooltip>
                 </TextField>
 
                 <Label styleClass="fieldLabel" text="Check Liquefaction:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <children>
-                        <RadioButton fx:id="liquefactionYesRadioButton" mnemonicParsing="false" text="Yes" />
-                        <RadioButton fx:id="liquefactionNoRadioButton" mnemonicParsing="false" text="No" />
+                        <RadioButton fx:id="liquefactionYesRadioButton" mnemonicParsing="false" styleClass="radioLiquefaction" text="Yes" />
+                        <RadioButton fx:id="liquefactionNoRadioButton" mnemonicParsing="false" styleClass="radioLiquefaction" text="No" />
                     </children>
                 </HBox>
             </children>
@@ -93,7 +100,7 @@
     <bottom>
         <ButtonBar styleClass="buttonBar" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="buttonOk" mnemonicParsing="false" text="Confirm Layer" />
+                <Button fx:id="buttonOk" mnemonicParsing="false" text="Add Layer" />
                 <Button fx:id="buttonCancel" mnemonicParsing="false" text="Cancel" />
             </buttons>
         </ButtonBar>

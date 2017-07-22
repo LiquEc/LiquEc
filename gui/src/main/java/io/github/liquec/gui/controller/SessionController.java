@@ -5,14 +5,12 @@
 package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.github.liquec.gui.chart.InverseData;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptRow;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.chart.LineChart;
@@ -101,7 +99,9 @@ public class SessionController {
         this.sessionModel = sessionModel;
 
         // Buttons
+        addNewLayerButton.disableProperty().bind(not(this.sessionModel.ableToAddLayerProperty()));
         removeLastLayerButton.disableProperty().bind(not(this.sessionModel.ableToRemoveLastLayerProperty()));
+        addNewSptButton.disableProperty().bind(not(this.sessionModel.ableToAddSptProperty()));
         removeLastSptButton.disableProperty().bind(not(this.sessionModel.ableToRemoveLastSptProperty()));
 
         handler(addNewLayerButton, this::processLayerProperties);
@@ -120,17 +120,17 @@ public class SessionController {
         // Peak Ground Aceleration
         Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
         this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Peak Ground Aceleration", b, c));
-        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"\\d{0,1}([\\.]\\d{0,2})?", b, c));
+        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"(\\d{0,1}([\\.]\\d{0,2})?)|10|10\\.|10\\.0|10\\.00", b, c));
         this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAceleration, b, c, "00", true));
         // Earthquake Magnitude
         Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
         this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Earthquake Magnitude", b, c));
-        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"\\d{0,1}([\\.]\\d{0,1})?", b, c));
+        this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"(\\d{0,1}([\\.]\\d{0,1})?)|10|10\\.|10\\.0", b, c));
         this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldEarthquakeMagnitude, b, c, "0", true));
         // Ground Water Table Depth
         Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.manageSessionModelState("Ground Water Table Depth", b, c));
-        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
+        this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
         this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
 
         // Layer Table
@@ -147,10 +147,12 @@ public class SessionController {
         this.yAxisStackedAreaChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisStackedAreaChart) {
             @Override
             public String toString(final Number value) {
-                return (value.doubleValue() == 0)? value.toString() : String.format("%7.1f", -value.doubleValue());
+                return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
         this.layerStackedAreaChart.setData(this.sessionModel.getLayerChartData());
+        this.sessionModel.getLayerChartData().addListener((ListChangeListener.Change<? extends XYChart.Series<Number, Number>> c) -> this.manageStackedAreaChartAutoRanging());
+        this.manageStackedAreaChartAutoRanging();
 
         // Spt Table
         this.sptDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptDepthProperty());
@@ -161,17 +163,21 @@ public class SessionController {
         this.yAxisLineChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisLineChart) {
             @Override
             public String toString(final Number value) {
-                return (value.doubleValue() == 0)? value.toString() : String.format("%7.1f", -value.doubleValue());
+                return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
         this.sptLineChart.setData(this.sessionModel.getSptChartData());
+        this.sessionModel.getSptChartDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageLineCharAutoRanging());
+        this.manageLineCharAutoRanging();
     }
 
     private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
         this.controllerHelper.trackValues(name, oldValue, newValue);
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToAddLayer();
         this.sessionModel.checkAbleToRemoveLastLayer();
+        this.sessionModel.checkAbleToAddSpt();
         this.sessionModel.checkAbleToRemoveLastSpt();
     }
 
@@ -189,6 +195,7 @@ public class SessionController {
         this.sessionModel.removeLastChartLayer();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToAddLayer();
         this.sessionModel.checkAbleToRemoveLastLayer();
     }
 
@@ -201,7 +208,20 @@ public class SessionController {
         this.sessionModel.removeLastChartSpt();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToAddSpt();
         this.sessionModel.checkAbleToRemoveLastSpt();
+    }
+
+    private void manageStackedAreaChartAutoRanging() {
+        if (!this.yAxisStackedAreaChart.isAutoRanging()) {
+            this.yAxisStackedAreaChart.setAutoRanging(this.sessionModel.getLayerChartData().size() > 0);
+        }
+    }
+
+    private void manageLineCharAutoRanging() {
+        if (!this.yAxisLineChart.isAutoRanging()) {
+            this.yAxisLineChart.setAutoRanging(this.sessionModel.getSptChartDataSeries().getData().size() > 0);
+        }
     }
 
 }

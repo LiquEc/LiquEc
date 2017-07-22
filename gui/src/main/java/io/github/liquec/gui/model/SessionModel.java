@@ -29,7 +29,9 @@ public final class SessionModel {
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty ableToAddLayer = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToRemoveLastLayer = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty ableToAddSpt = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToRemoveLastSpt = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty projectName;
@@ -73,8 +75,8 @@ public final class SessionModel {
             final XYChart.Series<Number, Number> series = new XYChart.Series();
             series.setName(soilLayer.getSoilType());
             final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
-            data.add(InverseData.getXYChartInverseData(0.0f, soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
-            data.add(InverseData.getXYChartInverseData(100.0f, soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
+            data.add(InverseData.getXyChartInverseDataLower(soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
+            data.add(InverseData.getXyChartInverseDataUpper(soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
             series.setData(data);
             layerChartData.add(series);
         }
@@ -99,9 +101,9 @@ public final class SessionModel {
 
     private void initializeSptChartData(final List<StandardPenetrationTest> standardPenetrationTestList) {
         final XYChart.Series<Number, Number> series = new XYChart.Series();
-        series.setName("SPT Line");
+        series.setName("SPT series");
         for (StandardPenetrationTest standardPenetrationTest : standardPenetrationTestList) {
-            series.getData().add(InverseData.getXYChartInverseData(standardPenetrationTest.getSptBlowCounts(), standardPenetrationTest.getDepth()));
+            series.getData().add(InverseData.getXyChartInverseData(standardPenetrationTest.getSptBlowCounts(), standardPenetrationTest.getDepth()));
         }
         sptChartData.add(series);
     }
@@ -255,6 +257,18 @@ public final class SessionModel {
         this.normativeMode.set(normativeMode);
     }
 
+    public boolean isAbleToAddLayer() {
+        return ableToAddLayer.get();
+    }
+
+    public SimpleBooleanProperty ableToAddLayerProperty() {
+        return ableToAddLayer;
+    }
+
+    public void setAbleToAddLayer(final boolean ableToAddLayer) {
+        this.ableToAddLayer.set(ableToAddLayer);
+    }
+
     public boolean isAbleToRemoveLastLayer() {
         return ableToRemoveLastLayer.get();
     }
@@ -265,6 +279,18 @@ public final class SessionModel {
 
     public void setAbleToRemoveLastLayer(final boolean ableToRemoveLastLayer) {
         this.ableToRemoveLastLayer.set(ableToRemoveLastLayer);
+    }
+
+    public boolean isAbleToAddSpt() {
+        return ableToAddSpt.get();
+    }
+
+    public SimpleBooleanProperty ableToAddSptProperty() {
+        return ableToAddSpt;
+    }
+
+    public void setAbleToAddSpt(final boolean ableToAddSpt) {
+        this.ableToAddSpt.set(ableToAddSpt);
     }
 
     public boolean isAbleToRemoveLastSpt() {
@@ -332,7 +358,7 @@ public final class SessionModel {
     private StandardPenetrationTest buildStandardPenetrationTest(final SptRow sptRow) {
         StandardPenetrationTest standardPenetrationTest = new StandardPenetrationTest();
         standardPenetrationTest.setDepth(StringUtils.isEmpty(sptRow.getSptDepth()) ? null : Float.valueOf(sptRow.getSptDepth()));
-        standardPenetrationTest.setDepth(StringUtils.isEmpty(sptRow.getSptBlowCounts()) ? null : Float.valueOf(sptRow.getSptBlowCounts()));
+        standardPenetrationTest.setSptBlowCounts(StringUtils.isEmpty(sptRow.getSptBlowCounts()) ? null : Integer.valueOf(sptRow.getSptBlowCounts()));
         return standardPenetrationTest;
     }
 
@@ -364,6 +390,10 @@ public final class SessionModel {
             if (this.layerData.size() == 0) {
                 throw new LiquEcException("geotechnicalLayer");
             }
+            LOG.debug("spt: " + this.layerData.size());
+            if (this.sptData.size() == 0) {
+                throw new LiquEcException("spt");
+            }
         } catch (LiquEcException e) {
             LOG.debug("Required value: " + e.getMessage());
             ableToCalculate = false;
@@ -372,9 +402,23 @@ public final class SessionModel {
         LOG.debug("isAbleToCalculate: " + this.isAbleToCalculate());
     }
 
+    public void checkAbleToAddLayer() {
+        LOG.debug("Checking able to add layer...");
+        if (this.layerData.size() > 0) {
+            this.setAbleToAddLayer(Float.valueOf(this.layerData.get(this.layerData.size() - 1).getFinalDepth()) <= 100);
+        }
+    }
+
     public void checkAbleToRemoveLastLayer() {
         LOG.debug("Checking able to remove last layer...");
         this.setAbleToRemoveLastLayer(this.layerData.size() > 0);
+    }
+
+    public void checkAbleToAddSpt() {
+        LOG.debug("Checking able to add spt...");
+        if (this.sptData.size() > 0) {
+            this.setAbleToAddSpt(Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth()) <= 100);
+        }
     }
 
     public void checkAbleToRemoveLastSpt() {

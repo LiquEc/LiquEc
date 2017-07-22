@@ -76,36 +76,51 @@ public class LayerController {
 
         // Layer Thickness
         Bindings.bindBidirectional(this.textFieldLayerThickness.textProperty(), this.layerModel.layerThicknessProperty());
-        this.textFieldLayerThickness.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Layer Thickness", b, c));
-        this.textFieldLayerThickness.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldLayerThickness,"\\d{0,2}([\\.]\\d{0,2})?", b, c));
-        this.textFieldLayerThickness.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldLayerThickness, b, c, "00", true));
+        this.textFieldLayerThickness.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("Layer Thickness", b, c));
+        this.textFieldLayerThickness.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldLayerThickness,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
+        this.textFieldLayerThickness.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldLayerThickness, b, c, "00", true));
 
         // Soil Type
         Bindings.bindBidirectional(this.textFieldSoilType.textProperty(), this.layerModel.soilTypeProperty());
-        this.textFieldSoilType.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Type", b, c));
-        this.textFieldSoilType.textProperty().addListener((a, b, c) -> this.controllerHelper.manageStringsValues(this.textFieldSoilType, b, c, 12));
+        this.textFieldSoilType.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("Soil Type", b, c));
+        this.textFieldSoilType.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageStringsValues(this.textFieldSoilType, b, c, 12));
 
         // Soil Unit Weight Above Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightAboveGwt.textProperty(), this.layerModel.soilUnitWeightAboveGwtProperty());
-        this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
-        this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightAboveGwt,"\\d{0,2}([\\.]\\d{0,1})?", b, c));
-        this.textFieldSoilUnitWeightAboveGwt.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightAboveGwt, b, c, "0", true));
+        this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
+        this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightAboveGwt,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
+        this.textFieldSoilUnitWeightAboveGwt.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightAboveGwt, b, c, "0", true));
 
         // Soil Unit Weight Below Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightBelowGwt.textProperty(), this.layerModel.soilUnitWeightBelowGwtProperty());
-        this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) -> this.manageLayerModelState("SSoil Unit Weight Below Gwt", b, c));
-        this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"\\d{0,2}([\\.]\\d{0,1})?", b, c));
-        this.textFieldSoilUnitWeightBelowGwt.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightBelowGwt, b, c, "0", true));
+        this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("SSoil Unit Weight Below Gwt", b, c));
+        this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
+        this.textFieldSoilUnitWeightBelowGwt.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightBelowGwt, b, c, "0", true));
 
         // Fines Content
         Bindings.bindBidirectional(this.textFieldFinesContent.textProperty(), this.layerModel.finesContentProperty());
-        this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.manageLayerModelState("Soil Unit Weight Above Gwt", b, c));
-        this.textFieldFinesContent.textProperty().addListener((a, b, c) -> this.controllerHelper.validateNumberValue(this.textFieldFinesContent,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
-        this.textFieldFinesContent.focusedProperty().addListener((a, b, c) -> this.controllerHelper.manageZerosValues(this.textFieldFinesContent, b, c, "0", false));
+        this.textFieldFinesContent.textProperty().addListener((a, b, c) ->
+            this.manageLayerModelState("Fines Content", b, c));
+        this.textFieldFinesContent.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldFinesContent,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
+        this.textFieldFinesContent.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldFinesContent, b, c, "0", false));
 
         // Liquefaction
         liquefactionYesRadioButton.selectedProperty().bindBidirectional(layerModel.layerLiquefactionProperty());
-        this.layerModel.layerLiquefactionProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Layer Liquefaction", b.toString(), c.toString()));
+        this.layerModel.layerLiquefactionProperty().addListener((a, b, c) ->
+            this.controllerHelper.trackValues("Layer Liquefaction", b.toString(), c.toString()));
 
         // Buttons
         buttonOk.setOnAction(e -> saveLayer());
@@ -137,6 +152,7 @@ public class LayerController {
         this.sessionModel.getLayerChartData().add(this.buildLayerChartData());
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
+        this.sessionModel.checkAbleToAddLayer();
         this.sessionModel.checkAbleToRemoveLastLayer();
         this.exit();
     }
@@ -144,7 +160,7 @@ public class LayerController {
     private LayerRow buildLayerRow() {
         return new LayerRow(
             this.startDepth,
-            String.valueOf(this.getFloatValueFinalDepth()),
+            this.getFormattedNumber(String.valueOf(this.getFloatValueFinalDepth())),
             this.layerModel.getSoilType().toLowerCase(),
             this.layerModel.getSoilUnitWeightAboveGwt(),
             this.layerModel.getSoilUnitWeightBelowGwt(),
@@ -156,8 +172,8 @@ public class LayerController {
         final XYChart.Series<Number, Number> series = new XYChart.Series();
         series.setName(this.layerModel.getSoilType().toLowerCase());
         final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
-        data.add(InverseData.getXYChartInverseData(0.0f, Float.valueOf(this.layerModel.getLayerThickness())));
-        data.add(InverseData.getXYChartInverseData(100.0f, Float.valueOf(this.layerModel.getLayerThickness())));
+        data.add(InverseData.getXyChartInverseDataLower(Float.valueOf(this.layerModel.getLayerThickness())));
+        data.add(InverseData.getXyChartInverseDataUpper(Float.valueOf(this.layerModel.getLayerThickness())));
         series.setData(data);
         return series;
     }
@@ -166,6 +182,13 @@ public class LayerController {
         final Float startDepth = Float.valueOf(this.startDepth);
         final Float layerThickness = Float.valueOf(this.layerModel.getLayerThickness());
         return startDepth + layerThickness;
+    }
+
+    private String getFormattedNumber(final String number) {
+        if (number.matches("(\\d)+[\\.]\\d")) {
+            return number + "0";
+        }
+        return number;
     }
 
     private void exit() {
