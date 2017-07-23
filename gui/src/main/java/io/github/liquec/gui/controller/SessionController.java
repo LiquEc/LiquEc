@@ -32,6 +32,9 @@ import static javafx.beans.binding.Bindings.not;
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
+    public static final Double MAX_SPT = 50.0;
+    public static final Double MAX_DEPTH = -30.0;
+
     public TextField textFieldProjectName;
 
     public TextField textFieldOrganization;
@@ -140,7 +143,7 @@ public class SessionController {
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->
             this.manageSessionModelState("Ground Water Table Depth", b, c));
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
+            this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"((1|2)?\\d{0,1}([\\.]\\d{0,2})?)|30|30\\.|30\\.0|30\\.00", b, c));
         this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
 
@@ -161,9 +164,9 @@ public class SessionController {
                 return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
+        this.layerStackedAreaChart.setLegendVisible(false);
         this.layerStackedAreaChart.setData(this.sessionModel.getLayerChartData());
-        this.sessionModel.getLayerChartData().addListener((ListChangeListener.Change<? extends XYChart.Series<Number, Number>> c) -> this.manageStackedAreaChartAutoRanging());
-        this.manageStackedAreaChartAutoRanging();
+        this.sessionModel.getLayerChartData().addListener((ListChangeListener.Change<? extends XYChart.Series<Number, Number>> c) -> this.manageChartsAutoRanging());
 
         // Spt Table
         this.sptDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptDepthProperty());
@@ -177,9 +180,12 @@ public class SessionController {
                 return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
+        this.sptScatterChart.setLegendVisible(false);
         this.sptScatterChart.setData(this.sessionModel.getSptChartData());
-        this.sessionModel.getSptChartDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageScatterChartAutoRanging());
-        this.manageScatterChartAutoRanging();
+        this.sessionModel.getSptChartMainDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageChartsAutoRanging());
+
+        //  initialize auto ranging
+        this.manageChartsAutoRanging();
     }
 
     private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
@@ -223,19 +229,80 @@ public class SessionController {
         this.sessionModel.checkAbleToRemoveLastSpt();
     }
 
-    private void manageStackedAreaChartAutoRanging() {
-        if (!this.yAxisStackedAreaChart.isAutoRanging()) {
-            this.yAxisStackedAreaChart.setAutoRanging(this.sessionModel.getLayerChartData().size() > 0);
-        }
+    private void manageChartsAutoRanging() {
+        // stacked area chart
+        this.xAxisStackedAreaChart.setUpperBound(this.upperBoundAxisX());
+        this.xAxisStackedAreaChart.setTickUnit(this.tickUnitAxisX());
+        this.yAxisStackedAreaChart.setLowerBound(this.lowerBoundAxisY());
+        this.yAxisStackedAreaChart.setTickUnit(this.tickUnitAxisY());
+        // scatter chart
+        this.xAxisScatterChart.setUpperBound(this.upperBoundAxisX());
+        this.xAxisScatterChart.setTickUnit(this.tickUnitAxisX());
+        this.yAxisScatterChart.setLowerBound(this.lowerBoundAxisY());
+        this.yAxisScatterChart.setTickUnit(this.tickUnitAxisY());
     }
 
-    private void manageScatterChartAutoRanging() {
-        if (!this.xAxisScatterChart.isAutoRanging()) {
-            this.xAxisScatterChart.setAutoRanging(this.sessionModel.getSptChartDataSeries().getData().size() > 0);
+    private Double upperBoundAxisX() {
+        return this.getPairValueAxisX((this.sessionModel.getSptData().size() > 0)
+            ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : MAX_SPT);
+    }
+
+    private Double getPairValueAxisX(final Double value) {
+        return (value % 2 == 0) ? value : value + 1;
+    }
+
+    private Double searchMaxSptBlowCounts() {
+        Double max = 0.0;
+        for (SptRow sptRow : this.sessionModel.getSptData()) {
+            if (Double.valueOf(sptRow.getSptBlowCounts()) > max) {
+                max = Double.valueOf(sptRow.getSptBlowCounts());
+            }
         }
-        if (!this.yAxisScatterChart.isAutoRanging()) {
-            this.yAxisScatterChart.setAutoRanging(this.sessionModel.getSptChartDataSeries().getData().size() > 0);
+        return max;
+    }
+
+    private Double lowerBoundAxisY() {
+        final Double layerLowerBound = this.getPairValueAxisY((this.sessionModel.getLayerData().size() > 0)
+            ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : MAX_DEPTH);
+        final Double sptLowerBound = this.getPairValueAxisY((this.sessionModel.getSptData().size() > 0)
+            ? -Math.ceil(Double.valueOf(this.sessionModel.getSptData().get(this.sessionModel.getSptData().size() - 1).getSptDepth()) + 1) : MAX_DEPTH);
+        if (this.sessionModel.getLayerData().size() == 0) {
+            return sptLowerBound;
         }
+        if (this.sessionModel.getSptData().size() == 0) {
+            return layerLowerBound;
+        }
+        if (layerLowerBound < sptLowerBound) {
+            return layerLowerBound;
+        }
+        return sptLowerBound;
+    }
+
+    private Double getPairValueAxisY(final Double value) {
+        return (value % 2 == 0) ? value : value - 1;
+    }
+
+    private Double tickUnitAxisX() {
+        if (this.upperBoundAxisX() <= 5) {
+            return 1.0;
+        }
+        if (this.upperBoundAxisX() <= 10) {
+            return 2.0;
+        }
+        if (this.upperBoundAxisX() <= 30) {
+            return 5.0;
+        }
+        return 10.0;
+    }
+
+    private Double tickUnitAxisY() {
+        if (this.lowerBoundAxisY() >= -10) {
+            return 1.0;
+        }
+        if (this.lowerBoundAxisY() >= -20) {
+            return 2.0;
+        }
+        return 5.0;
     }
 
 }

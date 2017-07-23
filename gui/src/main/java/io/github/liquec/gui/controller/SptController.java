@@ -67,7 +67,7 @@ public class SptController {
         this.textFieldSptIncreaseDepth.textProperty().addListener((a, b, c) ->
             this.manageLayerModelState("SPT Increase Depth", b, c));
         this.textFieldSptIncreaseDepth.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldSptIncreaseDepth,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
+            this.controllerHelper.validateNumberValue(this.textFieldSptIncreaseDepth,"((1|2)?\\d{0,1}([\\.]\\d{0,2})?)|30|30\\.|30\\.0|30\\.00", b, c));
         this.textFieldSptIncreaseDepth.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldSptIncreaseDepth, b, c, "00", true));
 
@@ -76,7 +76,7 @@ public class SptController {
         this.textFieldSptBlowCounts.textProperty().addListener((a, b, c) ->
             this.manageLayerModelState("SPT Blow Counts", b, c));
         this.textFieldSptBlowCounts.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldSptBlowCounts,"(\\d{0,2})|100", b, c));
+            this.controllerHelper.validateNumberValue(this.textFieldSptBlowCounts,"((1|2|3|4)?\\d{0,1})|50", b, c));
         this.textFieldSptBlowCounts.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldSptBlowCounts, b, c, "0", false));
 
@@ -116,7 +116,7 @@ public class SptController {
     }
 
     private void addSptChartData() {
-        this.sessionModel.getSptChartDataSeries().getData().add(
+        this.sessionModel.getSptChartMainDataSeries().getData().add(
             InverseData.getXyChartInverseData(Integer.valueOf(this.sptModel.getSptBlowCounts()), this.getFloatValueSptDepth()));
     }
 

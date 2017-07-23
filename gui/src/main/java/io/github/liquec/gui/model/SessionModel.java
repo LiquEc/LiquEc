@@ -26,6 +26,8 @@ import java.util.List;
 public final class SessionModel {
     private static final Logger LOG = LoggerFactory.getLogger(SessionModel.class);
 
+    private static final Integer MAX_DEPTH = 30;
+
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
@@ -209,13 +211,13 @@ public final class SessionModel {
         return sptChartData;
     }
 
-    public XYChart.Series<Number, Number> getSptChartDataSeries() {
+    public XYChart.Series<Number, Number> getSptChartMainDataSeries() {
         return sptChartData.get(0);
     }
 
     public void removeLastChartSpt() {
-        if (this.getSptChartDataSeries().getData().size() > 0) {
-            this.getSptChartDataSeries().getData().remove(this.getSptChartDataSeries().getData().size() - 1);
+        if (this.getSptChartMainDataSeries().getData().size() > 0) {
+            this.getSptChartMainDataSeries().getData().remove(this.getSptChartMainDataSeries().getData().size() - 1);
         }
     }
 
@@ -405,7 +407,7 @@ public final class SessionModel {
     public void checkAbleToAddLayer() {
         LOG.debug("Checking able to add layer...");
         if (this.layerData.size() > 0) {
-            this.setAbleToAddLayer(Float.valueOf(this.layerData.get(this.layerData.size() - 1).getFinalDepth()) <= 100);
+            this.setAbleToAddLayer(Float.valueOf(this.layerData.get(this.layerData.size() - 1).getFinalDepth()) <= MAX_DEPTH);
         }
     }
 
@@ -417,7 +419,7 @@ public final class SessionModel {
     public void checkAbleToAddSpt() {
         LOG.debug("Checking able to add spt...");
         if (this.sptData.size() > 0) {
-            this.setAbleToAddSpt(Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth()) <= 100);
+            this.setAbleToAddSpt(Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth()) <= MAX_DEPTH);
         }
     }
 

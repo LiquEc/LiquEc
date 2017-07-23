@@ -25,14 +25,14 @@
                 <Label styleClass="fieldLabel" text="SPT Increase Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="textFieldSptIncreaseDepth" alignment="CENTER_RIGHT" promptText="Enter the increase..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
+                        <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
                     </tooltip>
                 </TextField>
 
                 <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT Blow Counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0(N) - 100(N) }" />
+                        <Tooltip text="Range of supported values: { 0(N) - 50(N) }" />
                     </tooltip>
                 </TextField>
             </children>

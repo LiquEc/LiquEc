@@ -9,7 +9,7 @@ import javafx.scene.chart.XYChart;
 public class InverseData {
 
     public static Float LOWER_X = -5.0f;
-    public static Float UPPER_X = 105.0f;
+    public static Float UPPER_X = 55.0f;
 
 
     public static XYChart.Data getXyChartInverseDataLower(final Float y) {

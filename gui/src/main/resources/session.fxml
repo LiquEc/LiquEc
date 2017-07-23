@@ -87,7 +87,7 @@
                                         <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                         <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                             <tooltip>
-                                                <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
+                                                <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
                                             </tooltip>
                                         </TextField>
                                     </children>
@@ -289,10 +289,10 @@
                     <children>
                         <StackedAreaChart fx:id="layerStackedAreaChart" title="Depth (m)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis fx:id="xAxisStackedAreaChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="100" />
+                                <NumberAxis fx:id="xAxisStackedAreaChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="yAxisStackedAreaChart" autoRanging="false" lowerBound="-100" side="LEFT" tickUnit="10" upperBound="0" />
+                                <NumberAxis fx:id="yAxisStackedAreaChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
                             </yAxis>
                         </StackedAreaChart>
                     </children>
@@ -301,10 +301,10 @@
                     <children>
                         <ScatterChart fx:id="sptScatterChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis fx:id="xAxisScatterChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="100" />
+                                <NumberAxis fx:id="xAxisScatterChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="yAxisScatterChart" autoRanging="false" lowerBound="-100" side="LEFT" tickUnit="10" upperBound="0" />
+                                <NumberAxis fx:id="yAxisScatterChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
                             </yAxis>
                         </ScatterChart>
                     </children>

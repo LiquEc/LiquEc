@@ -79,7 +79,7 @@ public class LayerController {
         this.textFieldLayerThickness.textProperty().addListener((a, b, c) ->
             this.manageLayerModelState("Layer Thickness", b, c));
         this.textFieldLayerThickness.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldLayerThickness,"(\\d{0,2}([\\.]\\d{0,2})?)|100|100\\.|100\\.0|100\\.00", b, c));
+            this.controllerHelper.validateNumberValue(this.textFieldLayerThickness,"((1|2)?\\d{0,1}([\\.]\\d{0,2})?)|30|30\\.|30\\.0|30\\.00", b, c));
         this.textFieldLayerThickness.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldLayerThickness, b, c, "00", true));
 

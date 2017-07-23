@@ -42,7 +42,7 @@
                 <Label styleClass="fieldLabel" text="Layer Thickness (m):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="textFieldLayerThickness" alignment="CENTER_RIGHT" promptText="Enter the layer thickness..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01(m) - 100.00(m) }" />
+                        <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
                     </tooltip>
                 </TextField>
 
