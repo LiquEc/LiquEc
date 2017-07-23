@@ -5,15 +5,12 @@
 package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.github.liquec.gui.chart.InverseData;
+import io.github.liquec.gui.chart.LiquEcData;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptModel;
 import io.github.liquec.gui.model.SptRow;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -101,7 +98,7 @@ public class SptController {
 
     private void saveSpt() {
         this.sessionModel.getSptData().add(this.buildSptRow());
-        addSptChartData();
+        this.addSptChartData();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddSpt();
@@ -116,8 +113,8 @@ public class SptController {
     }
 
     private void addSptChartData() {
-        this.sessionModel.getSptChartMainDataSeries().getData().add(
-            InverseData.getXyChartInverseData(Integer.valueOf(this.sptModel.getSptBlowCounts()), this.getFloatValueSptDepth()));
+        this.sessionModel.getSptChartMainDataSeries().getData().add(LiquEcData.getChartInverseDataSptPoint(Integer.valueOf(this.sptModel.getSptBlowCounts()), this.getFloatValueSptDepth()));
+        this.sessionModel.drawSptChartPointsLine();
     }
 
     private Float getFloatValueSptDepth() {

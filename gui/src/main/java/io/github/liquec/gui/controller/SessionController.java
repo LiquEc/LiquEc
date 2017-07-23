@@ -223,6 +223,7 @@ public class SessionController {
     private void removeLastSpt() {
         this.sessionModel.removeLastSpt();
         this.sessionModel.removeLastChartSpt();
+        this.sessionModel.drawSptChartPointsLine();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddSpt();

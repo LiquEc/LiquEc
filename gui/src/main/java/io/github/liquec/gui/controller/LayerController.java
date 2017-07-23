@@ -5,8 +5,7 @@
 package io.github.liquec.gui.controller;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.github.liquec.analysis.core.GuiTaskHandler;
-import io.github.liquec.gui.chart.InverseData;
+import io.github.liquec.gui.chart.LiquEcData;
 import io.github.liquec.gui.common.LiquefactionEnum;
 import io.github.liquec.gui.model.LayerModel;
 import io.github.liquec.gui.model.LayerRow;
@@ -172,8 +171,8 @@ public class LayerController {
         final XYChart.Series<Number, Number> series = new XYChart.Series();
         series.setName(this.layerModel.getSoilType().toLowerCase());
         final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
-        data.add(InverseData.getXyChartInverseDataLower(Float.valueOf(this.layerModel.getLayerThickness())));
-        data.add(InverseData.getXyChartInverseDataUpper(Float.valueOf(this.layerModel.getLayerThickness())));
+        data.add(LiquEcData.getChartInverseDataLowerX(Float.valueOf(this.layerModel.getLayerThickness())));
+        data.add(LiquEcData.getChartInverseDataUpperX(Float.valueOf(this.layerModel.getLayerThickness())));
         series.setData(data);
         return series;
     }

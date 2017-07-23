@@ -128,6 +128,10 @@
 .series-spt *.chart-series-area-fill{
     -fx-fill: #aab597;
 }
+/*.chart-symbol {
+    -fx-background-radius: 3px ;
+    -fx-padding: 3px ;
+}*/
 /* modal layer */
 .layer {
     -fx-padding: 20 20 20 20;
