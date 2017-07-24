@@ -113,8 +113,7 @@ public class SptController {
     }
 
     private void addSptChartData() {
-        this.sessionModel.getSptChartMainDataSeries().getData().add(LiquEcData.getChartInverseDataSptPoint(Integer.valueOf(this.sptModel.getSptBlowCounts()), this.getFloatValueSptDepth()));
-        this.sessionModel.drawSptChartPointsLine();
+        this.sessionModel.getSptChartMainDataSeries().getData().add(LiquEcData.getChartInverseDataSpt(Integer.valueOf(this.sptModel.getSptBlowCounts()), this.getFloatValueSptDepth()));
     }
 
     private Float getFloatValueSptDepth() {

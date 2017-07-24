@@ -7,9 +7,7 @@ package io.github.liquec.gui.model;
 import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
-import io.github.liquec.gui.chart.Line;
 import io.github.liquec.gui.chart.LiquEcData;
-import io.github.liquec.gui.chart.Point;
 import io.github.liquec.gui.common.LiquefactionEnum;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -106,14 +104,9 @@ public final class SessionModel {
         final XYChart.Series<Number, Number> series = new XYChart.Series();
         series.setName("SPT series");
         for (StandardPenetrationTest standardPenetrationTest : standardPenetrationTestList) {
-            series.getData().add(LiquEcData.getChartInverseDataSptPoint(standardPenetrationTest.getSptBlowCounts(), standardPenetrationTest.getDepth()));
+            series.getData().add(LiquEcData.getChartInverseDataSpt(standardPenetrationTest.getSptBlowCounts(), standardPenetrationTest.getDepth()));
         }
         sptChartData.add(series);
-        // spt points line
-        final XYChart.Series<Number, Number> pointsLine = new XYChart.Series();
-        pointsLine.setName("SPT points line");
-        sptChartData.add(pointsLine);
-        this.drawSptChartPointsLine();
     }
 
     private SptRow buildSptRow(final StandardPenetrationTest standardPenetrationTest) {
@@ -222,45 +215,11 @@ public final class SessionModel {
     }
 
     public void removeLastChartSpt() {
-        if (this.getSptChartMainDataSeries().getData().size() > 0) {
+        if (this.getSptChartMainDataSeries().getData().size() > 1) {
             this.getSptChartMainDataSeries().getData().remove(this.getSptChartMainDataSeries().getData().size() - 1);
-        }
-    }
-
-    public XYChart.Series<Number, Number> getSptChartPointsLineSeries() {
-        return sptChartData.get(1);
-    }
-
-    public void clearSptChartPointsLineSeries() {
-        if (this.getSptChartPointsLineSeries().getData().size() > 0) {
-            this.getSptChartPointsLineSeries().getData().clear();
-        }
-    }
-
-    public void drawSptChartPointsLine() {
-        this.clearSptChartPointsLineSeries();
-        if (this.getSptData().size() <= 1) {
             return;
         }
-
-        for (int i = 0; i <= this.getSptData().size() - 2; i++) {
-
-            final int firstPoint = (Float.valueOf(this.getSptData().get(i).getSptBlowCounts()) < Float.valueOf(this.getSptData().get(i + 1).getSptBlowCounts())) ? i : i + 1;
-            final int secondPoint = (firstPoint == i) ? i + 1 : i;
-            final float x0 = Float.valueOf(this.getSptData().get(firstPoint).getSptBlowCounts());
-            final float y0 = -Float.valueOf(this.getSptData().get(firstPoint).getSptDepth());
-            final float x1 = Float.valueOf(this.getSptData().get(secondPoint).getSptBlowCounts());
-            final float y1 = -Float.valueOf(this.getSptData().get(secondPoint).getSptDepth());
-
-            Point p0 = new Point(x0, y0);
-            Point p1 = new Point(x1, y1);
-            Line line = new Line(p0, p1);
-
-            final List<Point> points = line.getPoints();
-            for (Point point : points) {
-                this.getSptChartPointsLineSeries().getData().add(LiquEcData.getChartDataSptPointLine(point.getX(), point.getY()));
-            }
-        }
+        this.getSptChartMainDataSeries().getData().clear();
     }
 
     //

@@ -299,14 +299,14 @@
                 </AnchorPane>
                 <AnchorPane fx:id="graphicStpPane" maxWidth="200.0" minWidth="200.0">
                     <children>
-                        <ScatterChart fx:id="sptScatterChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <LineChart fx:id="sptLineChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis fx:id="xAxisScatterChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" />
+                                <NumberAxis fx:id="xAxisLineChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="yAxisScatterChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
+                                <NumberAxis fx:id="yAxisLineChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
                             </yAxis>
-                        </ScatterChart>
+                        </LineChart>
                     </children>
                 </AnchorPane>
             </children>

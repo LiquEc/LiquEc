@@ -13,10 +13,7 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.StackedAreaChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -81,11 +78,11 @@ public class SessionController {
 
     public TableColumn<SptRow, String> sptBlowCountsTableColumn;
 
-    public ScatterChart<Number, Number> sptScatterChart;
+    public LineChart<Number, Number> sptLineChart;
 
-    public NumberAxis xAxisScatterChart;
+    public NumberAxis xAxisLineChart;
 
-    public NumberAxis yAxisScatterChart;
+    public NumberAxis yAxisLineChart;
 
     private SessionModel sessionModel;
 
@@ -164,6 +161,7 @@ public class SessionController {
                 return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
+        this.layerStackedAreaChart.setAnimated(false);
         this.layerStackedAreaChart.setLegendVisible(false);
         this.layerStackedAreaChart.setData(this.sessionModel.getLayerChartData());
         this.sessionModel.getLayerChartData().addListener((ListChangeListener.Change<? extends XYChart.Series<Number, Number>> c) -> this.manageChartsAutoRanging());
@@ -173,15 +171,17 @@ public class SessionController {
         this.sptBlowCountsTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptBlowCountsProperty());
         this.sptLayer.setItems(this.sessionModel.getSptData());
 
-        // Scatter Chart
-        this.yAxisScatterChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisScatterChart) {
+        // Line Chart
+        this.yAxisLineChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisLineChart) {
             @Override
             public String toString(final Number value) {
                 return (value.doubleValue() == 0) ? value.toString() : String.format("%7.1f", -value.doubleValue());
             }
         });
-        this.sptScatterChart.setLegendVisible(false);
-        this.sptScatterChart.setData(this.sessionModel.getSptChartData());
+        this.sptLineChart.setAnimated(false);
+        this.sptLineChart.setLegendVisible(false);
+        this.sptLineChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
+        this.sptLineChart.setData(this.sessionModel.getSptChartData());
         this.sessionModel.getSptChartMainDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageChartsAutoRanging());
 
         //  initialize auto ranging
@@ -223,7 +223,6 @@ public class SessionController {
     private void removeLastSpt() {
         this.sessionModel.removeLastSpt();
         this.sessionModel.removeLastChartSpt();
-        this.sessionModel.drawSptChartPointsLine();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddSpt();
@@ -236,11 +235,11 @@ public class SessionController {
         this.xAxisStackedAreaChart.setTickUnit(this.tickUnitAxisX());
         this.yAxisStackedAreaChart.setLowerBound(this.lowerBoundAxisY());
         this.yAxisStackedAreaChart.setTickUnit(this.tickUnitAxisY());
-        // scatter chart
-        this.xAxisScatterChart.setUpperBound(this.upperBoundAxisX());
-        this.xAxisScatterChart.setTickUnit(this.tickUnitAxisX());
-        this.yAxisScatterChart.setLowerBound(this.lowerBoundAxisY());
-        this.yAxisScatterChart.setTickUnit(this.tickUnitAxisY());
+        // line chart
+        this.xAxisLineChart.setUpperBound(this.upperBoundAxisX());
+        this.xAxisLineChart.setTickUnit(this.tickUnitAxisX());
+        this.yAxisLineChart.setLowerBound(this.lowerBoundAxisY());
+        this.yAxisLineChart.setTickUnit(this.tickUnitAxisY());
     }
 
     private Double upperBoundAxisX() {
