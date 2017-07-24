@@ -168,7 +168,7 @@ public class LayerController {
     }
 
     private XYChart.Series<Number,Number> buildLayerChartData() {
-        final XYChart.Series<Number, Number> series = new XYChart.Series();
+        final XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
         series.setName(this.layerModel.getSoilType().toLowerCase());
         final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
         data.add(LiquEcData.getChartInverseDataLowerX(Float.valueOf(this.layerModel.getLayerThickness())));

@@ -39,7 +39,7 @@ public class MainController {
 
     public RadioMenuItem menuNormativeEurocode;
 
-    public RadioMenuItem menuNormativeNCSE02;
+    public RadioMenuItem menuNormativeNcse02;
 
     public MenuItem menuCalculate;
 
@@ -63,7 +63,7 @@ public class MainController {
 
     public RadioButton buttonNormativeEurocode;
 
-    public RadioButton buttonNormativeNCSE02;
+    public RadioButton buttonNormativeNcse02;
 
     public BorderPane mainBorderPane;
 
@@ -108,8 +108,8 @@ public class MainController {
     public void initialise(final Stage stage) {
         sessionStateHandler.initialise(mainBorderPane);
 
-        buildToggleGroup(buttonNormativeEurocode, buttonNormativeNCSE02);
-        buildToggleGroup(menuNormativeEurocode, menuNormativeNCSE02);
+        buildToggleGroup(buttonNormativeEurocode, buttonNormativeNcse02);
+        buildToggleGroup(menuNormativeEurocode, menuNormativeNcse02);
 
         handler(buttonNew, menuNew, guiFileHandler::handleNewSession);
         handler(buttonOpen, menuOpen, guiFileHandler::handleOpenSession);
@@ -125,12 +125,12 @@ public class MainController {
         menuCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
         buttonNormativeEurocode.disableProperty().bind(not(model.ableToCalculateProperty()));
         menuNormativeEurocode.disableProperty().bind(not(model.ableToCalculateProperty()));
-        buttonNormativeNCSE02.disableProperty().bind(not(model.ableToCalculateProperty()));
-        menuNormativeNCSE02.disableProperty().bind(not(model.ableToCalculateProperty()));
+        buttonNormativeNcse02.disableProperty().bind(not(model.ableToCalculateProperty()));
+        menuNormativeNcse02.disableProperty().bind(not(model.ableToCalculateProperty()));
 
         buttonNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
         menuNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
-        menuNormativeNCSE02.selectedProperty().bindBidirectional(buttonNormativeNCSE02.selectedProperty());
+        menuNormativeNcse02.selectedProperty().bindBidirectional(buttonNormativeNcse02.selectedProperty());
 
         menuWebsite.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBSITE));
         menuHowTo.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBPAGE_HELP));
@@ -154,11 +154,11 @@ public class MainController {
         menuItem.setOnAction(handler);
     }
 
-    private void buildToggleGroup(final Toggle normativeEurocode, final Toggle normativeNCSE02) {
+    private void buildToggleGroup(final Toggle normativeEurocode, final Toggle normativeNcse02) {
         ToggleGroup normativeGroup = new ToggleGroup();
 
         normativeEurocode.setToggleGroup(normativeGroup);
-        normativeNCSE02.setToggleGroup(normativeGroup);
+        normativeNcse02.setToggleGroup(normativeGroup);
     }
 
     private void prepareStatusInformation() {

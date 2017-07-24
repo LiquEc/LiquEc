@@ -10,10 +10,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
+
+import javax.inject.Inject;
 
 import static io.github.liquec.gui.main.ExecutableLogTool.*;
 

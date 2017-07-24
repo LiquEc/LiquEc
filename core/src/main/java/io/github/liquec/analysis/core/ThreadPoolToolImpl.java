@@ -4,9 +4,10 @@
 
 package io.github.liquec.analysis.core;
 
-import javax.inject.Singleton;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.inject.Singleton;
 
 @Singleton
 public class ThreadPoolToolImpl implements ThreadPoolTool {

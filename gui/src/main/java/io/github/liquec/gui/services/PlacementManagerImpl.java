@@ -8,9 +8,10 @@ import io.github.liquec.gui.common.Placement;
 import io.github.liquec.gui.settings.SettingsManager;
 import io.github.liquec.gui.settings.WindowSettings;
 
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Optional;
+
 
 @Singleton
 public class PlacementManagerImpl implements PlacementManager {

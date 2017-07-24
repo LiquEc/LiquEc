@@ -8,10 +8,11 @@ import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Singleton
 public class GuiTaskHandlerImpl implements GuiTaskHandler {

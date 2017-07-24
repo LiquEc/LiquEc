@@ -49,9 +49,6 @@
     </rule>
 
     <exclude-pattern>.*/LiquEc.java</exclude-pattern>
-    <exclude-pattern>.*/TestGuiApplication.java</exclude-pattern>
     <exclude-pattern>.*/*PackagedLiquEc.java</exclude-pattern>
-
-    <exclude-pattern>.*/*AbstractBeanTest.java</exclude-pattern>
 
 </ruleset>

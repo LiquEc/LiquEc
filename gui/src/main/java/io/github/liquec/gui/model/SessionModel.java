@@ -72,7 +72,7 @@ public final class SessionModel {
 
     private void initializeLayerChartData(final List<SoilLayer> soilLayers) {
         for (SoilLayer soilLayer : soilLayers) {
-            final XYChart.Series<Number, Number> series = new XYChart.Series();
+            final XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
             series.setName(soilLayer.getSoilType());
             final ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
             data.add(LiquEcData.getChartInverseDataLowerX(soilLayer.getFinalDepth() - soilLayer.getStartDepth()));
@@ -101,7 +101,7 @@ public final class SessionModel {
 
     private void initializeSptChartData(final List<StandardPenetrationTest> standardPenetrationTestList) {
         // spt points
-        final XYChart.Series<Number, Number> series = new XYChart.Series();
+        final XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
         series.setName("SPT series");
         for (StandardPenetrationTest standardPenetrationTest : standardPenetrationTestList) {
             series.getData().add(LiquEcData.getChartInverseDataSpt(standardPenetrationTest.getSptBlowCounts(), standardPenetrationTest.getDepth()));

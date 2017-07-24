@@ -50,7 +50,7 @@
                                     <Menu fx:id="menuCalculation" mnemonicParsing="false" text="Calculate">
                                         <items>
                                             <RadioMenuItem fx:id="menuNormativeEurocode" mnemonicParsing="false" text="Select Eurocode" />
-                                            <RadioMenuItem fx:id="menuNormativeNCSE02" mnemonicParsing="false" text="Select NCSE-02" />
+                                            <RadioMenuItem fx:id="menuNormativeNcse02" mnemonicParsing="false" text="Select NCSE-02" />
                                             <SeparatorMenuItem mnemonicParsing="false" />
                                             <MenuItem fx:id="menuCalculate" accelerator="Shortcut+E" mnemonicParsing="false" text="Calculate..." />
                                             <SeparatorMenuItem mnemonicParsing="false" />
@@ -107,7 +107,7 @@
                                             <Tooltip text="Calculate with Eurocode" />
                                         </tooltip>
                                     </RadioButton>
-                                    <RadioButton fx:id="buttonNormativeNCSE02" mnemonicParsing="false" text="NCSE-02">
+                                    <RadioButton fx:id="buttonNormativeNcse02" mnemonicParsing="false" text="NCSE-02">
                                         <tooltip>
                                             <Tooltip text="Calculate with NCSE-02" />
                                         </tooltip>

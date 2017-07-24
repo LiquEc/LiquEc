@@ -26,6 +26,15 @@ public enum LiquefactionEnum {
         return description;
     }
 
+    public static String getDescription(final boolean liquefaction) {
+        for (LiquefactionEnum liquefactionEnum: LiquefactionEnum.values()) {
+            if (liquefactionEnum.isLiquefaction() == liquefaction) {
+                return liquefactionEnum.getDescription();
+            }
+        }
+        return null;
+    }
+
     public static Boolean getLiquefaction(final String description) {
         if (StringUtils.isEmpty(description)) {
             return null;
@@ -33,15 +42,6 @@ public enum LiquefactionEnum {
         for (LiquefactionEnum liquefactionEnum: LiquefactionEnum.values()) {
             if (liquefactionEnum.getDescription().equals(description)) {
                 return liquefactionEnum.isLiquefaction();
-            }
-        }
-        return null;
-    }
-
-    public static String getDescription(final boolean liquefaction) {
-        for (LiquefactionEnum liquefactionEnum: LiquefactionEnum.values()) {
-            if (liquefactionEnum.isLiquefaction() == liquefaction) {
-                return liquefactionEnum.getDescription();
             }
         }
         return null;

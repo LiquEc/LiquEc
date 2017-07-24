@@ -4,10 +4,10 @@
 
 package io.github.liquec.gui.main;
 
+import io.github.liquec.gui.common.Placement;
 import io.github.liquec.gui.controller.ExitRequestHandler;
 import io.github.liquec.gui.controller.GuiFileHandler;
 import io.github.liquec.gui.controller.MainController;
-import io.github.liquec.gui.common.Placement;
 import io.github.liquec.gui.controller.TitleHandler;
 import io.github.liquec.gui.model.MainModel;
 import io.github.liquec.gui.services.PlacementManager;
