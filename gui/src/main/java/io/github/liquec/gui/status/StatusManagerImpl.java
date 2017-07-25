@@ -35,9 +35,9 @@ public class StatusManagerImpl implements StatusManager {
 
     private static final String NAME_ABOUT = "About LiquEc";
 
-    private String name;
+    private static final String NAME_CALCULATION_RESULT = "Liquefaction Calculation Result";
 
-    private final SimpleBooleanProperty sessionAvailable = new SimpleBooleanProperty();
+    private String name;
 
     private final SimpleBooleanProperty busy = new SimpleBooleanProperty();
 
@@ -50,7 +50,6 @@ public class StatusManagerImpl implements StatusManager {
         model.textProperty().bind(when(busy).then(actionDescription).otherwise(DEFAULT_DESCRIPTION));
         model.busyProperty().bind(busy);
         model.activityProperty().bind(when(busy).then(-1).otherwise(0));
-        model.graphShownProperty().bind(and(sessionAvailable, not(busy)));
     }
 
     @Override
@@ -61,6 +60,11 @@ public class StatusManagerImpl implements StatusManager {
     @Override
     public boolean beginAbout() {
         return begin(NAME_ABOUT);
+    }
+
+    @Override
+    public boolean beginCalculation() {
+        return begin(NAME_CALCULATION_RESULT);
     }
 
     private boolean begin(final String name) {

@@ -11,6 +11,8 @@ public interface StatusManager {
 
     boolean beginAbout();
 
+    boolean beginCalculation();
+
     boolean beginNewSession();
 
     boolean beginOpenSession();

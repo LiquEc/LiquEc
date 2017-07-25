@@ -369,8 +369,17 @@ public final class SessionModel {
         LOG.debug("Deleting session model data...");
         this.setProjectName(null);
         this.setOrganization(null);
+        this.setPeakGroundAceleration(null);
+        this.setEarthquakeMagnitude(null);
+        this.setGroundWaterTableDepth(null);
+        this.layerData.clear();
+        this.layerChartData.clear();
+        this.sptData.clear();
+        this.getSptChartMainDataSeries().getData().clear();
         this.setChangesSaved(false);
         this.checkAbleToCalculate();
+        this.checkAbleToRemoveLastLayer();
+        this.checkAbleToRemoveLastSpt();
     }
 
     public void checkAbleToCalculate() {

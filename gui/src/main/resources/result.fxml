@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Open Source Software published under the Apache Licence, Version 2.0.
+  -->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane styleClass="result" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.ResultController">
+    <center>
+        <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="160.0" minWidth="160.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="260.0" minWidth="260.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <Label styleClass="fieldLabel" text="Message:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="valueMessage" styleClass="fieldLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            </children>
+        </GridPane>
+    </center>
+    <bottom>
+        <ButtonBar styleClass="buttonBar" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="buttonCancel" mnemonicParsing="false" text="Cancel" />
+            </buttons>
+        </ButtonBar>
+    </bottom>
+</BorderPane>

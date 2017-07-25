@@ -14,7 +14,8 @@ public enum ViewFxml {
     SESSION("session.fxml"),
     ABOUT("about.fxml"),
     LAYER("layer.fxml"),
-    SPT("spt.fxml");
+    SPT("spt.fxml"),
+    RESULT("result.fxml");
 
     private final String name;
 

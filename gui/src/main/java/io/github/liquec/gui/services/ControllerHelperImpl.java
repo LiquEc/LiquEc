@@ -14,6 +14,9 @@ public class ControllerHelperImpl implements ControllerHelper {
 
     @Override
     public void validateNumberValue(final TextField textField, final String regex, final String oldValue, final String newValue) {
+        if (StringUtils.isEmpty(newValue)) {
+            return;
+        }
         if (!newValue.matches(regex)) {
             textField.setText(oldValue);
         }

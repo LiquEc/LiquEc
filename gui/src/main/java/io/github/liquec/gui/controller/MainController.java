@@ -103,6 +103,9 @@ public class MainController {
     @Inject
     private GuiTaskHandler guiTaskHandler;
 
+    @Inject
+    private ResultHandler resultHandler;
+
     public void initialise(final Stage stage) {
         sessionStateHandler.initialise(mainBorderPane);
 
@@ -112,6 +115,7 @@ public class MainController {
         handler(buttonNew, menuNew, guiFileHandler::handleNewSession);
         handler(buttonOpen, menuOpen, guiFileHandler::handleOpenSession);
         handler(buttonSave, menuSave, guiFileHandler::handleSave);
+        handler(buttonCalculate, menuCalculate, this::processCalculation);
         handler(menuSaveAs, guiFileHandler::handleSaveAs);
         handler(menuClear, sessionStateHandler::clearSessionModel);
 
@@ -188,6 +192,17 @@ public class MainController {
                 if (exitRequestHandler.handleExitRequest(e)) {
                     statusManager.markSuccess();
                 }
+            } finally {
+                statusManager.completeAction();
+            }
+        }
+    }
+
+    private void processCalculation() {
+        if (statusManager.beginCalculation()) {
+            try {
+                resultHandler.show(this.model.getSessionModel().get());
+                statusManager.markSuccess();
             } finally {
                 statusManager.completeAction();
             }

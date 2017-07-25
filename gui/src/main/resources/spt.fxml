@@ -6,7 +6,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane styleClass="layer" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SptController">
+<BorderPane styleClass="spt" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SptController">
     <center>
         <GridPane fx:id="layerGridPane" styleClass="formLayer" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <columnConstraints>

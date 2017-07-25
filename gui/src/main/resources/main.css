@@ -125,7 +125,7 @@
   -fx-alignment: center;
 }
 /* modal layer */
-.layer {
+.layer, .spt, .result {
     -fx-padding: 20 20 20 20;
 }
 .formLayer {
