@@ -5,7 +5,7 @@
   -->
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -68,217 +68,237 @@
                 </GridPane>
             </top>
             <center>
-                <BorderPane BorderPane.alignment="CENTER">
-                    <center>
-                        <BorderPane styleClass="area" BorderPane.alignment="CENTER">
-                            <BorderPane.margin>
-                                <Insets bottom="0" left="0" right="0" top="15" />
-                            </BorderPane.margin>
-                            <top>
-                                <GridPane fx:id="geotechnicalPropertiesGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="270.0" minWidth="270.0" />
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="ALWAYS" />
-                                    </rowConstraints>
-                                    <children>
-                                        <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                            <tooltip>
-                                                <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
-                                            </tooltip>
-                                        </TextField>
-                                    </children>
-                                </GridPane>
-                            </top>
-                            <center>
-                                <TableView fx:id="tableLayer" styleClass="table" BorderPane.alignment="CENTER">
-                                    <placeholder>
-                                        <Label styleClass="placeholderLabel" text="Enter a layer...">
-                                            <font>
-                                                <Font size="12.0" />
-                                            </font>
-                                        </Label>
-                                    </placeholder>
-                                    <columns>
-                                        <TableColumn fx:id="startDepthTableColumn" editable="false" minWidth="45.0" prefWidth="45.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Start &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
-                                            </graphic>
-                                        </TableColumn>
-                                        <TableColumn fx:id="finalDepthTableColumn" editable="false" minWidth="45.0" prefWidth="45.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Final &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
-                                            </graphic>
-                                        </TableColumn>
-                                        <TableColumn fx:id="soilTypeTableColumn" editable="false" minWidth="85.0" prefWidth="85.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Soil Type Description" textAlignment="CENTER" wrapText="true" />
-                                            </graphic>
-                                        </TableColumn>
-                                        <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false">
+                <AnchorPane>
+                    <BorderPane.margin>
+                        <Insets top="15.0" />
+                    </BorderPane.margin>
+                    <children>
+                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="15.0" maxWidth="15.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" maxWidth="340.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
+                            </rowConstraints>
+                            <children>
+                                <BorderPane styleClass="area" BorderPane.alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <BorderPane.margin>
+                                        <Insets bottom="0" left="0" right="0" top="15" />
+                                    </BorderPane.margin>
+                                    <top>
+                                        <GridPane fx:id="geotechnicalPropertiesGridPane" styleClass="paddingBottom">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" maxWidth="270.0" minWidth="270.0" />
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                                    <tooltip>
+                                                        <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
+                                                    </tooltip>
+                                                </TextField>
+                                            </children>
+                                        </GridPane>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="tableLayer" styleClass="table" BorderPane.alignment="CENTER">
+                                            <placeholder>
+                                                <Label styleClass="placeholderLabel" text="Enter a layer...">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </placeholder>
                                             <columns>
-                                                <TableColumn fx:id="soilUnitWeightAboveGwtTableColumn" editable="false" minWidth="75.0" prefWidth="75.0" sortable="false">
+                                                <TableColumn fx:id="startDepthTableColumn" editable="false" minWidth="45.0" prefWidth="45.0" sortable="false">
                                                     <graphic>
-                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Above GWT" textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Start &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
                                                 </TableColumn>
-                                                <TableColumn fx:id="soilUnitWeightBelowGwtTableColumn" editable="false" minWidth="75.0" prefWidth="75.0" sortable="false">
+                                                <TableColumn fx:id="finalDepthTableColumn" editable="false" minWidth="45.0" prefWidth="45.0" sortable="false">
                                                     <graphic>
-                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Below GWT" textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Final &#10;Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                    </graphic>
+                                                </TableColumn>
+                                                <TableColumn fx:id="soilTypeTableColumn" editable="false" minWidth="85.0" prefWidth="85.0" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Soil Type Description" textAlignment="CENTER" wrapText="true" />
+                                                    </graphic>
+                                                </TableColumn>
+                                                <TableColumn fx:id="soilUnitWeightTableColumn" editable="false" sortable="false">
+                                                    <columns>
+                                                        <TableColumn fx:id="soilUnitWeightAboveGwtTableColumn" editable="false" minWidth="75.0" prefWidth="75.0" sortable="false">
+                                                            <graphic>
+                                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Above GWT" textAlignment="CENTER" wrapText="true" />
+                                                            </graphic>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="soilUnitWeightBelowGwtTableColumn" editable="false" minWidth="75.0" prefWidth="75.0" sortable="false">
+                                                            <graphic>
+                                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Below GWT" textAlignment="CENTER" wrapText="true" />
+                                                            </graphic>
+                                                        </TableColumn>
+                                                    </columns>
+                                                    <graphic>
+                                                        <Label fx:id="soilUnitWeightLabel" alignment="CENTER" text="" textAlignment="CENTER" wrapText="true">
+                                                            <graphic>
+                                                                <TextFlow>
+                                                                    <Text styleClass="cellText">Soil Unit Weight (KN/m</Text>
+                                                                    <Text styleClass="cellTextUpper">3</Text>
+                                                                    <Text styleClass="cellText">)</Text>
+                                                                </TextFlow>
+                                                            </graphic>
+                                                        </Label>
+                                                    </graphic>
+                                                </TableColumn>
+                                                <TableColumn fx:id="finesContentTableColumn" editable="false" minWidth="50.0" prefWidth="50.0" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Fines &#10;Content (%)" textAlignment="CENTER" wrapText="true" />
+                                                    </graphic>
+                                                </TableColumn>
+                                                <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="50.0" prefWidth="70.0" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Liquef." textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
                                                 </TableColumn>
                                             </columns>
-                                            <graphic>
-                                                <Label fx:id="soilUnitWeightLabel" alignment="CENTER" text="" textAlignment="CENTER" wrapText="true">
-                                                    <graphic>
-                                                        <TextFlow>
-                                                            <Text styleClass="cellText">Soil Unit Weight (KN/m</Text>
-                                                            <Text styleClass="cellTextUpper">3</Text>
-                                                            <Text styleClass="cellText">)</Text>
-                                                        </TextFlow>
-                                                    </graphic>
-                                                </Label>
-                                            </graphic>
-                                        </TableColumn>
-                                        <TableColumn fx:id="finesContentTableColumn" editable="false" minWidth="50.0" prefWidth="50.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Fines &#10;Content (%)" textAlignment="CENTER" wrapText="true" />
-                                            </graphic>
-                                        </TableColumn>
-                                        <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="50.0" prefWidth="70.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Liquef." textAlignment="CENTER" wrapText="true" />
-                                            </graphic>
-                                        </TableColumn>
-                                    </columns>
-                                    <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                </TableView>
-                            </center>
-                            <bottom>
-                                <GridPane fx:id="layersButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="ALWAYS" />
-                                    </rowConstraints>
-                                    <children>
-                                        <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </center>
+                                    <bottom>
+                                        <GridPane fx:id="layersButtonsGridPane" styleClass="paddingTop">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                            </rowConstraints>
                                             <children>
-                                                <Button fx:id="addNewLayerButton" mnemonicParsing="false" styleClass="buttonAdd" text="Add">
-                                                    <tooltip>
-                                                        <Tooltip text="Add a new layer" />
-                                                    </tooltip>
-                                                    <graphic>
-                                                        <MaterialIconView styleClass="buttonAddIcon" />
-                                                    </graphic>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                </Button>
-                                                <Button fx:id="removeLastLayerButton" mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
-                                                    <tooltip>
-                                                        <Tooltip text="Remove the last layer" />
-                                                    </tooltip>
-                                                    <graphic>
-                                                        <MaterialIconView styleClass="buttonRemoveIcon" />
-                                                    </graphic>
-                                                </Button>
+                                                <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <Button fx:id="addNewLayerButton" mnemonicParsing="false" styleClass="buttonAdd" text="Add">
+                                                            <tooltip>
+                                                                <Tooltip text="Add a new layer" />
+                                                            </tooltip>
+                                                            <graphic>
+                                                                <MaterialIconView styleClass="buttonAddIcon" />
+                                                            </graphic>
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                        </Button>
+                                                        <Button fx:id="removeLastLayerButton" mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
+                                                            <tooltip>
+                                                                <Tooltip text="Remove the last layer" />
+                                                            </tooltip>
+                                                            <graphic>
+                                                                <MaterialIconView styleClass="buttonRemoveIcon" />
+                                                            </graphic>
+                                                        </Button>
+                                                    </children>
+                                                </HBox>
                                             </children>
-                                        </HBox>
-                                    </children>
-                                </GridPane>
-                            </bottom>
-                        </BorderPane>
-                    </center>
-                    <right>
-                        <BorderPane minWidth="240.0" prefWidth="240.0" styleClass="area" BorderPane.alignment="CENTER">
-                            <BorderPane.margin>
-                                <Insets bottom="0" left="15" right="15" top="15" />
-                            </BorderPane.margin>
-                            <top>
-                                <GridPane fx:id="standardPenetrationTestGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="ALWAYS" />
-                                    </rowConstraints>
-                                    <children>
-                                        <Label styleClass="fieldLabel" text="Standard Penetration Test (SPT):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                    </children>
-                                </GridPane>
-                            </top>
-                            <center>
-                                <TableView fx:id="sptLayer" minWidth="115.0" prefWidth="115" styleClass="table" BorderPane.alignment="CENTER">
-                                    <placeholder>
-                                        <Label styleClass="placeholderLabel" text="Enter a SPT...">
-                                            <font>
-                                                <Font size="12.0" />
-                                            </font>
-                                        </Label>
-                                    </placeholder>
-                                    <columns>
-                                        <TableColumn fx:id="sptDepthTableColumn" editable="false" minWidth="50.0" prefWidth="50.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true" />
-                                            </graphic>
-                                        </TableColumn>
-                                        <TableColumn fx:id="sptBlowCountsTableColumn" editable="false" minWidth="65.0" prefWidth="65.0" sortable="false">
-                                            <graphic>
-                                                <Label alignment="CENTER" styleClass="columnHeaderText" text="SPT Blow &#10;Counts (N)" textAlignment="CENTER" wrapText="true">
-                                                    <padding>
-                                                        <Insets bottom="5.0" top="5.0" />
-                                                    </padding>
-                                                </Label>
-                                            </graphic>
-                                        </TableColumn>
-                                    </columns>
-                                    <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                </TableView>
-                            </center>
-                            <bottom>
-                                <GridPane fx:id="standardPenetrationTestButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="ALWAYS" />
-                                    </rowConstraints>
-                                    <children>
-                                        <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
+                                        </GridPane>
+                                    </bottom>
+                                </BorderPane>
+                                <Pane GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <BorderPane styleClass="area" BorderPane.alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <BorderPane.margin>
+                                        <Insets bottom="0" left="0" right="15" top="15" />
+                                    </BorderPane.margin>
+                                    <top>
+                                        <GridPane fx:id="standardPenetrationTestGridPane" styleClass="paddingBottom" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                            </rowConstraints>
                                             <children>
-                                                <Button fx:id="addNewSptButton" mnemonicParsing="false" styleClass="buttonAdd" text="Add">
-                                                    <tooltip>
-                                                        <Tooltip text="Add a new SPT" />
-                                                    </tooltip>
-                                                    <graphic>
-                                                        <MaterialIconView styleClass="buttonAddIcon" />
-                                                    </graphic>
-                                                </Button>
-                                                <Button fx:id="removeLastSptButton" mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
-                                                    <tooltip>
-                                                        <Tooltip text="Remove the last SPT" />
-                                                    </tooltip>
-                                                    <graphic>
-                                                        <MaterialIconView styleClass="buttonRemoveIcon" />
-                                                    </graphic>
-                                                </Button>
+                                                <Label styleClass="fieldLabel" text="Standard Penetration Test:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                             </children>
-                                        </HBox>
-                                    </children>
-                                </GridPane>
-                            </bottom>
-                        </BorderPane>
-                    </right>
-                </BorderPane>
+                                        </GridPane>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="sptLayer" styleClass="table" BorderPane.alignment="CENTER">
+                                            <placeholder>
+                                                <Label styleClass="placeholderLabel" text="Enter a SPT...">
+                                                    <font>
+                                                        <Font size="12.0" />
+                                                    </font>
+                                                </Label>
+                                            </placeholder>
+                                            <columns>
+                                                <TableColumn fx:id="sptDepthTableColumn" editable="false" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true" />
+                                                    </graphic>
+                                                </TableColumn>
+                                                <TableColumn fx:id="sptBlowCountsTableColumn" editable="false" sortable="false">
+                                                    <graphic>
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="SPT Blow &#10;Counts (N)" textAlignment="CENTER" wrapText="true">
+                                                            <padding>
+                                                                <Insets bottom="5.0" top="5.0" />
+                                                            </padding>
+                                                        </Label>
+                                                    </graphic>
+                                                </TableColumn>
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </center>
+                                    <bottom>
+                                        <GridPane fx:id="standardPenetrationTestButtonsGridPane" styleClass="paddingTop" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                            </rowConstraints>
+                                            <children>
+                                                <HBox alignment="TOP_RIGHT" styleClass="buttonsHBox" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <Button fx:id="addNewSptButton" mnemonicParsing="false" styleClass="buttonAdd" text="Add">
+                                                            <tooltip>
+                                                                <Tooltip text="Add a new SPT" />
+                                                            </tooltip>
+                                                            <graphic>
+                                                                <MaterialIconView styleClass="buttonAddIcon" />
+                                                            </graphic>
+                                                        </Button>
+                                                        <Button fx:id="removeLastSptButton" mnemonicParsing="false" styleClass="buttonRemove" text="Remove">
+                                                            <tooltip>
+                                                                <Tooltip text="Remove the last SPT" />
+                                                            </tooltip>
+                                                            <graphic>
+                                                                <MaterialIconView styleClass="buttonRemoveIcon" />
+                                                            </graphic>
+                                                        </Button>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </GridPane>
+                                    </bottom>
+                                    <HBox.margin>
+                                        <Insets left="15.0" />
+                                    </HBox.margin>
+                                </BorderPane>
+                            </children>
+                            <padding>
+                                <Insets right="15.0" />
+                            </padding>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
             </center>
         </BorderPane>
     </center>
@@ -289,7 +309,7 @@
                     <children>
                         <StackedAreaChart fx:id="layerStackedAreaChart" title="Depth (m)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis fx:id="xAxisStackedAreaChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" />
+                                <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" fx:id="xAxisStackedAreaChart" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxisStackedAreaChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
@@ -301,7 +321,7 @@
                     <children>
                         <LineChart fx:id="sptLineChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis fx:id="xAxisLineChart" autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" />
+                                <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" fx:id="xAxisLineChart" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxisLineChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
