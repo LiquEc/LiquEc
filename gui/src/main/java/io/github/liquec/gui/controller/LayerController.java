@@ -4,7 +4,6 @@
 
 package io.github.liquec.gui.controller;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.gui.chart.LiquEcData;
 import io.github.liquec.gui.common.LiquefactionEnum;
 import io.github.liquec.gui.model.LayerModel;
@@ -14,6 +13,7 @@ import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -24,7 +24,6 @@ import javax.inject.Inject;
 
 import static javafx.beans.binding.Bindings.not;
 
-@SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class LayerController {
     private static final Logger LOG = LoggerFactory.getLogger(LayerController.class);
 

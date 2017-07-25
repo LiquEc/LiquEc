@@ -4,7 +4,6 @@
 
 package io.github.liquec.gui.controller;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.gui.common.BuildInfo;
 import io.github.liquec.gui.common.GuiConstants;
 import io.github.liquec.gui.services.WebPageTool;
@@ -15,7 +14,6 @@ import javafx.stage.Stage;
 
 import javax.inject.Inject;
 
-@SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class AboutController {
     private final WebPageTool webPageTool;
 

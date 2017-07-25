@@ -7,5 +7,4 @@ rootProject.name = 'liquec'
 include 'core'
 include 'gui'
 include 'package'
-include 'osx'
 

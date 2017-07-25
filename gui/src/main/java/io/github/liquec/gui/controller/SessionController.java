@@ -4,7 +4,6 @@
 
 package io.github.liquec.gui.controller;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptRow;
@@ -25,7 +24,6 @@ import javax.inject.Inject;
 
 import static javafx.beans.binding.Bindings.not;
 
-@SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 

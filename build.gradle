@@ -8,7 +8,7 @@ allprojects {
 
 task wrapper(type: Wrapper) {
     description 'Setup the Gradle wrapper'
-    gradleVersion = '3.5'
+    gradleVersion = '4.0.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
@@ -21,80 +21,40 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
-        classpath 'net.researchgate:gradle-release:2.5.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath 'net.researchgate:gradle-release:2.6.0'
     }
 }
 
+apply plugin: 'idea'
 apply plugin: 'base'
 apply plugin: 'net.researchgate.release'
 
 subprojects {
 
     apply plugin: 'java'
-    apply plugin: 'pmd'
     apply plugin: 'checkstyle'
-//    apply plugin: 'findbugs'
-//    apply plugin: 'jacoco'
     apply plugin: 'com.github.ben-manes.versions'
 
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     repositories {
         jcenter()
     }
 
     dependencies {
-//        testCompile 'junit:junit:4.12'
-//        testCompile 'org.mockito:mockito-core:2.7.20'
         runtime 'ch.qos.logback:logback-classic:1.2.3'
     }
 
-    pmd {
-        toolVersion = '5.5.4'
-        ruleSetFiles = files("$rootProject.projectDir/config/pmd/ruleset.xml")
-    }
-
     checkstyle {
-        toolVersion = '7.6'
+        toolVersion = '8.0'
         configFile = file("$rootProject.projectDir/config/checkstyle/checkstyle.xml")
     }
-
-//    [checkstyleMain, checkstyleTest].each { task ->
-//        task.logging.setLevel(LogLevel.LIFECYCLE)
-//    }
 
     [checkstyleMain].each { task ->
         task.logging.setLevel(LogLevel.LIFECYCLE)
     }
-
-//    findbugs {
-//        toolVersion = '3.0.1'
-//        effort = 'max'
-//        reportLevel = 'medium'
-//    }
-
-//    tasks.withType(FindBugs) {
-//        reports {
-//            xml.enabled = false
-//            html.enabled = true
-//        }
-//    }
-
-//    jacoco {
-//        toolVersion = '0.7.9'
-//    }
-
-//    jacocoTestReport {
-//        reports {
-//            xml.enabled true
-//            xml.destination "${buildDir}/reports/jacoco/report.xml"
-//        }
-//    }
-
-//    [compileJava, compileTestJava].each { task ->
-//        task.options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
-//    }
 
     [compileJava].each { task ->
         task.options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"

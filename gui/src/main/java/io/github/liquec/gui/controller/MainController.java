@@ -4,7 +4,6 @@
 
 package io.github.liquec.gui.controller;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.liquec.analysis.core.GuiTaskHandler;
 import io.github.liquec.gui.common.GuiConstants;
 import io.github.liquec.gui.model.MainModel;
@@ -27,7 +26,6 @@ import javax.inject.Singleton;
 import static javafx.beans.binding.Bindings.not;
 
 @Singleton
-@SuppressFBWarnings({"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})
 public class MainController {
     public MenuItem menuNew;
 

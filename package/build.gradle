@@ -20,12 +20,7 @@ ext {
     publishedVersion = project.version
     bundleMainClass = 'io.github.liquec.gui.distribution.PackagedLiquEc'
     operatingSystem = OperatingSystem.current()
-    if (operatingSystem.isMacOsX()) {
-        packageType = 'dmg'
-        bundleMainClass = 'io.github.liquec.osx.distribution.OsxPackagedLiquEc'
-        appIcon = file('icons/mac/LiquEc.icns')
-        sessionIcon = file('icons/mac/LiquEcSession.icns')
-    } else if (operatingSystem.isLinux()) {
+    if (operatingSystem.isLinux()) {
         packageType = 'deb'
         appIcon = file('icons/App1024.png')
         sessionIcon = file('icons/Doc1024.png')
@@ -41,30 +36,6 @@ ext {
 
 dependencies {
     compile project(':gui')
-    if (OperatingSystem.current().isMacOsX()) {
-        compile project(':osx')
-    }
-}
-
-if (operatingSystem.isMacOsX()) {
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-                srcDir 'src/osx/java'
-            }
-        }
-    }
-}
-
-task recreateIconMacApp(type: Exec) {
-    description 'Regenerate the Mac application icon'
-    commandLine 'sh', file('bin/mac-icon.sh'), file('icons/App1024.png'), file('icons/mac'), 'LiquEc'
-}
-
-task recreateIconMacSession(type: Exec) {
-    description 'Regenerate the Mac session file icon'
-    commandLine 'sh', file('bin/mac-icon.sh'), file('icons/Doc1024.png'), file('icons/mac'), 'LiquEcSession'
 }
 
 task recreateIconWindowsApp(type: Exec) {
@@ -77,7 +48,7 @@ task recreateIconWindowsSession(type: Exec) {
     commandLine 'sh', file('bin/windows-icon.sh'), file('icons/Doc1024.png'), file('icons/windows'), 'LiquEcSession'
 }
 
-task recreateIcons(dependsOn: [recreateIconMacApp, recreateIconMacSession, recreateIconWindowsApp, recreateIconWindowsSession]) {
+task recreateIcons(dependsOn: [recreateIconWindowsApp, recreateIconWindowsSession]) {
     description 'Regenerate all the application bundle icons'
 }
 
@@ -119,3 +90,5 @@ task checkBundle {
         }
     }
 }
+
+jfxNative.finalizedBy checkBundle

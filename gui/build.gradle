@@ -43,17 +43,5 @@ dependencies {
     compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-5'
     compile 'de.jensd:fontawesomefx-materialicons:2.2.0-5'
     compile 'org.apache.commons:commons-lang3:3.6'
-//    testCompile project(path: ':core', configuration: 'tests')
-//    testCompile 'org.testfx:testfx-core:4.0.6-alpha'
-//    testRuntime 'org.jfxtras:openjfx-monocle:1.8.0_20'
     runtime 'org.codehaus.janino:janino:3.0.7'
-}
-
-test {
-//    if (project.hasProperty("skipGuiTests")) {
-//        exclude 'io/github/liquec/gui/main/GuiTest*'
-//    }
-    if (!project.hasProperty("noHeadless")) {
-        jvmArgs "-Dheadless=true"
-    }
 }
