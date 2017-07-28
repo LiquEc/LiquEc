@@ -7,14 +7,16 @@ package io.github.liquec.analysis.model;
 public class StandardPenetrationTest {
     private Float depth;
     private Integer sptBlowCounts;
+    private Float energyRatio;
 
     public StandardPenetrationTest() {
         // No argument constructor to allow use as standard Java Bean
     }
 
-    public StandardPenetrationTest(final Float depth, final Integer sptBlowCounts) {
+    public StandardPenetrationTest(final Float depth, final Integer sptBlowCounts, Float energyRatio) {
         this.depth = depth;
         this.sptBlowCounts = sptBlowCounts;
+        this.energyRatio = energyRatio;
     }
 
     public Float getDepth() {
@@ -31,5 +33,13 @@ public class StandardPenetrationTest {
 
     public void setSptBlowCounts(final Integer sptBlowCounts) {
         this.sptBlowCounts = sptBlowCounts;
+    }
+
+    public Float getEnergyRatio() {
+        return energyRatio;
+    }
+
+    public void setEnergyRatio(Float energyRatio) {
+        this.energyRatio = energyRatio;
     }
 }

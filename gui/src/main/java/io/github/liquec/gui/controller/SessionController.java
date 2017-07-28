@@ -4,6 +4,9 @@
 
 package io.github.liquec.gui.controller;
 
+import com.emxsys.chart.EnhancedLineChart;
+import com.emxsys.chart.EnhancedStackedAreaChart;
+import com.emxsys.chart.extension.ValueMarker;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptRow;
@@ -12,11 +15,13 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +69,7 @@ public class SessionController {
 
     public TableColumn<LayerRow, String> liquefactionTableColumn;
 
-    public StackedAreaChart<Number, Number> layerStackedAreaChart;
+    public EnhancedStackedAreaChart<Number, Number> layerStackedAreaChart;
 
     public NumberAxis xAxisStackedAreaChart;
 
@@ -76,11 +81,15 @@ public class SessionController {
 
     public TableColumn<SptRow, String> sptBlowCountsTableColumn;
 
-    public LineChart<Number, Number> sptLineChart;
+    public EnhancedLineChart<Number, Number> sptLineChart;
 
     public NumberAxis xAxisLineChart;
 
     public NumberAxis yAxisLineChart;
+
+    public AnchorPane graphicLayerPane;
+
+    public AnchorPane graphicStpPane;
 
     private SessionModel sessionModel;
 
@@ -140,7 +149,7 @@ public class SessionController {
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->
             this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"((1|2)?\\d{0,1}([\\.]\\d{0,2})?)|30|30\\.|30\\.0|30\\.00", b, c));
         this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) ->
-            this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true));
+            this.manageGroundWaterTableDepth(this.textFieldGroundWaterTableDepth, b, c, "00", true));
 
         // Layer Table
         this.startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
@@ -153,6 +162,13 @@ public class SessionController {
         this.tableLayer.setItems(this.sessionModel.getLayerData());
 
         // Area Chart
+        this.xAxisStackedAreaChart.setMinorTickVisible(false);
+        this.xAxisStackedAreaChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.xAxisStackedAreaChart) {
+            @Override
+            public String toString(final Number value) {
+                return "";
+            }
+        });
         this.yAxisStackedAreaChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisStackedAreaChart) {
             @Override
             public String toString(final Number value) {
@@ -181,9 +197,37 @@ public class SessionController {
         this.sptLineChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.sptLineChart.setData(this.sessionModel.getSptChartData());
         this.sessionModel.getSptChartMainDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageChartsAutoRanging());
+        this.manageSptLineChartTooltip();
 
-        //  initialize auto ranging
+        // Initialize Auto Ranging
         this.manageChartsAutoRanging();
+
+        // Initialize Water Makers
+        this.manageWaterDepthMarker();
+    }
+
+    private String searchSptEnergyRatio(Number yValue, Number xValue) {
+        for (SptRow sptRow : this.sessionModel.getSptData()) {
+            if (Float.valueOf(sptRow.getSptDepth()).equals(-yValue.floatValue()) && Float.valueOf(sptRow.getSptBlowCounts()).equals(xValue.floatValue())) {
+                return sptRow.getSptEnergyRatio();
+            }
+        }
+        return "";
+    }
+
+    private void manageGroundWaterTableDepth(TextField textField, Boolean b, Boolean c, String zeros, boolean remove) {
+        this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true);
+        this.manageWaterDepthMarker();
+    }
+
+
+    private void manageWaterDepthMarker() {
+        this.layerStackedAreaChart.getMarkers().clearRangeMarkers();
+        this.sptLineChart.getMarkers().clearRangeMarkers();
+        if (!StringUtils.isEmpty(this.sessionModel.getGroundWaterTableDepth())) {
+            this.layerStackedAreaChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+            this.sptLineChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+        }
     }
 
     private void manageSessionModelState(final String name, final String oldValue, final String newValue) {
@@ -229,8 +273,6 @@ public class SessionController {
 
     private void manageChartsAutoRanging() {
         // stacked area chart
-        this.xAxisStackedAreaChart.setUpperBound(this.upperBoundAxisX());
-        this.xAxisStackedAreaChart.setTickUnit(this.tickUnitAxisX());
         this.yAxisStackedAreaChart.setLowerBound(this.lowerBoundAxisY());
         this.yAxisStackedAreaChart.setTickUnit(this.tickUnitAxisY());
         // line chart
@@ -238,6 +280,7 @@ public class SessionController {
         this.xAxisLineChart.setTickUnit(this.tickUnitAxisX());
         this.yAxisLineChart.setLowerBound(this.lowerBoundAxisY());
         this.yAxisLineChart.setTickUnit(this.tickUnitAxisY());
+        this.manageSptLineChartTooltip();
     }
 
     private Double upperBoundAxisX() {
@@ -259,11 +302,21 @@ public class SessionController {
         return max;
     }
 
+    private Double searchMaxSptDepth() {
+        Double max = 0.0;
+        for (SptRow sptRow : this.sessionModel.getSptData()) {
+            if (Double.valueOf(sptRow.getSptDepth()) > max) {
+                max = Double.valueOf(sptRow.getSptDepth());
+            }
+        }
+        return max;
+    }
+
     private Double lowerBoundAxisY() {
         final Double layerLowerBound = this.getPairValueAxisY((this.sessionModel.getLayerData().size() > 0)
             ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : MAX_DEPTH);
         final Double sptLowerBound = this.getPairValueAxisY((this.sessionModel.getSptData().size() > 0)
-            ? -Math.ceil(Double.valueOf(this.sessionModel.getSptData().get(this.sessionModel.getSptData().size() - 1).getSptDepth()) + 1) : MAX_DEPTH);
+            ? -Math.ceil(this.searchMaxSptDepth() + 1) : MAX_DEPTH);
         if (this.sessionModel.getLayerData().size() == 0) {
             return sptLowerBound;
         }
@@ -301,6 +354,19 @@ public class SessionController {
             return 2.0;
         }
         return 5.0;
+    }
+
+    private void manageSptLineChartTooltip() {
+        for (XYChart.Data<Number, Number> d : sptLineChart.getData().get(0).getData()) {
+            Tooltip.install(d.getNode(), null); // remove
+            Tooltip.install(d.getNode(), new Tooltip(
+                "Blow Counts: " + d.getXValue() + "N\n" +
+                    "Energy Ratio: " + this.searchSptEnergyRatio(d.getYValue(), d.getXValue()) + "%"));
+            // Adding class on hover
+            d.getNode().setOnMouseEntered(event -> d.getNode().getStyleClass().add("onHover"));
+            // Removing class on exit
+            d.getNode().setOnMouseExited(event -> d.getNode().getStyleClass().remove("onHover"));
+        }
     }
 
 }

@@ -10,6 +10,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import com.emxsys.chart.EnhancedLineChart?>
+<?import com.emxsys.chart.EnhancedStackedAreaChart?>
 <BorderPane prefWidth="1140.0" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
     <center>
         <BorderPane>
@@ -163,7 +165,7 @@
                                                 </TableColumn>
                                                 <TableColumn fx:id="liquefactionTableColumn" editable="false" minWidth="50.0" prefWidth="70.0" sortable="false">
                                                     <graphic>
-                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Liquef." textAlignment="CENTER" wrapText="true" />
+                                                        <Label alignment="CENTER" styleClass="columnHeaderText" text="Check Liquef." textAlignment="CENTER" wrapText="true" />
                                                     </graphic>
                                                 </TableColumn>
                                             </columns>
@@ -307,26 +309,26 @@
             <children>
                 <AnchorPane fx:id="graphicLayerPane" maxWidth="200.0" minWidth="200.0">
                     <children>
-                        <StackedAreaChart fx:id="layerStackedAreaChart" title="Depth (m)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <EnhancedStackedAreaChart fx:id="layerStackedAreaChart" title="Soil Profile" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" fx:id="xAxisStackedAreaChart" />
+                                <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="10" fx:id="xAxisStackedAreaChart" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxisStackedAreaChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
                             </yAxis>
-                        </StackedAreaChart>
+                        </EnhancedStackedAreaChart>
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="graphicStpPane" maxWidth="200.0" minWidth="200.0">
                     <children>
-                        <LineChart fx:id="sptLineChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <EnhancedLineChart fx:id="sptLineChart" title="SPT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <xAxis>
                                 <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="10" upperBound="50" fx:id="xAxisLineChart" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxisLineChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="10" upperBound="0" />
                             </yAxis>
-                        </LineChart>
+                        </EnhancedLineChart>
                     </children>
                 </AnchorPane>
             </children>

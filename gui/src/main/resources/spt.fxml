@@ -19,20 +19,24 @@
                 <RowConstraints vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label styleClass="fieldLabel" text="Last SPT Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Label fx:id="valueLastSptDepth" styleClass="fieldLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-                <Label styleClass="fieldLabel" text="SPT Increase Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField fx:id="textFieldSptIncreaseDepth" alignment="CENTER_RIGHT" promptText="Enter the increase..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label styleClass="fieldLabel" text="Depth (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="textFieldSptDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <tooltip>
                         <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
                     </tooltip>
                 </TextField>
 
-                <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT Blow Counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label styleClass="fieldLabel" text="SPT Blow Counts (N):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="textFieldSptBlowCounts" alignment="CENTER_RIGHT" promptText="Enter the SPT blow counts..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
                         <Tooltip text="Range of supported values: { 0(N) - 50(N) }" />
+                    </tooltip>
+                </TextField>
+
+                <Label styleClass="fieldLabel" text="Energy Ratio (%):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="textFieldSptEnergyRatio" alignment="CENTER_RIGHT" promptText="Enter the energy ratio..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <tooltip>
+                        <Tooltip text="Range of supported values: { 0.0(%) - 100.0(%) }" />
                     </tooltip>
                 </TextField>
             </children>

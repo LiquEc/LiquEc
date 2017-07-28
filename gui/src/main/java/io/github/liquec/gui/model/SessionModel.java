@@ -112,7 +112,8 @@ public final class SessionModel {
     private SptRow buildSptRow(final StandardPenetrationTest standardPenetrationTest) {
         return new SptRow(
             String.valueOf(standardPenetrationTest.getDepth()),
-            String.valueOf(standardPenetrationTest.getSptBlowCounts())
+            String.valueOf(standardPenetrationTest.getSptBlowCounts()),
+            String.valueOf(standardPenetrationTest.getEnergyRatio())
         );
     }
 
@@ -362,6 +363,7 @@ public final class SessionModel {
         StandardPenetrationTest standardPenetrationTest = new StandardPenetrationTest();
         standardPenetrationTest.setDepth(StringUtils.isEmpty(sptRow.getSptDepth()) ? null : Float.valueOf(sptRow.getSptDepth()));
         standardPenetrationTest.setSptBlowCounts(StringUtils.isEmpty(sptRow.getSptBlowCounts()) ? null : Integer.valueOf(sptRow.getSptBlowCounts()));
+        standardPenetrationTest.setEnergyRatio(StringUtils.isEmpty(sptRow.getSptEnergyRatio()) ? null : Float.valueOf(sptRow.getSptEnergyRatio()));
         return standardPenetrationTest;
     }
 

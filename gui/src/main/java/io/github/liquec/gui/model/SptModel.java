@@ -16,12 +16,14 @@ public final class SptModel {
 
     private final SimpleBooleanProperty ableToAdd = new SimpleBooleanProperty(false);
 
-    private final SimpleStringProperty sptIncreaseDepth;
+    private final SimpleStringProperty depth;
     private final SimpleStringProperty sptBlowCounts;
+    private final SimpleStringProperty energyRatio;
 
     public SptModel() {
-        this.sptIncreaseDepth = new SimpleStringProperty();
+        this.depth = new SimpleStringProperty();
         this.sptBlowCounts = new SimpleStringProperty();
+        this.energyRatio = new SimpleStringProperty();
         this.checkAbleToAdd();
     }
 
@@ -37,16 +39,16 @@ public final class SptModel {
         this.ableToAdd.set(ableToAdd);
     }
 
-    public String getSptIncreaseDepth() {
-        return sptIncreaseDepth.get();
+    public String getDepth() {
+        return depth.get();
     }
 
-    public SimpleStringProperty sptIncreaseDepthProperty() {
-        return sptIncreaseDepth;
+    public SimpleStringProperty depthProperty() {
+        return depth;
     }
 
-    public void setSptIncreaseDepth(final String sptIncreaseDepth) {
-        this.sptIncreaseDepth.set(sptIncreaseDepth);
+    public void setDepth(String depth) {
+        this.depth.set(depth);
     }
 
     public String getSptBlowCounts() {
@@ -61,17 +63,33 @@ public final class SptModel {
         this.sptBlowCounts.set(sptBlowCounts);
     }
 
+    public String getEnergyRatio() {
+        return energyRatio.get();
+    }
+
+    public SimpleStringProperty energyRatioProperty() {
+        return energyRatio;
+    }
+
+    public void setEnergyRatio(String energyRatio) {
+        this.energyRatio.set(energyRatio);
+    }
+
     public void checkAbleToAdd() {
         LOG.debug("Checking able to add a SPT...");
         boolean ableToAdd = true;
         try {
-            LOG.debug("sptIncreaseDepth: " + this.getSptIncreaseDepth());
-            if (StringUtils.isEmpty(this.getSptIncreaseDepth())) {
-                throw new LiquEcException("sptIncreaseDepth");
+            LOG.debug("depth: " + this.getDepth());
+            if (StringUtils.isEmpty(this.getDepth())) {
+                throw new LiquEcException("depth");
             }
             LOG.debug("sptBlowCounts: " + this.getSptBlowCounts());
             if (StringUtils.isEmpty(this.getSptBlowCounts())) {
                 throw new LiquEcException("sptBlowCounts");
+            }
+            LOG.debug("energyRatio: " + this.getEnergyRatio());
+            if (StringUtils.isEmpty(this.getEnergyRatio())) {
+                throw new LiquEcException("depth");
             }
         } catch (LiquEcException e) {
             LOG.debug("Required value: " + e.getMessage());

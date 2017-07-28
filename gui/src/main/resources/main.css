@@ -124,7 +124,7 @@
 .table-column {
   -fx-alignment: center;
 }
-/* modal layer */
+/* modal */
 .layer, .spt, .result {
     -fx-padding: 20 20 20 20;
 }
@@ -139,7 +139,20 @@
 .radioLiquefaction {
     -fx-padding: 0 20 0 0;
 }
-
-
+/* */
+.chart-marker-line {
+    -fx-stroke: blue;
+    -fx-stroke-width: 0.8;
+    -fx-stroke-dash-array: 2 5;
+}
+.chart-marker-label {
+    -fx-text-fill: blue;
+    -fx-font-size: 0.7em;
+    -fx-text-alignment: center;
+    -fx-translate-y: 2;
+}
+.onHover{
+    -fx-background-color: red;
+}
 
 

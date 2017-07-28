@@ -13,12 +13,15 @@ public final class SptRow {
 
     private final SimpleStringProperty sptDepth;
     private final SimpleStringProperty sptBlowCounts;
+    private final SimpleStringProperty sptEnergyRatio;
 
     public SptRow(
         final String sptDepth,
-        final String sptBlowCounts) {
+        final String sptBlowCounts,
+        final String sptEnergyRatio) {
         this.sptDepth = new SimpleStringProperty(sptDepth);
         this.sptBlowCounts = new SimpleStringProperty(sptBlowCounts);
+        this.sptEnergyRatio = new SimpleStringProperty(sptEnergyRatio);
     }
 
     public String getSptDepth() {
@@ -45,4 +48,15 @@ public final class SptRow {
         this.sptBlowCounts.set(sptBlowCounts);
     }
 
+    public String getSptEnergyRatio() {
+        return sptEnergyRatio.get();
+    }
+
+    public SimpleStringProperty sptEnergyRatioProperty() {
+        return sptEnergyRatio;
+    }
+
+    public void setSptEnergyRatio(String sptEnergyRatio) {
+        this.sptEnergyRatio.set(sptEnergyRatio);
+    }
 }
