@@ -13,7 +13,7 @@ public class StandardPenetrationTest {
         // No argument constructor to allow use as standard Java Bean
     }
 
-    public StandardPenetrationTest(final Float depth, final Integer sptBlowCounts, Float energyRatio) {
+    public StandardPenetrationTest(final Float depth, final Integer sptBlowCounts, final Float energyRatio) {
         this.depth = depth;
         this.sptBlowCounts = sptBlowCounts;
         this.energyRatio = energyRatio;
@@ -39,7 +39,7 @@ public class StandardPenetrationTest {
         return energyRatio;
     }
 
-    public void setEnergyRatio(Float energyRatio) {
+    public void setEnergyRatio(final Float energyRatio) {
         this.energyRatio = energyRatio;
     }
 }
