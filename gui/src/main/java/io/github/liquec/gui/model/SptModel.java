@@ -47,7 +47,7 @@ public final class SptModel {
         return depth;
     }
 
-    public void setDepth(String depth) {
+    public void setDepth(final String depth) {
         this.depth.set(depth);
     }
 
@@ -71,7 +71,7 @@ public final class SptModel {
         return energyRatio;
     }
 
-    public void setEnergyRatio(String energyRatio) {
+    public void setEnergyRatio(final String energyRatio) {
         this.energyRatio.set(energyRatio);
     }
 

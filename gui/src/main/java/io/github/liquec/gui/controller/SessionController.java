@@ -206,7 +206,7 @@ public class SessionController {
         this.manageWaterDepthMarker();
     }
 
-    private String searchSptEnergyRatio(Number yValue, Number xValue) {
+    private String searchSptEnergyRatio(final Number yValue, final Number xValue) {
         for (SptRow sptRow : this.sessionModel.getSptData()) {
             if (Float.valueOf(sptRow.getSptDepth()).equals(-yValue.floatValue()) && Float.valueOf(sptRow.getSptBlowCounts()).equals(xValue.floatValue())) {
                 return sptRow.getSptEnergyRatio();
@@ -215,7 +215,7 @@ public class SessionController {
         return "";
     }
 
-    private void manageGroundWaterTableDepth(TextField textField, Boolean b, Boolean c, String zeros, boolean remove) {
+    private void manageGroundWaterTableDepth(final TextField textField, final Boolean b, final Boolean c, final String zeros, final boolean remove) {
         this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true);
         this.manageWaterDepthMarker();
     }
@@ -359,9 +359,7 @@ public class SessionController {
     private void manageSptLineChartTooltip() {
         for (XYChart.Data<Number, Number> d : sptLineChart.getData().get(0).getData()) {
             Tooltip.install(d.getNode(), null); // remove
-            Tooltip.install(d.getNode(), new Tooltip(
-                "Blow Counts: " + d.getXValue() + "N\n" +
-                    "Energy Ratio: " + this.searchSptEnergyRatio(d.getYValue(), d.getXValue()) + "%"));
+            Tooltip.install(d.getNode(), new Tooltip("Blow Counts: " + d.getXValue() + "N\n" + "Energy Ratio: " + this.searchSptEnergyRatio(d.getYValue(), d.getXValue()) + "%"));
             // Adding class on hover
             d.getNode().setOnMouseEntered(event -> d.getNode().getStyleClass().add("onHover"));
             // Removing class on exit

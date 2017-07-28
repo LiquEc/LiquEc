@@ -56,7 +56,7 @@ public final class SptRow {
         return sptEnergyRatio;
     }
 
-    public void setSptEnergyRatio(String sptEnergyRatio) {
+    public void setSptEnergyRatio(final String sptEnergyRatio) {
         this.sptEnergyRatio.set(sptEnergyRatio);
     }
 }
