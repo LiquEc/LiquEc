@@ -5,6 +5,20 @@
    -colour-background-header: #000;
    -colour-text-header: #fff;
 }
+.masker {
+    -fx-background-color: black;
+    -fx-opacity: 0.3;
+}
+.miniGraph {
+  -fx-control-inner-background: -colour-remaining;
+  -fx-accent: -colour-done;
+}
+.miniGraph .bar {
+    -fx-background-insets: 0;
+}
+.miniGraph .track {
+    -fx-background-insets: 0;
+}
 .buttonSaveIcon {
     -glyph-name: SAVE;
 }
