@@ -122,6 +122,7 @@ public class MainController {
         buttonSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSave.disableProperty().bind(not(model.sessionOpenProperty()));
         menuSaveAs.disableProperty().bind(not(model.sessionOpenProperty()));
+        menuClear.disableProperty().bind(not(model.sessionOpenProperty()));
 
         buttonCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
         menuCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));

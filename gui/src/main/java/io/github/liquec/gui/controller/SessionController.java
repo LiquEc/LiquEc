@@ -176,7 +176,7 @@ public class SessionController {
         this.layerStackedAreaChart.setAnimated(false);
         this.layerStackedAreaChart.setLegendVisible(false);
         this.layerStackedAreaChart.setData(this.sessionModel.getLayerChartData());
-        this.sessionModel.getLayerChartData().addListener((ListChangeListener.Change<? extends XYChart.Series<Number, Number>> c) -> this.manageChartsAutoRanging());
+        this.sessionModel.getLayerChartData().addListener((ListChangeListener.Change<? extends XYChart.Series<Number, Number>> c) -> this.manageChartsAutoRangingAndExtendedFeatures());
 
         // Spt Table
         this.sptDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptDepthProperty());
@@ -194,11 +194,11 @@ public class SessionController {
         this.sptLineChart.setLegendVisible(false);
         this.sptLineChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.sptLineChart.setData(this.sessionModel.getSptChartData());
-        this.sessionModel.getSptChartMainDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageChartsAutoRanging());
+        this.sessionModel.getSptChartMainDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageChartsAutoRangingAndExtendedFeatures());
         this.manageSptLineChartTooltip();
 
-        // Initialize Auto Ranging
-        this.manageChartsAutoRanging();
+        // Initialize Auto Ranging and Extended Features
+        this.manageChartsAutoRangingAndExtendedFeatures();
 
         // Initialize Water Makers
         this.manageWaterDepthMarker();
@@ -269,7 +269,7 @@ public class SessionController {
         this.sessionModel.checkAbleToRemoveLastSpt();
     }
 
-    private void manageChartsAutoRanging() {
+    private void manageChartsAutoRangingAndExtendedFeatures() {
         // stacked area chart
         this.yAxisStackedAreaChart.setLowerBound(this.lowerBoundAxisY());
         this.yAxisStackedAreaChart.setTickUnit(this.tickUnitAxisY());
@@ -278,12 +278,14 @@ public class SessionController {
         this.xAxisLineChart.setTickUnit(this.tickUnitAxisX());
         this.yAxisLineChart.setLowerBound(this.lowerBoundAxisY());
         this.yAxisLineChart.setTickUnit(this.tickUnitAxisY());
+        // extended features
         this.manageSptLineChartTooltip();
+        this.manageWaterDepthMarker();
     }
 
     private Double upperBoundAxisX() {
         return this.getPairValueAxisX((this.sessionModel.getSptData().size() > 0)
-            ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : BoundsEnum.MAX_SPT.getNegativeValue());
+            ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : BoundsEnum.MAX_SPT.getPositiveValue());
     }
 
     private Double getPairValueAxisX(final Double value) {
