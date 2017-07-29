@@ -31,6 +31,10 @@ public class SessionFileService {
         return streamer.createNewSession(file);
     }
 
+    public EnrichedSessionState createOrOpenSession(final Path file) {
+        return streamer.createOrOpenSession(file);
+    }
+
     public void saveSession(final Path file, final SessionState state) {
         streamer.saveSession(file, state);
     }

@@ -6,6 +6,7 @@ package io.github.liquec.gui.controller;
 
 import io.github.liquec.analysis.core.GuiTaskHandler;
 import io.github.liquec.gui.common.GuiConstants;
+import io.github.liquec.gui.event.ExternalEventBroker;
 import io.github.liquec.gui.model.MainModel;
 import io.github.liquec.gui.model.StatusModel;
 import io.github.liquec.gui.services.EnvironmentManager;
@@ -106,6 +107,9 @@ public class MainController {
     @Inject
     private GuiResultHandler guiResultHandler;
 
+    @Inject
+    private ExternalEventBroker externalEventSource;
+
     public void initialise(final Stage stage) {
         sessionStateHandler.initialise(mainBorderPane);
 
@@ -141,6 +145,8 @@ public class MainController {
         menuAbout.setOnAction(e -> processAbout());
 
         prepareStatusInformation();
+
+        externalEventSource.setListener(e -> guiFileHandler.processOpenOrNew(e.getFile()));
 
         menuExit.setOnAction(e -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
         menuExit.setVisible(environmentManager.isExitOptionShown());

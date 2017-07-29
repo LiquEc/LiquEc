@@ -31,6 +31,15 @@ public class FileStreamer {
         }
     }
 
+    public EnrichedSessionState createOrOpenSession(final Path file) {
+        try {
+            return SessionSerialiser.read(file);
+        } catch (final LiquEcException e) {
+            LOG.debug("{} is not a session file", file, e);
+            return createNewSession();
+        }
+    }
+
     public void saveSession(final Path file, final SessionState state) {
         SessionSerialiser.write(file, state);
     }

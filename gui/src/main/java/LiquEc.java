@@ -5,6 +5,7 @@
 import io.github.liquec.gui.main.CoreGuiModule;
 import io.github.liquec.gui.main.LiquEcGuiExecutable;
 import io.github.liquec.gui.main.LiveGuiModule;
+import io.github.liquec.gui.main.StandardEventSourceModule;
 
 /**
  * This class is used instead of LiquEcGuiExecutable to avoid showing the package name in the JavaFX menu.
@@ -15,6 +16,6 @@ public class LiquEc extends LiquEcGuiExecutable {
         runApp(
             args,
             a -> launch(a), // This should remain as a lambda, to keep the short name for the quit menu item
-            new CoreGuiModule(), new LiveGuiModule());
+            new CoreGuiModule(), new LiveGuiModule(), new StandardEventSourceModule(args));
     }
 }

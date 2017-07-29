@@ -94,6 +94,29 @@ public class GuiFileHandler {
         }
     }
 
+    public void processOpenOrNew(final Path file) {
+        if (statusManager.beginOpenSession()) {
+            guiTaskHandler.pauseThenExecuteOnGuiThread(() -> processOpenOrNewInternal(file));
+        }
+    }
+
+    private void processOpenOrNewInternal(final Path file) {
+        if (unsavedChangesCheck()) {
+            LOG.info("Opening file '{}'", file);
+
+            GuiTask<EnrichedSessionState> task = new GuiTask<>(
+                guiTaskHandler,
+                statusManager,
+                () -> sessionFileService.createOrOpenSession(file),
+                this::finishOpen,
+                e -> FileErrorTool.open(file, e));
+
+            guiTaskHandler.executeInBackground(task);
+        } else {
+            statusManager.completeAction();
+        }
+    }
+
     public void handleOpenSession() {
         if (statusManager.beginOpenSession()) {
             guiTaskHandler.pauseThenExecuteOnGuiThread(this::processOpenSession);
