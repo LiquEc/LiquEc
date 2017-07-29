@@ -12,6 +12,10 @@ public interface ControllerHelper {
 
     void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros, final boolean remove);
 
+    void removeZeros(final TextField textField);
+
+    void fillZeros(final TextField textField, final String zeros);
+
     void trackValues(final String name, final String oldValue, final String newValue);
 
     void manageStringsValues(final TextField textField, final String oldValue, final String newValue, final int maxLength);

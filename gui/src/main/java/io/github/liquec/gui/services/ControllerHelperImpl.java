@@ -36,7 +36,8 @@ public class ControllerHelperImpl implements ControllerHelper {
         this.fillZeros(textField, zeros);
     }
 
-    private void removeZeros(final TextField textField) {
+    @Override
+    public void removeZeros(final TextField textField) {
         if (StringUtils.isEmpty(textField.getText())) {
             return;
         }
@@ -45,7 +46,8 @@ public class ControllerHelperImpl implements ControllerHelper {
         }
     }
 
-    private void fillZeros(final TextField textField, final String zeros) {
+    @Override
+    public void fillZeros(final TextField textField, final String zeros) {
         if (StringUtils.isEmpty(textField.getText())) {
             return;
         }

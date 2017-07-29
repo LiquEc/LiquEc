@@ -8,6 +8,8 @@ import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.*;
 import io.github.liquec.analysis.session.SessionState;
 import io.github.liquec.gui.chart.LiquEcData;
+import io.github.liquec.gui.common.BoundsEnum;
+import io.github.liquec.gui.common.DefaultValuesEnum;
 import io.github.liquec.gui.common.LiquefactionEnum;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -23,8 +25,6 @@ import java.util.List;
 
 public final class SessionModel {
     private static final Logger LOG = LoggerFactory.getLogger(SessionModel.class);
-
-    private static final Integer MAX_DEPTH = 30;
 
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
@@ -51,10 +51,10 @@ public final class SessionModel {
         this.organization = new SimpleStringProperty(state.getOrganization());
         this.peakGroundAceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAceleration() == null ? "" :
             String.valueOf(state.getSiteConditions().getPeakGroundAceleration()));
-        this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null ? "" :
+        this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null ? DefaultValuesEnum.EARTHQUAKE_MAGNITUDE.getValue() :
             String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
         this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null ? "" :
-            (String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth())));
+            (this.getFormattedDepth(String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth()))));
         this.initializeLayerData(state.getGeotechnicalProperties().getSoilLayers());
         this.initializeLayerChartData(state.getGeotechnicalProperties().getSoilLayers());
         this.initializeSptData(state.getStandardPenetrationTestList());
@@ -84,8 +84,8 @@ public final class SessionModel {
 
     private LayerRow buildLayerRow(final SoilLayer soilLayer) {
         return new LayerRow(
-            String.valueOf(soilLayer.getStartDepth()),
-            String.valueOf(soilLayer.getFinalDepth()),
+            this.getFormattedDepth(String.valueOf(soilLayer.getStartDepth())),
+            this.getFormattedDepth(String.valueOf(soilLayer.getFinalDepth())),
             String.valueOf(soilLayer.getSoilType()),
             String.valueOf(soilLayer.getSoilUnitWeight().getAboveGwt()),
             String.valueOf(soilLayer.getSoilUnitWeight().getBelowGwt()),
@@ -111,7 +111,7 @@ public final class SessionModel {
 
     private SptRow buildSptRow(final StandardPenetrationTest standardPenetrationTest) {
         return new SptRow(
-            String.valueOf(standardPenetrationTest.getDepth()),
+            this.getFormattedDepth(String.valueOf(standardPenetrationTest.getDepth())),
             String.valueOf(standardPenetrationTest.getSptBlowCounts()),
             String.valueOf(standardPenetrationTest.getEnergyRatio())
         );
@@ -419,7 +419,7 @@ public final class SessionModel {
     public void checkAbleToAddLayer() {
         LOG.debug("Checking able to add layer...");
         if (this.layerData.size() > 0) {
-            this.setAbleToAddLayer(Float.valueOf(this.layerData.get(this.layerData.size() - 1).getFinalDepth()) <= MAX_DEPTH);
+            this.setAbleToAddLayer(Float.valueOf(this.layerData.get(this.layerData.size() - 1).getFinalDepth()) <= BoundsEnum.MAX_DEPTH.getPositiveValue());
         }
     }
 
@@ -431,12 +431,19 @@ public final class SessionModel {
     public void checkAbleToAddSpt() {
         LOG.debug("Checking able to add spt...");
         if (this.sptData.size() > 0) {
-            this.setAbleToAddSpt(Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth()) <= MAX_DEPTH);
+            this.setAbleToAddSpt(Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth()) <= BoundsEnum.MAX_DEPTH.getPositiveValue());
         }
     }
 
     public void checkAbleToRemoveLastSpt() {
         LOG.debug("Checking able to remove last SPT...");
         this.setAbleToRemoveLastSpt(this.sptData.size() > 0);
+    }
+
+    private String getFormattedDepth(final String depth) {
+        if (depth.matches("(\\d)+[\\.]\\d")) {
+            return depth + "0";
+        }
+        return depth;
     }
 }

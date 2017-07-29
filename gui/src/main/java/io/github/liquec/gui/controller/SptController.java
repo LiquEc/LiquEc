@@ -5,6 +5,7 @@
 package io.github.liquec.gui.controller;
 
 import io.github.liquec.gui.chart.LiquEcData;
+import io.github.liquec.gui.common.DefaultValuesEnum;
 import io.github.liquec.gui.dialogues.AlertTool;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptModel;
@@ -77,7 +78,7 @@ public class SptController {
             this.controllerHelper.validateNumberValue(this.textFieldSptEnergyRatio,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
         this.textFieldSptEnergyRatio.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldSptEnergyRatio, b, c, "0", true));
-        this.textFieldSptEnergyRatio.textProperty().setValue("60.0");
+        this.textFieldSptEnergyRatio.textProperty().setValue(DefaultValuesEnum.ENERGY_RATIO.getValue());
 
         // Buttons
         buttonOk.setOnAction(e -> saveSpt());
@@ -95,7 +96,7 @@ public class SptController {
             AlertTool.filterErrorAlert(
                 "Duplicated SPT",
                 "You can't add this SPT.",
-                "SPT: depth " + this.textFieldSptDepth.getText() + " (m), blow counts " + this.textFieldSptBlowCounts.getText() + " (N)");
+                "Depth (m): " + this.textFieldSptDepth.getText() + ", Blow Counts (N): " + this.textFieldSptBlowCounts.getText());
             return;
         }
         this.sessionModel.getSptData().add(this.buildSptRow());

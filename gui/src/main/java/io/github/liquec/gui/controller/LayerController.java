@@ -5,7 +5,9 @@
 package io.github.liquec.gui.controller;
 
 import io.github.liquec.gui.chart.LiquEcData;
+import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.common.LiquefactionEnum;
+import io.github.liquec.gui.dialogues.AlertTool;
 import io.github.liquec.gui.model.LayerModel;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
@@ -146,6 +148,13 @@ public class LayerController {
     }
 
     private void saveLayer() {
+        if (this.isOutOfBounds()) {
+            AlertTool.filterErrorAlert(
+                "Out Of Bounds",
+                "You can't add this layer thickness.",
+                "Depth Bound (m): " + BoundsEnum.MAX_DEPTH.getPositiveValue() + ", Thickness (m): " + (BoundsEnum.MAX_DEPTH.getPositiveValue() - Float.valueOf(this.startDepth)));
+            return;
+        }
         this.sessionModel.getLayerData().add(this.buildLayerRow());
         this.sessionModel.getLayerChartData().add(this.buildLayerChartData());
         this.sessionModel.setChangesSaved(false);
@@ -153,6 +162,14 @@ public class LayerController {
         this.sessionModel.checkAbleToAddLayer();
         this.sessionModel.checkAbleToRemoveLastLayer();
         this.exit();
+    }
+
+    private boolean isOutOfBounds() {
+        boolean outOfBounds = false;
+        if (this.sessionModel.getLayerData().size() > 0) {
+            outOfBounds = this.getFloatValueFinalDepth() > BoundsEnum.MAX_DEPTH.getPositiveValue();
+        }
+        return outOfBounds;
     }
 
     private LayerRow buildLayerRow() {

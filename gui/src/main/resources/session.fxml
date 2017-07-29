@@ -44,7 +44,7 @@
                         </GridPane>
                         <GridPane fx:id="siteConditionsGridPane" styleClass="area" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="ALWAYS" maxWidth="200.0" minWidth="200.0" />
+                                <ColumnConstraints hgrow="ALWAYS" maxWidth="210.0" minWidth="210.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
                             </columnConstraints>
                             <rowConstraints>
@@ -52,16 +52,16 @@
                                 <RowConstraints vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
-                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (a/g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter the aceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <tooltip>
-                                        <Tooltip text="Range of supported values: { 0.01(g) - 10.00(g) }" />
+                                        <Tooltip text="Range of supported values: {0.01-10.00} (a/g)" />
                                     </tooltip>
                                 </TextField>
                                 <Label styleClass="fieldLabel" text="Earthquake Magnitude (Mw):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                 <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" promptText="Enter the magnitude..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <tooltip>
-                                        <Tooltip text="Range of supported values: { 0.1(Mw) - 10.0(Mw) }" />
+                                        <Tooltip text="Range of supported values: {0.1-10.0} (Mw)" />
                                     </tooltip>
                                 </TextField>
                             </children>
@@ -102,7 +102,7 @@
                                                 <Label styleClass="fieldLabel" text="Ground Water Table Depth [GWT] (m):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                 <TextField fx:id="textFieldGroundWaterTableDepth" alignment="CENTER_RIGHT" promptText="Enter the depth..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                                     <tooltip>
-                                                        <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
+                                                        <Tooltip text="Range of supported values: {0.01-30.00} (m)" />
                                                     </tooltip>
                                                 </TextField>
                                             </children>

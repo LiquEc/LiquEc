@@ -7,6 +7,7 @@ package io.github.liquec.gui.controller;
 import com.emxsys.chart.EnhancedLineChart;
 import com.emxsys.chart.EnhancedStackedAreaChart;
 import com.emxsys.chart.extension.ValueMarker;
+import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptRow;
@@ -31,9 +32,6 @@ import static javafx.beans.binding.Bindings.not;
 
 public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
-
-    public static final Double MAX_SPT = 50.0;
-    public static final Double MAX_DEPTH = -30.0;
 
     public TextField textFieldProjectName;
 
@@ -285,7 +283,7 @@ public class SessionController {
 
     private Double upperBoundAxisX() {
         return this.getPairValueAxisX((this.sessionModel.getSptData().size() > 0)
-            ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : MAX_SPT);
+            ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : BoundsEnum.MAX_SPT.getNegativeValue());
     }
 
     private Double getPairValueAxisX(final Double value) {
@@ -314,9 +312,9 @@ public class SessionController {
 
     private Double lowerBoundAxisY() {
         final Double layerLowerBound = this.getPairValueAxisY((this.sessionModel.getLayerData().size() > 0)
-            ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : MAX_DEPTH);
+            ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
         final Double sptLowerBound = this.getPairValueAxisY((this.sessionModel.getSptData().size() > 0)
-            ? -Math.ceil(this.searchMaxSptDepth() + 1) : MAX_DEPTH);
+            ? -Math.ceil(this.searchMaxSptDepth() + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
         if (this.sessionModel.getLayerData().size() == 0) {
             return sptLowerBound;
         }
@@ -359,7 +357,7 @@ public class SessionController {
     private void manageSptLineChartTooltip() {
         for (XYChart.Data<Number, Number> d : sptLineChart.getData().get(0).getData()) {
             Tooltip.install(d.getNode(), null); // remove
-            Tooltip.install(d.getNode(), new Tooltip("Blow Counts: " + d.getXValue() + "N\n" + "Energy Ratio: " + this.searchSptEnergyRatio(d.getYValue(), d.getXValue()) + "%"));
+            Tooltip.install(d.getNode(), new Tooltip("Blow Counts (N): " + d.getXValue() + "\n" + "Energy Ratio (%): " + this.searchSptEnergyRatio(d.getYValue(), d.getXValue())));
             // Adding class on hover
             d.getNode().setOnMouseEntered(event -> d.getNode().getStyleClass().add("onHover"));
             // Removing class on exit

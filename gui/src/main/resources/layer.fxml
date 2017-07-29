@@ -42,7 +42,7 @@
                 <Label styleClass="fieldLabel" text="Layer Thickness (m):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="textFieldLayerThickness" alignment="CENTER_RIGHT" promptText="Enter the layer thickness..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.01(m) - 30.00(m) }" />
+                        <Tooltip text="Range of supported values: {0.01-30.00} (m)" />
                     </tooltip>
                 </TextField>
 
@@ -61,7 +61,7 @@
                 </Label>
                 <TextField fx:id="textFieldSoilUnitWeightAboveGwt" alignment="CENTER_RIGHT" promptText="Enter the weight above GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 50.0(KN/m3) }" />
+                        <Tooltip text="Range of supported values: {0.1-50.0} (KN/m3)" />
                     </tooltip>
                 </TextField>
 
@@ -76,14 +76,14 @@
                 </Label>
                 <TextField fx:id="textFieldSoilUnitWeightBelowGwt" alignment="CENTER_RIGHT" promptText="Enter the weight below GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.1(KN/m3) - 50.0(KN/m3) }" />
+                        <Tooltip text="Range of supported values: {0.1-50.0} (KN/m3)" />
                     </tooltip>
                 </TextField>
 
                 <Label styleClass="fieldLabel" text="Fines Content (%):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                 <TextField fx:id="textFieldFinesContent" alignment="CENTER_RIGHT" promptText="Enter the fines content..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <tooltip>
-                        <Tooltip text="Range of supported values: { 0.0(%) - 100.0(%) }" />
+                        <Tooltip text="Range of supported values: {0.0-100.0} (%)" />
                     </tooltip>
                 </TextField>
 
