@@ -1,168 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.StatusBar?>
-
 <!--
   ~ Open Source Software published under the Apache Licence, Version 2.0.
   -->
 
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.StatusBar?>
 <BorderPane prefHeight="500.0" prefWidth="1000.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.MainController">
-   <center>
-      <StackPane>
-         <children>
-            <BorderPane fx:id="mainBorderPane">
-                <top>
-                    <VBox>
-                        <children>
-                            <MenuBar fx:id="menuBar">
-                                <menus>
-                                    <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
-                                        <items>
-                                            <MenuItem fx:id="menuNew" accelerator="Shortcut+N" mnemonicParsing="false" text="New..." />
-                                            <MenuItem fx:id="menuOpen" accelerator="Shortcut+O" mnemonicParsing="false" text="Open..." />
-                                            <MenuItem fx:id="menuSave" accelerator="Shortcut+S" mnemonicParsing="false" text="Save" />
-                                            <MenuItem fx:id="menuSaveAs" accelerator="Shift+Shortcut+S" mnemonicParsing="false" text="Save As..." />
-                                            <SeparatorMenuItem mnemonicParsing="false" />
-                                            <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit LiquEc" />
-                                        </items>
-                                    </Menu>
-                                    <Menu fx:id="menuCalculation" mnemonicParsing="false" text="Calculate">
-                                        <items>
-                                            <RadioMenuItem fx:id="menuNormativeEurocode" mnemonicParsing="false" text="Select Eurocode" />
-                                            <RadioMenuItem fx:id="menuNormativeNcse02" mnemonicParsing="false" text="Select NCSE-02" />
-                                            <SeparatorMenuItem mnemonicParsing="false" />
-                                            <MenuItem fx:id="menuCalculate" accelerator="Shortcut+E" mnemonicParsing="false" text="Calculate..." />
-                                            <SeparatorMenuItem mnemonicParsing="false" />
-                                            <MenuItem fx:id="menuClear" mnemonicParsing="false" text="Clear LiquEc Data" />
-                                        </items>
-                                    </Menu>
-                                    <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
-                                        <items>
-                                            <MenuItem fx:id="menuWebsite" mnemonicParsing="false" text="LiquEc Website" />
-                                            <MenuItem fx:id="menuHowTo" mnemonicParsing="false" text="How to Use LiquEc" />
-                                            <MenuItem fx:id="menuIssue" mnemonicParsing="false" text="How to Report a Bug" />
-                                            <MenuItem fx:id="menuAbout" mnemonicParsing="false" text="About" />
-                                        </items>
-                                    </Menu>
-                                </menus>
-                            </MenuBar>
-                            <ToolBar>
-                                <items>
-                                    <Button fx:id="buttonNew" mnemonicParsing="false" styleClass="buttonNew" text="New">
-                                        <tooltip>
-                                            <Tooltip text="Start a new session" />
-                                        </tooltip>
-                                        <graphic>
-                                          <MaterialIconView styleClass="buttonNewIcon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button fx:id="buttonOpen" mnemonicParsing="false" styleClass="buttonOpen" text="Open">
-                                        <tooltip>
-                                            <Tooltip text="Open a saved session" />
-                                        </tooltip>
-                                        <graphic>
-                                            <MaterialIconView styleClass="buttonOpenIcon" />
-                                        </graphic>
-                                    </Button>
-                                    <Button fx:id="buttonSave" mnemonicParsing="false" styleClass="buttonSave" text="Save">
-                                        <tooltip>
-                                            <Tooltip text="Save the session" />
-                                        </tooltip>
-                                        <graphic>
-                                            <MaterialIconView styleClass="buttonSaveIcon" />
-                                        </graphic>
-                                    </Button>
-                                    <Separator orientation="VERTICAL" />
-                                    <Button fx:id="buttonCalculate" mnemonicParsing="false" styleClass="buttonCalculate" text="Calculate">
-                                        <tooltip>
-                                            <Tooltip text="Calculate" />
-                                        </tooltip>
-                                        <graphic>
-                                            <MaterialIconView styleClass="buttonCalculateIcon" />
-                                        </graphic>
-                                    </Button>
-                                    <RadioButton fx:id="buttonNormativeEurocode" mnemonicParsing="false" text="Eurocode">
-                                        <tooltip>
-                                            <Tooltip text="Calculate with Eurocode" />
-                                        </tooltip>
-                                    </RadioButton>
-                                    <RadioButton fx:id="buttonNormativeNcse02" mnemonicParsing="false" text="NCSE-02">
-                                        <tooltip>
-                                            <Tooltip text="Calculate with NCSE-02" />
-                                        </tooltip>
-                                    </RadioButton>
-                                </items>
-                            </ToolBar>
-                        </children>
-                    </VBox>
-                </top>
-               <center>
-                   <VBox alignment="CENTER" styleClass="noSession">
-                       <children>
-                           <HBox alignment="CENTER">
-                               <children>
-                                   <Text styleClass="title" text="Liqu" />
-                                   <Text styleClass="title" text="Ec" />
-                               </children>
-                           </HBox>
-                           <HBox alignment="CENTER">
-                               <children>
-                                    <GridPane>
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" />
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label styleClass="new">
-                                              <graphic>
-                                                  <MaterialIconView styleClass="buttonNewIcon" />
-                                              </graphic>
-                                          </Label>
-                                           <Label styleClass="new" text="Choose 'New' to start a new session." GridPane.columnIndex="1" />
-                                          <Label styleClass="open" GridPane.rowIndex="1">
-                                              <graphic>
-                                                  <MaterialIconView styleClass="buttonOpenIcon" />
-                                              </graphic>
-                                          </Label>
-                                           <Label styleClass="open" text="Choose 'Open' to load a saved session." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                       </children>
-                                    </GridPane>
-                               </children>
-                           </HBox>
-                       </children>
-                   </VBox>
-               </center>
-            </BorderPane>
-            <Pane fx:id="maskerPane" styleClass="masker" visible="false" />
-         </children>
-      </StackPane>
-   </center>
-   <bottom>
-      <StatusBar fx:id="statusBar" BorderPane.alignment="CENTER" />
-   </bottom>
+    <center>
+        <StackPane>
+            <children>
+                <BorderPane fx:id="mainBorderPane">
+                    <top>
+                        <VBox>
+                            <children>
+                                <MenuBar fx:id="menuBar">
+                                    <menus>
+                                        <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
+                                            <items>
+                                                <MenuItem fx:id="menuNew" accelerator="Shortcut+N" mnemonicParsing="false" text="New..." />
+                                                <MenuItem fx:id="menuOpen" accelerator="Shortcut+O" mnemonicParsing="false" text="Open..." />
+                                                <MenuItem fx:id="menuSave" accelerator="Shortcut+S" mnemonicParsing="false" text="Save" />
+                                                <MenuItem fx:id="menuSaveAs" accelerator="Shift+Shortcut+S" mnemonicParsing="false" text="Save As..." />
+                                                <SeparatorMenuItem mnemonicParsing="false" />
+                                                <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit LiquEc" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuCalculation" mnemonicParsing="false" text="Calculate">
+                                            <items>
+                                                <RadioMenuItem fx:id="menuNormativeEurocode" mnemonicParsing="false" text="Select Eurocode" />
+                                                <RadioMenuItem fx:id="menuNormativeNcse02" mnemonicParsing="false" text="Select NCSE-02" />
+                                                <SeparatorMenuItem mnemonicParsing="false" />
+                                                <MenuItem fx:id="menuCalculate" accelerator="Shortcut+E" mnemonicParsing="false" text="Calculate..." />
+                                                <SeparatorMenuItem mnemonicParsing="false" />
+                                                <MenuItem fx:id="menuClear" mnemonicParsing="false" text="Clear LiquEc Data" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
+                                            <items>
+                                                <MenuItem fx:id="menuWebsite" mnemonicParsing="false" text="LiquEc Website" />
+                                                <MenuItem fx:id="menuHowTo" mnemonicParsing="false" text="How to Use LiquEc" />
+                                                <MenuItem fx:id="menuIssue" mnemonicParsing="false" text="How to Report a Bug" />
+                                                <MenuItem fx:id="menuAbout" mnemonicParsing="false" text="About" />
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                                <ToolBar>
+                                    <items>
+                                        <Button fx:id="buttonNew" mnemonicParsing="false" styleClass="buttonNew" text="New">
+                                            <tooltip>
+                                                <Tooltip text="Start a new session" />
+                                            </tooltip>
+                                            <graphic>
+                                                <MaterialIconView styleClass="buttonNewIcon" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="buttonOpen" mnemonicParsing="false" styleClass="buttonOpen" text="Open">
+                                            <tooltip>
+                                                <Tooltip text="Open a saved session" />
+                                            </tooltip>
+                                            <graphic>
+                                                <MaterialIconView styleClass="buttonOpenIcon" />
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="buttonSave" mnemonicParsing="false" styleClass="buttonSave" text="Save">
+                                            <tooltip>
+                                                <Tooltip text="Save the session" />
+                                            </tooltip>
+                                            <graphic>
+                                                <MaterialIconView styleClass="buttonSaveIcon" />
+                                            </graphic>
+                                        </Button>
+                                        <Separator orientation="VERTICAL" />
+                                        <Button fx:id="buttonCalculate" mnemonicParsing="false" styleClass="buttonCalculate" text="Calculate">
+                                            <tooltip>
+                                                <Tooltip text="Calculate" />
+                                            </tooltip>
+                                            <graphic>
+                                                <MaterialIconView styleClass="buttonCalculateIcon" />
+                                            </graphic>
+                                        </Button>
+                                        <RadioButton fx:id="buttonNormativeEurocode" mnemonicParsing="false" text="Eurocode">
+                                            <tooltip>
+                                                <Tooltip text="Calculate with Eurocode" />
+                                            </tooltip>
+                                        </RadioButton>
+                                        <RadioButton fx:id="buttonNormativeNcse02" mnemonicParsing="false" text="NCSE-02">
+                                            <tooltip>
+                                                <Tooltip text="Calculate with NCSE-02" />
+                                            </tooltip>
+                                        </RadioButton>
+                                    </items>
+                                </ToolBar>
+                            </children>
+                        </VBox>
+                    </top>
+                    <center>
+                        <VBox alignment="CENTER" styleClass="noSession">
+                            <children>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <Text styleClass="title" text="Liqu" />
+                                        <Text styleClass="title" text="Ec" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="NEVER" />
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label styleClass="new">
+                                                    <graphic>
+                                                        <MaterialIconView styleClass="buttonNewIcon" />
+                                                    </graphic>
+                                                </Label>
+                                                <Label styleClass="new" text="Choose 'New' to start a new session." GridPane.columnIndex="1" />
+                                                <Label styleClass="open" GridPane.rowIndex="1">
+                                                    <graphic>
+                                                        <MaterialIconView styleClass="buttonOpenIcon" />
+                                                    </graphic>
+                                                </Label>
+                                                <Label styleClass="open" text="Choose 'Open' to load a saved session." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </center>
+                </BorderPane>
+                <Pane fx:id="maskerPane" styleClass="masker" visible="false" />
+            </children>
+        </StackPane>
+    </center>
+    <bottom>
+        <StatusBar fx:id="statusBar" BorderPane.alignment="CENTER" />
+    </bottom>
 </BorderPane>

@@ -7,7 +7,6 @@ package io.github.liquec.gui.status;
 import io.github.liquec.analysis.session.FileNameTool;
 import io.github.liquec.gui.model.StatusModel;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static javafx.beans.binding.Bindings.*;
+import static javafx.beans.binding.Bindings.when;
 
 @Singleton
 public class StatusManagerImpl implements StatusManager {
@@ -35,7 +34,7 @@ public class StatusManagerImpl implements StatusManager {
 
     private static final String NAME_ABOUT = "About LiquEc";
 
-    private static final String NAME_CALCULATION_RESULT = "Liquefaction Calculation Result";
+    private static final String NAME_CALCULATING = "Calculating Liquefaction...";
 
     private String name;
 
@@ -64,7 +63,7 @@ public class StatusManagerImpl implements StatusManager {
 
     @Override
     public boolean beginCalculation() {
-        return begin(NAME_CALCULATION_RESULT);
+        return begin(NAME_CALCULATING);
     }
 
     private boolean begin(final String name) {

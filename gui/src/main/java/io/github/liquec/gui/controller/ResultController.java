@@ -4,6 +4,7 @@
 
 package io.github.liquec.gui.controller;
 
+import io.github.liquec.gui.model.ResultModel;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.scene.control.Button;
@@ -19,29 +20,37 @@ public class ResultController {
 
     public Label valueMessage;
 
-    public Button buttonCancel;
-
-    private Stage stage;
+    public Button buttonReturn;
 
     private SessionModel sessionModel;
+
+    private ResultModel resultModel;
+
+    @Inject
+    private GuiResultHandler guiResultHandler;
 
     @Inject
     private ControllerHelper controllerHelper;
 
-    public void initialise(final Stage stage, final SessionModel sessionModel) {
-        this.stage = stage;
+    public void initialise(final SessionModel sessionModel, final ResultModel resultModel) {
         this.sessionModel = sessionModel;
+        this.resultModel = resultModel;
+
+        // enable calculation button
+        this.sessionModel.setAbleToCalculate(false);
 
         // Message
         this.valueMessage.setText("Under Construction");
 
         // Buttons
-        buttonCancel.setOnAction(e -> exit());
+        buttonReturn.setOnAction(e -> back());
 
     }
 
-    private void exit() {
-        stage.close();
+    private void back() {
+        // enable calculation button
+        this.sessionModel.setAbleToCalculate(true);
+        this.guiResultHandler.handleReturn();
     }
 
 }

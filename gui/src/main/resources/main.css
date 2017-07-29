@@ -37,7 +37,10 @@
 .buttonRemoveIcon {
     -glyph-name: REMOVE_CIRCLE_OUTLINE;
 }
-.buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonCalculateIcon, .buttonAddIcon, .buttonRemoveIcon {
+.buttonReturnIcon {
+    -glyph-name: BACKSPACE;
+}
+.buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonCalculateIcon, .buttonAddIcon, .buttonRemoveIcon, .buttonReturnIcon {
     -glyph-size: 24;
 }
 .title {

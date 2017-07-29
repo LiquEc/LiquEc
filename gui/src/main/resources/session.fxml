@@ -4,14 +4,14 @@
   ~ Open Source Software published under the Apache Licence, Version 2.0.
   -->
 
+<?import com.emxsys.chart.EnhancedLineChart?>
+<?import com.emxsys.chart.EnhancedStackedAreaChart?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import com.emxsys.chart.EnhancedLineChart?>
-<?import com.emxsys.chart.EnhancedStackedAreaChart?>
 <BorderPane prefWidth="1140.0" styleClass="main" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.SessionController">
     <center>
         <BorderPane>
