@@ -18,6 +18,8 @@ import javax.inject.Inject;
 public class ResultController {
     private static final Logger LOG = LoggerFactory.getLogger(ResultController.class);
 
+    public Label resultLabel;
+
     public Button buttonReturn;
 
     private SessionModel sessionModel;
@@ -36,10 +38,16 @@ public class ResultController {
 
         // enable calculation button
         this.sessionModel.setAbleToCalculate(false);
+        
+        this.resultLabel.setText(this.buildTitle());
 
         // Buttons
         buttonReturn.setOnAction(e -> back());
 
+    }
+
+    private String buildTitle() {
+        return "Liquefaction Calculations " + this.resultModel.getCalculationModeEnum().getMode() + " Result";
     }
 
     private void back() {

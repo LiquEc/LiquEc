@@ -56,7 +56,7 @@ public class GuiResultHandler {
         GuiTask<ResultState> task = new GuiTask<>(
             guiTaskHandler,
             statusManager,
-            () -> resultSessionService.calculateSession(),
+            () -> resultSessionService.calculateSession(this.model.normativeModeProperty().get(), this.model.getSessionModel().get().getSessionState()),
             this::finishCalculation,
             e -> new LiquEcException("Error calculating LiquEc session"));
 

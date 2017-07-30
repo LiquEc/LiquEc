@@ -19,9 +19,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 <BorderPane prefHeight="510.0" prefWidth="1143.0" styleClass="result" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.ResultController">
     <top>
-        <Label styleClass="resultTitleLabel" text="Liquefaction Calculations Result">
+        <Label fx:id="resultLabel" styleClass="resultTitleLabel" text="Liquefaction Calculations Result">
          <BorderPane.margin>
             <Insets bottom="20.0" />
          </BorderPane.margin></Label>
@@ -102,48 +104,71 @@
                   <columns>
                       <TableColumn fx:id="depthTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true" />
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true" >
+                                  <padding>
+                                      <Insets bottom="5.0" top="5.0" />
+                                  </padding>
+                              </Label>
                           </graphic>
                       </TableColumn>
                       <TableColumn fx:id="sptBlowCountsTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="SPT Blow &#10;Counts (N)" textAlignment="CENTER" wrapText="true">
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="SPT (N)" textAlignment="CENTER" wrapText="true">
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>
+                                  <tooltip>
+                                      <Tooltip text="SPT Blow Counts" />
+                                  </tooltip>
                               </Label>
                           </graphic>
                       </TableColumn>
                       <TableColumn fx:id="sptCorrectedTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="SPT Corrected &#10;(N(60))" textAlignment="CENTER" wrapText="true">
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="" textAlignment="CENTER" wrapText="true">
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>
+                                  <graphic>
+                                      <TextFlow>
+                                          <Text styleClass="cellText">SPT &#10;(N</Text>
+                                          <Text styleClass="cellTextLower">(60)</Text>
+                                          <Text styleClass="cellText">)</Text>
+                                      </TextFlow>
+                                  </graphic>
+                                  <tooltip>
+                                      <Tooltip text="SPT Corrected" />
+                                  </tooltip>
                               </Label>
                           </graphic>
                       </TableColumn>
                       <TableColumn fx:id="csrTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Cyclic Stress &#10;Ratio" textAlignment="CENTER" wrapText="true">
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="CSR" textAlignment="CENTER" wrapText="true">
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>
+                                  <tooltip>
+                                      <Tooltip text="Cyclic Stress Ratio" />
+                                  </tooltip>
                               </Label>
                           </graphic>
                       </TableColumn>
                       <TableColumn fx:id="crrTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Cyclic Resist. &#10;Ratio" textAlignment="CENTER" wrapText="true">
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="CRR" textAlignment="CENTER" wrapText="true">
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>
+                                  <tooltip>
+                                      <Tooltip text="Cyclic Resistance Ratio" />
+                                  </tooltip>
                               </Label>
                           </graphic>
                       </TableColumn>
                       <TableColumn fx:id="factorSafetyTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Factor Safety" textAlignment="CENTER" wrapText="true">
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Factor &#10;Safety" textAlignment="CENTER" wrapText="true">
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>

@@ -38,7 +38,7 @@
     -glyph-name: REMOVE_CIRCLE_OUTLINE;
 }
 .buttonReturnIcon {
-    -glyph-name: BACKSPACE;
+    -glyph-name: ARROW_BACK;
 }
 .buttonSaveIcon, .buttonOpenIcon, .buttonNewIcon, .buttonCalculateIcon, .buttonAddIcon, .buttonRemoveIcon, .buttonReturnIcon {
     -glyph-size: 24;
@@ -109,6 +109,11 @@
     -fx-font-weight: normal;
     -fx-font-size: smaller;
     -fx-translate-y: -2;
+}
+.cellTextLower {
+    -fx-font-weight: normal;
+    -fx-font-size: smaller;
+    -fx-translate-y: 5;
 }
 /* table */
 .placeholderLabel {
