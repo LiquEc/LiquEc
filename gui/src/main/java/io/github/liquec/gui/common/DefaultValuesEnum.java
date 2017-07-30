@@ -5,7 +5,7 @@
 package io.github.liquec.gui.common;
 
 public enum DefaultValuesEnum {
-    EARTHQUAKE_MAGNITUDE("7.0"),
+    EARTHQUAKE_MAGNITUDE("7.5"),
     ENERGY_RATIO("60.0");
 
     private String value;

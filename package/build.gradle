@@ -60,7 +60,6 @@ jfx {
     bundler = packageType
     bundleArguments = [
         icon: appIcon,
-        runtime: null,
         installdirChooser: true
     ]
     fileAssociations = [
