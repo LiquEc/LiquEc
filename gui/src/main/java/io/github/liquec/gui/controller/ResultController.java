@@ -18,8 +18,6 @@ import javax.inject.Inject;
 public class ResultController {
     private static final Logger LOG = LoggerFactory.getLogger(ResultController.class);
 
-    public Label valueMessage;
-
     public Button buttonReturn;
 
     private SessionModel sessionModel;
@@ -38,9 +36,6 @@ public class ResultController {
 
         // enable calculation button
         this.sessionModel.setAbleToCalculate(false);
-
-        // Message
-        this.valueMessage.setText("Under Construction");
 
         // Buttons
         buttonReturn.setOnAction(e -> back());

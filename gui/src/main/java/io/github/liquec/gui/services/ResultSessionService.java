@@ -19,7 +19,7 @@ public class ResultSessionService {
     public ResultState calculateSession() {
         LOG.debug("Calculating...");
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
