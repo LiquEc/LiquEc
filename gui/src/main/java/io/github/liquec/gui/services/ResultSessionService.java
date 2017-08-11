@@ -4,16 +4,15 @@
 
 package io.github.liquec.gui.services;
 
-import io.github.liquec.analysis.model.CalculationModeEnum;
+import io.github.liquec.analysis.calculation.CalculationExecutor;
+import io.github.liquec.analysis.calculation.CalculationMode;
 import io.github.liquec.analysis.session.ResultState;
 import io.github.liquec.analysis.session.SessionState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.l;
+import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class ResultSessionService {
@@ -31,13 +30,17 @@ public class ResultSessionService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        CalculationExecutor calculationExecutor = new CalculationExecutor(this.getCalculationMode(mode), sessionState);
+        final ResultState resultState = calculationExecutor.calculate();
+
         LOG.debug("Finish calculation...");
 
-        return new ResultState(this.getCalculationMode(mode));
+        return resultState;
     }
 
-    private CalculationModeEnum getCalculationMode(final boolean mode) {
-        return mode ? CalculationModeEnum.EUROCODE : CalculationModeEnum.NCSE02;
+    private CalculationMode getCalculationMode(final boolean mode) {
+        return mode ? CalculationMode.EUROCODE : CalculationMode.NCSE_02;
     }
 
 }

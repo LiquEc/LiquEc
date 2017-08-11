@@ -9,7 +9,6 @@ import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +46,7 @@ public class ResultController {
     }
 
     private String buildTitle() {
-        return "Liquefaction Calculations " + this.resultModel.getCalculationModeEnum().getMode() + " Result";
+        return "Liquefaction Calculations: " + this.resultModel.getCalculationMode();
     }
 
     private void back() {

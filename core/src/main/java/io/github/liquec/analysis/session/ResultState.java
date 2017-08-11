@@ -4,21 +4,21 @@
 
 package io.github.liquec.analysis.session;
 
-import io.github.liquec.analysis.model.CalculationModeEnum;
-
 public class ResultState {
 
-    private CalculationModeEnum calculationModeEnum;
+    private String calculationMode;
 
-    public ResultState(final CalculationModeEnum calculationModeEnum) {
-        this.calculationModeEnum = calculationModeEnum;
+    public ResultState() {}
+
+    public ResultState(final String calculationMode) {
+        this.calculationMode = calculationMode;
     }
 
-    public CalculationModeEnum getCalculationModeEnum() {
-        return calculationModeEnum;
+    public String getCalculationMode() {
+        return calculationMode;
     }
 
-    public void setCalculationModeEnum(final CalculationModeEnum calculationModeEnum) {
-        this.calculationModeEnum = calculationModeEnum;
+    public void setCalculationMode(final String calculationMode) {
+        this.calculationMode = calculationMode;
     }
 }
