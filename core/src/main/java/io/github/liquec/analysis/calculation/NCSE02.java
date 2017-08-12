@@ -8,7 +8,7 @@ public enum NCSE02 implements Step {
     ;
 
     @Override
-    public Class<? extends Calculation> getStepClass() {
+    public Class<? extends Runnable> getStepClass() {
         return null;
     }
 }
