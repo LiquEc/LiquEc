@@ -8,6 +8,9 @@ public class SptCalculationResult {
     private Float depth;
     private Integer sptBlowCounts;
     private Float energyRatio;
+    private Float totalTension;
+    private Float interstitialPressure;
+    private Float effectivePressure;
     private Float sptCorrected;
     private Float cycleStressRatio;
     private Float cycleResistanceRatio;
@@ -41,6 +44,30 @@ public class SptCalculationResult {
 
     public void setEnergyRatio(final Float energyRatio) {
         this.energyRatio = energyRatio;
+    }
+
+    public Float getTotalTension() {
+        return totalTension;
+    }
+
+    public void setTotalTension(final Float totalTension) {
+        this.totalTension = totalTension;
+    }
+
+    public Float getInterstitialPressure() {
+        return interstitialPressure;
+    }
+
+    public void setInterstitialPressure(final Float interstitialPressure) {
+        this.interstitialPressure = interstitialPressure;
+    }
+
+    public Float getEffectivePressure() {
+        return effectivePressure;
+    }
+
+    public void setEffectivePressure(final Float effectivePressure) {
+        this.effectivePressure = effectivePressure;
     }
 
     public Float getSptCorrected() {

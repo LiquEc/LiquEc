@@ -14,16 +14,16 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class CalculationExecutor {
+public class Executor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CalculationExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
 
-    private CalculationMode calculationMode;
+    private Mode mode;
     private SessionState sessionState;
     private ResultState resultState;
 
-    public CalculationExecutor(final CalculationMode calculationMode, final SessionState sessionState) {
-        this.calculationMode = calculationMode;
+    public Executor(final Mode mode, final SessionState sessionState) {
+        this.mode = mode;
         this.sessionState = sessionState;
         this.resultState = new ResultState();
     }
@@ -31,36 +31,37 @@ public class CalculationExecutor {
     public ResultState calculate() {
 
         this.checkCalculationData();
-        this.resultState.setCalculationMode(calculationMode.getMode());
+        this.resultState.setCalculationMode(mode.getDescription());
         this.resultState.setGeotechnicalProperties(this.sessionState.getGeotechnicalProperties());
 
-        LOG.debug("Start calculation...");
+        LOG.debug("::: START CALCULATION");
 
         for (StandardPenetrationTest standardPenetrationTest : this.sessionState.getStandardPenetrationTestList()) {
 
-            LOG.debug("SPT Blow Counts: " + standardPenetrationTest.getSptBlowCounts() + " (N), Depth: " + standardPenetrationTest.getDepth() + " (m)");
+            LOG.debug("::: START - SPT Blow Counts: " + standardPenetrationTest.getSptBlowCounts() + " (N) - Depth: " + standardPenetrationTest.getDepth() + " (m)");
 
             final SptCalculationResult sptCalculationResult = new SptCalculationResult(standardPenetrationTest);
 
-            for (Enum<? extends Step> step : calculationMode.getSteps()) {
+            for (Enum<? extends Step> step : this.mode.getSteps()) {
                 try {
-                    (((Step) step).getStepClass().getConstructor()).newInstance().execute(this.sessionState, sptCalculationResult);
-
+                    (((Step) step).getStepClass().getConstructor(Mode.class)).newInstance(this.mode).execute(this.sessionState, sptCalculationResult);
                 } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
-                    throw new LiquEcException("LiquEc calculation error");
+                    throw new LiquEcException(e.getMessage());
                 }
             }
 
             this.resultState.getSptCalculationResultList().add(sptCalculationResult);
+
+            LOG.debug("::: END - SPT Blow Counts: " + standardPenetrationTest.getSptBlowCounts() + " (N), Depth: " + standardPenetrationTest.getDepth() + " (m)");
         }
 
-        LOG.debug("::End calculation");
+        LOG.debug("::: END CALCULATION");
 
         return this.resultState;
     }
 
     private void checkCalculationData() {
-        if (this.calculationMode == null) {
+        if (this.mode == null) {
             throw new LiquEcException("Calculation mode required");
         }
         if (this.sessionState == null) {

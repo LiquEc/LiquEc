@@ -4,11 +4,27 @@
 
 package io.github.liquec.analysis.calculation;
 
-public enum NCSE02 implements Step {
-    ;
+import io.github.liquec.analysis.calculation.steps.*;
 
-    @Override
-    public Class<? extends Runnable> getStepClass() {
-        return null;
+public enum NCSE02 implements Step {
+
+    CALCULATE_TOTAL_TENSION(TotalTensionRunnable.class),
+    CALCULATE_INTERSTITIAL_PRESSURE(InterstitialPressureRunnable.class),
+    CALCULATE_EFFECTIVE_PRESSURE(EffectivePressureRunnable.class),
+    CALCULATE_SPT_CORRECTED(SptCorrectedRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO(CycleResistanceRatioRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTED(CycleResistanceRatioCorrectedRunnable.class),
+    CALCULATE_CYCLE_STRESS_RATIO(CycleStressRatioRunnable.class),
+    CALCULATE_FACTOR_SAFETY(FactorSafetyRunnable.class);
+
+    private Class<? extends Runnable> step;
+
+    NCSE02(final Class<? extends Runnable> step) {
+        this.step = step;
     }
+
+    public Class<? extends Runnable> getStepClass() {
+        return step;
+    }
+
 }

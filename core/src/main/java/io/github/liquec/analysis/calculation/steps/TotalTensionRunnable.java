@@ -4,18 +4,25 @@
 
 package io.github.liquec.analysis.calculation.steps;
 
+import io.github.liquec.analysis.calculation.Mode;
 import io.github.liquec.analysis.calculation.Runnable;
+import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.session.SessionState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class TotalTensionRunnable implements Runnable {
+public class TotalTensionRunnable extends Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TotalTensionRunnable.class);
+    public TotalTensionRunnable(final Mode mode) {
+        super(mode);
+    }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("Calculating total tension...");
+        LOG.debug("::: Start Total Tension Mode " + this.mode.getDescription());
 
+        if (sptCalculationResult.getDepth() < sessionState.getGeotechnicalProperties().getGroundWaterTableDepth()) {
+            throw new LiquEcException("");
+        }
+
+        LOG.debug("::: End Total Tension Mode " + this.mode.getDescription());
     }
 }

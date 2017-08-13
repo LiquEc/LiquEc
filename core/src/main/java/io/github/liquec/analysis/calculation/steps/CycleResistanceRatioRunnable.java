@@ -1,18 +1,20 @@
 package io.github.liquec.analysis.calculation.steps;
 
+import io.github.liquec.analysis.calculation.Mode;
 import io.github.liquec.analysis.calculation.Runnable;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.session.SessionState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class CycleResistanceRatioRunnable implements Runnable {
+public class CycleResistanceRatioRunnable extends Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CycleResistanceRatioRunnable.class);
+    public CycleResistanceRatioRunnable(final Mode mode) {
+        super(mode);
+    }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("Calculating cycle resistance ratio...");
+        LOG.debug("::: Start Cycle Resistance Ratio Mode " + this.mode.getDescription());
 
+        LOG.debug("::: End Cycle Resistance Ratio Mode " + this.mode.getDescription());
     }
 
 }
