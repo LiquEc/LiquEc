@@ -130,10 +130,10 @@ public class MainController {
 
         buttonCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
         menuCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
-        buttonNormativeEurocode.disableProperty().bind(not(model.ableToCalculateProperty()));
-        menuNormativeEurocode.disableProperty().bind(not(model.ableToCalculateProperty()));
-        buttonNormativeNcse02.disableProperty().bind(not(model.ableToCalculateProperty()));
-        menuNormativeNcse02.disableProperty().bind(not(model.ableToCalculateProperty()));
+        buttonNormativeEurocode.disableProperty().bind(not(model.sessionOpenProperty()));
+        menuNormativeEurocode.disableProperty().bind(not(model.sessionOpenProperty()));
+        buttonNormativeNcse02.disableProperty().bind(not(model.sessionOpenProperty()));
+        menuNormativeNcse02.disableProperty().bind(not(model.sessionOpenProperty()));
 
         buttonNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
         menuNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());

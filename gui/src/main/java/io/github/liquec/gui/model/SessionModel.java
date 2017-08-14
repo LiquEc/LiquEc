@@ -402,9 +402,11 @@ public final class SessionModel {
     public void clearSessionModelData() {
         LOG.debug("Deleting session model data...");
         this.setProjectName(null);
+        this.setProjectLocation(null);
         this.setOrganization(null);
         this.setPeakGroundAcceleration(null);
         this.setEarthquakeMagnitude(null);
+        this.setCoefficientOfContribution(null);
         this.setGroundWaterTableDepth(null);
         this.layerData.clear();
         this.layerChartData.clear();
@@ -413,6 +415,7 @@ public final class SessionModel {
         this.setChangesSaved(false);
         this.checkAbleToCalculate();
         this.checkAbleToRemoveLastLayer();
+        this.checkAbleToAddSpt();
         this.checkAbleToRemoveLastSpt();
     }
 
@@ -424,9 +427,18 @@ public final class SessionModel {
             if (StringUtils.isEmpty(this.getPeakGroundAcceleration()) || Float.valueOf(this.getPeakGroundAcceleration()) == 0) {
                 throw new LiquEcException("peakGroundAcceleration");
             }
-            LOG.debug("earthquakeMagnitude: " + this.getEarthquakeMagnitude());
-            if (StringUtils.isEmpty(this.getEarthquakeMagnitude()) || Float.valueOf(this.getEarthquakeMagnitude()) == 0) {
-                throw new LiquEcException("earthquakeMagnitude");
+            if (this.normativeMode.get()) {
+                LOG.debug("normativeMode: Eurocode");
+                LOG.debug("earthquakeMagnitude: " + this.getEarthquakeMagnitude());
+                if (StringUtils.isEmpty(this.getEarthquakeMagnitude()) || Float.valueOf(this.getEarthquakeMagnitude()) == 0) {
+                    throw new LiquEcException("earthquakeMagnitude");
+                }
+            } else {
+                LOG.debug("normativeMode: NCSE-02");
+                LOG.debug("coefficientOfContribution: " + this.getCoefficientOfContribution());
+                if (StringUtils.isEmpty(this.getCoefficientOfContribution()) || Float.valueOf(this.getCoefficientOfContribution()) == 0) {
+                    throw new LiquEcException("coefficientOfContribution");
+                }
             }
             LOG.debug("groundWaterTableDepth: " + this.getGroundWaterTableDepth());
             if (StringUtils.isEmpty(this.getGroundWaterTableDepth()) || Float.valueOf(this.getGroundWaterTableDepth()) == 0) {

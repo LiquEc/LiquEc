@@ -119,7 +119,7 @@ public class SessionController {
         handler(removeLastSptButton, this::removeLastSpt);
 
         // Normative Mode
-        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString()));
+        this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.manageNormativeMode(b, c));
         // Project Name
         Bindings.bindBidirectional(this.textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
         this.textFieldProjectName.textProperty().addListener((a, b, c) ->
@@ -218,6 +218,11 @@ public class SessionController {
 
         // Initialize Water Makers
         this.manageWaterDepthMarker();
+    }
+
+    private void manageNormativeMode(final Boolean b, final Boolean c) {
+        this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString());
+        this.sessionModel.checkAbleToCalculate();
     }
 
     private String searchSptEnergyRatio(final Number yValue, final Number xValue) {

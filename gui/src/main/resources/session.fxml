@@ -18,7 +18,7 @@
             <top>
                 <GridPane fx:id="basicDataGridPane" hgap="15.0" styleClass="wrapperGridPaneContent" BorderPane.alignment="CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="340.0" />
                         <ColumnConstraints hgrow="ALWAYS" />
                         <ColumnConstraints />
                     </columnConstraints>
