@@ -16,6 +16,7 @@ import java.util.List;
 
 public class SessionState {
     private String projectName;
+    private String projectLocation;
     private String organization;
     private SiteConditions siteConditions = new SiteConditions();
     private GeotechnicalProperties geotechnicalProperties = new GeotechnicalProperties();
@@ -27,11 +28,13 @@ public class SessionState {
 
     public SessionState(
         final String projectName,
+        final String projectLocation,
         final String organization,
         final SiteConditions siteConditions,
         final GeotechnicalProperties geotechnicalProperties,
         final List<StandardPenetrationTest> standardPenetrationTestList) {
         this.projectName = projectName;
+        this.projectLocation = projectLocation;
         this.organization = organization;
         this.siteConditions = siteConditions;
         this.geotechnicalProperties = geotechnicalProperties;
@@ -44,6 +47,14 @@ public class SessionState {
 
     public void setProjectName(final String projectName) {
         this.projectName = projectName;
+    }
+
+    public String getProjectLocation() {
+        return projectLocation;
+    }
+
+    public void setProjectLocation(final String projectLocation) {
+        this.projectLocation = projectLocation;
     }
 
     public String getOrganization() {

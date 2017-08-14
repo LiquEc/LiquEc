@@ -36,9 +36,11 @@ public final class SessionModel {
     private final SimpleBooleanProperty ableToRemoveLastSpt = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty projectName;
+    private final SimpleStringProperty projectLocation;
     private final SimpleStringProperty organization;
     private final SimpleStringProperty peakGroundAcceleration;
     private final SimpleStringProperty earthquakeMagnitude;
+    private final SimpleStringProperty coefficientOfContribution;
     private final SimpleStringProperty groundWaterTableDepth;
 
     private final ObservableList<LayerRow> layerData = FXCollections.observableArrayList();
@@ -49,11 +51,14 @@ public final class SessionModel {
 
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
+        this.projectLocation = new SimpleStringProperty(state.getProjectLocation());
         this.organization = new SimpleStringProperty(state.getOrganization());
         this.peakGroundAcceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAcceleration() == null ? "" :
             String.valueOf(state.getSiteConditions().getPeakGroundAcceleration()));
         this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null ? DefaultValuesEnum.EARTHQUAKE_MAGNITUDE.getValue() :
             String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
+        this.coefficientOfContribution = new SimpleStringProperty(state.getSiteConditions().getCoefficientOfContribution() == null ? DefaultValuesEnum.COEFFICIENT_OF_CONTRIBUTION.getValue() :
+            String.valueOf(state.getSiteConditions().getCoefficientOfContribution()));
         this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null ? "" :
             (this.getFormattedDepth(String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth()))));
         this.initializeLayerData(state.getGeotechnicalProperties().getSoilLayers());
@@ -132,6 +137,18 @@ public final class SessionModel {
         this.projectName.set(projectName);
     }
 
+    public String getProjectLocation() {
+        return projectLocation.get();
+    }
+
+    public SimpleStringProperty projectLocationProperty() {
+        return projectLocation;
+    }
+
+    public void setProjectLocation(final String projectLocation) {
+        this.projectLocation.set(projectLocation);
+    }
+
     public String getOrganization() {
         return organization.get();
     }
@@ -166,6 +183,18 @@ public final class SessionModel {
 
     public void setEarthquakeMagnitude(final String earthquakeMagnitude) {
         this.earthquakeMagnitude.set(earthquakeMagnitude);
+    }
+
+    public String getCoefficientOfContribution() {
+        return coefficientOfContribution.get();
+    }
+
+    public SimpleStringProperty coefficientOfContributionProperty() {
+        return coefficientOfContribution;
+    }
+
+    public void setCoefficientOfContribution(final String coefficientOfContribution) {
+        this.coefficientOfContribution.set(coefficientOfContribution);
     }
 
     public String getGroundWaterTableDepth() {

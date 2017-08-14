@@ -35,11 +35,15 @@ public class SessionController {
 
     public TextField textFieldProjectName;
 
+    public TextField textFieldProjectLocation;
+
     public TextField textFieldOrganization;
 
     public TextField textFieldPeakGroundAcceleration;
 
     public TextField textFieldEarthquakeMagnitude;
+
+    public TextField textFieldCoefficientOfContribution;
 
     public TextField textFieldGroundWaterTableDepth;
 
@@ -120,6 +124,10 @@ public class SessionController {
         Bindings.bindBidirectional(this.textFieldProjectName.textProperty(), this.sessionModel.projectNameProperty());
         this.textFieldProjectName.textProperty().addListener((a, b, c) ->
             this.manageSessionModelState("Project Name", b, c));
+        // Project Location
+        Bindings.bindBidirectional(this.textFieldProjectLocation.textProperty(), this.sessionModel.projectLocationProperty());
+        this.textFieldProjectLocation.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Project Location", b, c));
         // Organization
         Bindings.bindBidirectional(this.textFieldOrganization.textProperty(), this.sessionModel.organizationProperty());
         this.textFieldOrganization.textProperty().addListener((a, b, c) ->
@@ -140,6 +148,14 @@ public class SessionController {
             this.controllerHelper.validateNumberValue(this.textFieldEarthquakeMagnitude,"(\\d{0,1}([\\.]\\d{0,1})?)|10|10\\.|10\\.0", b, c));
         this.textFieldEarthquakeMagnitude.focusedProperty().addListener((a, b, c) ->
             this.controllerHelper.manageZerosValues(this.textFieldEarthquakeMagnitude, b, c, "0", true));
+        // Coefficient of Contribution
+        Bindings.bindBidirectional(this.textFieldCoefficientOfContribution.textProperty(), this.sessionModel.coefficientOfContributionProperty());
+        this.textFieldCoefficientOfContribution.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Coefficient of Contribution", b, c));
+        this.textFieldCoefficientOfContribution.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldCoefficientOfContribution,"([1]([\\.]\\d{0,1})?)|2|2\\.|2\\.0", b, c));
+        this.textFieldCoefficientOfContribution.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldCoefficientOfContribution, b, c, "0", true));
         // Ground Water Table Depth
         Bindings.bindBidirectional(this.textFieldGroundWaterTableDepth.textProperty(), this.sessionModel.groundWaterTableDepthProperty());
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->

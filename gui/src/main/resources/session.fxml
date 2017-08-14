@@ -28,26 +28,30 @@
                     <children>
                         <GridPane fx:id="informationGridPane" styleClass="area" vgap="10.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="ALWAYS" maxWidth="100.0" minWidth="100.0" />
+                                <ColumnConstraints hgrow="ALWAYS" maxWidth="120.0" minWidth="120.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
                             </columnConstraints>
                             <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
                                 <RowConstraints vgrow="ALWAYS" />
                                 <RowConstraints vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
                                 <Label styleClass="fieldLabel" text="Project Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <TextField fx:id="textFieldProjectName" alignment="CENTER_RIGHT" promptText="Enter the project name..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <Label styleClass="fieldLabel" text="Organization:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="textFieldOrganization" alignment="CENTER_RIGHT" promptText="Enter the organization..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label styleClass="fieldLabel" text="Project Location:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldProjectLocation" alignment="CENTER_RIGHT" promptText="Enter the project location..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label styleClass="fieldLabel" text="Organization:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <TextField fx:id="textFieldOrganization" alignment="CENTER_RIGHT" promptText="Enter the organization..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="siteConditionsGridPane" styleClass="area" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="ALWAYS" maxWidth="210.0" minWidth="210.0" />
+                                <ColumnConstraints hgrow="ALWAYS" maxWidth="220.0" minWidth="220.0" />
                                 <ColumnConstraints hgrow="ALWAYS" />
                             </columnConstraints>
                             <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
                                 <RowConstraints vgrow="ALWAYS" />
                                 <RowConstraints vgrow="ALWAYS" />
                             </rowConstraints>
@@ -62,6 +66,12 @@
                                 <TextField fx:id="textFieldEarthquakeMagnitude" alignment="CENTER_RIGHT" promptText="Enter the magnitude..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <tooltip>
                                         <Tooltip text="Range of supported values: {0.1-10.0} (Mw)" />
+                                    </tooltip>
+                                </TextField>
+                                <Label styleClass="fieldLabel" text="Coefficient of Contribution (K):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <TextField fx:id="textFieldCoefficientOfContribution" alignment="CENTER_RIGHT" promptText="Enter the coefficient..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <tooltip>
+                                        <Tooltip text="Range of supported values: {1.0-2.0} (K)" />
                                     </tooltip>
                                 </TextField>
                             </children>
