@@ -36,7 +36,7 @@ public final class SessionModel {
 
     private final SimpleStringProperty projectName;
     private final SimpleStringProperty organization;
-    private final SimpleStringProperty peakGroundAceleration;
+    private final SimpleStringProperty peakGroundAcceleration;
     private final SimpleStringProperty earthquakeMagnitude;
     private final SimpleStringProperty groundWaterTableDepth;
 
@@ -49,8 +49,8 @@ public final class SessionModel {
     public SessionModel(final SessionState state) {
         this.projectName = new SimpleStringProperty(state.getProjectName());
         this.organization = new SimpleStringProperty(state.getOrganization());
-        this.peakGroundAceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAceleration() == null ? "" :
-            String.valueOf(state.getSiteConditions().getPeakGroundAceleration()));
+        this.peakGroundAcceleration = new SimpleStringProperty(state.getSiteConditions().getPeakGroundAcceleration() == null ? "" :
+            String.valueOf(state.getSiteConditions().getPeakGroundAcceleration()));
         this.earthquakeMagnitude = new SimpleStringProperty(state.getSiteConditions().getEarthquakeMagnitude() == null ? DefaultValuesEnum.EARTHQUAKE_MAGNITUDE.getValue() :
             String.valueOf(state.getSiteConditions().getEarthquakeMagnitude()));
         this.groundWaterTableDepth = new SimpleStringProperty(state.getGeotechnicalProperties().getGroundWaterTableDepth() == null ? "" :
@@ -141,16 +141,16 @@ public final class SessionModel {
         this.organization.set(organization);
     }
 
-    public String getPeakGroundAceleration() {
-        return peakGroundAceleration.get();
+    public String getPeakGroundAcceleration() {
+        return peakGroundAcceleration.get();
     }
 
-    public SimpleStringProperty peakGroundAcelerationProperty() {
-        return peakGroundAceleration;
+    public SimpleStringProperty peakGroundAccelerationProperty() {
+        return peakGroundAcceleration;
     }
 
-    public void setPeakGroundAceleration(final String peakGroundAceleration) {
-        this.peakGroundAceleration.set(peakGroundAceleration);
+    public void setPeakGroundAcceleration(final String peakGroundAcceleration) {
+        this.peakGroundAcceleration.set(peakGroundAcceleration);
     }
 
     public String getEarthquakeMagnitude() {
@@ -315,7 +315,7 @@ public final class SessionModel {
         sessionState.setOrganization(this.getOrganization());
 
         SiteConditions siteConditions = new SiteConditions();
-        siteConditions.setPeakGroundAceleration(StringUtils.isEmpty(this.getPeakGroundAceleration()) ? null : Float.valueOf(this.getPeakGroundAceleration()));
+        siteConditions.setPeakGroundAcceleration(StringUtils.isEmpty(this.getPeakGroundAcceleration()) ? null : Float.valueOf(this.getPeakGroundAcceleration()));
         siteConditions.setEarthquakeMagnitude(StringUtils.isEmpty(this.getEarthquakeMagnitude()) ? null : Float.valueOf(this.getEarthquakeMagnitude()));
         sessionState.setSiteConditions(siteConditions);
 
@@ -371,7 +371,7 @@ public final class SessionModel {
         LOG.debug("Deleting session model data...");
         this.setProjectName(null);
         this.setOrganization(null);
-        this.setPeakGroundAceleration(null);
+        this.setPeakGroundAcceleration(null);
         this.setEarthquakeMagnitude(null);
         this.setGroundWaterTableDepth(null);
         this.layerData.clear();
@@ -388,9 +388,9 @@ public final class SessionModel {
         LOG.debug("Checking able to calculate...");
         boolean ableToCalculate = true;
         try {
-            LOG.debug("peakGroundAceleration: " + this.getPeakGroundAceleration());
-            if (StringUtils.isEmpty(this.getPeakGroundAceleration()) || Float.valueOf(this.getPeakGroundAceleration()) == 0) {
-                throw new LiquEcException("peakGroundAceleration");
+            LOG.debug("peakGroundAcceleration: " + this.getPeakGroundAcceleration());
+            if (StringUtils.isEmpty(this.getPeakGroundAcceleration()) || Float.valueOf(this.getPeakGroundAcceleration()) == 0) {
+                throw new LiquEcException("peakGroundAcceleration");
             }
             LOG.debug("earthquakeMagnitude: " + this.getEarthquakeMagnitude());
             if (StringUtils.isEmpty(this.getEarthquakeMagnitude()) || Float.valueOf(this.getEarthquakeMagnitude()) == 0) {

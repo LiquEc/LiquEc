@@ -37,7 +37,7 @@ public class SessionController {
 
     public TextField textFieldOrganization;
 
-    public TextField textFieldPeakGroundAceleration;
+    public TextField textFieldPeakGroundAcceleration;
 
     public TextField textFieldEarthquakeMagnitude;
 
@@ -124,14 +124,14 @@ public class SessionController {
         Bindings.bindBidirectional(this.textFieldOrganization.textProperty(), this.sessionModel.organizationProperty());
         this.textFieldOrganization.textProperty().addListener((a, b, c) ->
             this.manageSessionModelState("Organization", b, c));
-        // Peak Ground Aceleration
-        Bindings.bindBidirectional(this.textFieldPeakGroundAceleration.textProperty(), this.sessionModel.peakGroundAcelerationProperty());
-        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) ->
-            this.manageSessionModelState("Peak Ground Aceleration", b, c));
-        this.textFieldPeakGroundAceleration.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAceleration,"(\\d{0,1}([\\.]\\d{0,2})?)|10|10\\.|10\\.0|10\\.00", b, c));
-        this.textFieldPeakGroundAceleration.focusedProperty().addListener((a, b, c) ->
-            this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAceleration, b, c, "00", true));
+        // Peak Ground Acceleration
+        Bindings.bindBidirectional(this.textFieldPeakGroundAcceleration.textProperty(), this.sessionModel.peakGroundAccelerationProperty());
+        this.textFieldPeakGroundAcceleration.textProperty().addListener((a, b, c) ->
+            this.manageSessionModelState("Peak Ground Acceleration", b, c));
+        this.textFieldPeakGroundAcceleration.textProperty().addListener((a, b, c) ->
+            this.controllerHelper.validateNumberValue(this.textFieldPeakGroundAcceleration,"(\\d{0,1}([\\.]\\d{0,2})?)|10|10\\.|10\\.0|10\\.00", b, c));
+        this.textFieldPeakGroundAcceleration.focusedProperty().addListener((a, b, c) ->
+            this.controllerHelper.manageZerosValues(this.textFieldPeakGroundAcceleration, b, c, "00", true));
         // Earthquake Magnitude
         Bindings.bindBidirectional(this.textFieldEarthquakeMagnitude.textProperty(), this.sessionModel.earthquakeMagnitudeProperty());
         this.textFieldEarthquakeMagnitude.textProperty().addListener((a, b, c) ->

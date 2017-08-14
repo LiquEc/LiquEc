@@ -52,8 +52,8 @@
                                 <RowConstraints vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
-                                <Label styleClass="fieldLabel" text="Peak Ground Aceleration (a/g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                <TextField fx:id="textFieldPeakGroundAceleration" alignment="CENTER_RIGHT" promptText="Enter the aceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label styleClass="fieldLabel" text="Peak Ground Acceleration (a/g):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <TextField fx:id="textFieldPeakGroundAcceleration" alignment="CENTER_RIGHT" promptText="Enter the acceleration..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <tooltip>
                                         <Tooltip text="Range of supported values: {0.01-10.00} (a/g)" />
                                     </tooltip>

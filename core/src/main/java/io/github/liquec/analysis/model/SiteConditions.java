@@ -5,24 +5,24 @@
 package io.github.liquec.analysis.model;
 
 public final class SiteConditions {
-    private Float peakGroundAceleration;
+    private Float peakGroundAcceleration;
     private Float earthquakeMagnitude;
 
     public SiteConditions() {
         // No argument constructor to allow use as standard Java Bean
     }
 
-    public SiteConditions(final Float peakGroundAceleration, final Float earthquakeMagnitude) {
-        this.peakGroundAceleration = peakGroundAceleration;
+    public SiteConditions(final Float peakGroundAcceleration, final Float earthquakeMagnitude) {
+        this.peakGroundAcceleration = peakGroundAcceleration;
         this.earthquakeMagnitude = earthquakeMagnitude;
     }
 
-    public Float getPeakGroundAceleration() {
-        return peakGroundAceleration;
+    public Float getPeakGroundAcceleration() {
+        return peakGroundAcceleration;
     }
 
-    public void setPeakGroundAceleration(final Float peakGroundAceleration) {
-        this.peakGroundAceleration = peakGroundAceleration;
+    public void setPeakGroundAcceleration(final Float peakGroundAcceleration) {
+        this.peakGroundAcceleration = peakGroundAcceleration;
     }
 
     public Float getEarthquakeMagnitude() {
