@@ -15,7 +15,7 @@ public class InterstitialPressureRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         LOG.debug("::: Start Interstitial Pressure Mode " + this.mode.getDescription());
 
-        final double interstitialPressure = Constant.WATER_DENSITY.getValue(mode) * (sptCalculationResult.getDepth() - sessionState.getGeotechnicalProperties().getGroundWaterTableDepth());
+        final double interstitialPressure = 10.0 * (sptCalculationResult.getDepth() - sessionState.getGeotechnicalProperties().getGroundWaterTableDepth());
 
         LOG.debug(":::::: Interstitial pressure:" + interstitialPressure + " KN/m2");
 

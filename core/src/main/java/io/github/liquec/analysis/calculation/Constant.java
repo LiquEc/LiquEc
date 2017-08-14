@@ -5,9 +5,7 @@
 package io.github.liquec.analysis.calculation;
 
 public enum Constant {
-   NO_CHECK_DEPTH("No check depth", 20.0, 0.0),
-   WATER_DENSITY("Water density (KN/m3)", 10.0, 10.0)
-   ;
+   NO_CHECK_DEPTH("No check depth", 20.0, 0.0),;
 
    private String description;
    private Double eurocode;
