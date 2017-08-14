@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class SptRow {
+public final class SptRow implements Comparable<SptRow> {
     private static final Logger LOG = LoggerFactory.getLogger(SptRow.class);
 
     private final SimpleStringProperty sptDepth;
@@ -58,5 +58,12 @@ public final class SptRow {
 
     public void setSptEnergyRatio(final String sptEnergyRatio) {
         this.sptEnergyRatio.set(sptEnergyRatio);
+    }
+
+    public int compareTo(final SptRow sptRow) {
+        if(Float.valueOf(this.sptDepth.getValue()).equals(Float.valueOf(sptRow.getSptDepth()))) {
+            return 0;
+        }
+        return Float.valueOf(this.sptDepth.getValue()) < Float.valueOf(sptRow.getSptDepth()) ? -1 : 1;
     }
 }

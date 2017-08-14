@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
+import java.util.Collections;
+
 import static javafx.beans.binding.Bindings.not;
 
 public class SptController {
@@ -94,12 +96,13 @@ public class SptController {
     private void saveSpt() {
         if (!this.checkDuplicatedSpt()) {
             AlertTool.filterErrorAlert(
-                "Duplicated SPT",
+                "Duplicated SPT Depth",
                 "You can't add this SPT.",
                 "Depth (m): " + this.textFieldSptDepth.getText() + ", Blow Counts (N): " + this.textFieldSptBlowCounts.getText());
             return;
         }
         this.sessionModel.getSptData().add(this.buildSptRow());
+        Collections.sort(this.sessionModel.getSptData());
         this.addSptChartData();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
@@ -110,7 +113,7 @@ public class SptController {
 
     private boolean checkDuplicatedSpt() {
         for (SptRow sptRow : this.sessionModel.getSptData()) {
-            if (sptRow.getSptDepth().equals(this.textFieldSptDepth.getText()) && sptRow.getSptBlowCounts().equals(this.textFieldSptBlowCounts.getText())) {
+            if (sptRow.getSptDepth().equals(this.textFieldSptDepth.getText())) {
                 return false;
             }
         }
@@ -125,7 +128,10 @@ public class SptController {
     }
 
     private void addSptChartData() {
-        this.sessionModel.getSptChartMainDataSeries().getData().add(LiquEcData.getChartInverseDataSpt(Integer.valueOf(this.sptModel.getSptBlowCounts()), Float.valueOf(this.sptModel.getDepth())));
+        this.sessionModel.getSptChartMainDataSeries().getData().clear();
+        for (SptRow sptRow : this.sessionModel.getSptData()) {
+            this.sessionModel.getSptChartMainDataSeries().getData().add(LiquEcData.getChartInverseDataSpt(Integer.valueOf(sptRow.getSptBlowCounts()), Float.valueOf(sptRow.getSptDepth())));
+        }
     }
 
     private void exit() {

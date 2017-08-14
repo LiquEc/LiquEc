@@ -4,7 +4,7 @@
 
 package io.github.liquec.analysis.model;
 
-public class StandardPenetrationTest {
+public class StandardPenetrationTest implements Comparable<StandardPenetrationTest> {
     private Float depth;
     private Integer sptBlowCounts;
     private Float energyRatio;
@@ -41,5 +41,12 @@ public class StandardPenetrationTest {
 
     public void setEnergyRatio(final Float energyRatio) {
         this.energyRatio = energyRatio;
+    }
+
+    public int compareTo(final StandardPenetrationTest standardPenetrationTest) {
+        if(this.depth.equals(standardPenetrationTest.getDepth())) {
+            return 0;
+        }
+        return this.depth < standardPenetrationTest.getDepth() ? -1 : 1;
     }
 }

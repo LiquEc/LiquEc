@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class SessionModel {
@@ -57,6 +58,7 @@ public final class SessionModel {
             (this.getFormattedDepth(String.valueOf(state.getGeotechnicalProperties().getGroundWaterTableDepth()))));
         this.initializeLayerData(state.getGeotechnicalProperties().getSoilLayers());
         this.initializeLayerChartData(state.getGeotechnicalProperties().getSoilLayers());
+        Collections.sort(state.getStandardPenetrationTestList());
         this.initializeSptData(state.getStandardPenetrationTestList());
         this.initializeSptChartData(state.getStandardPenetrationTestList());
         this.checkAbleToCalculate();

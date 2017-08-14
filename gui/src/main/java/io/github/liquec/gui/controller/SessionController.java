@@ -316,7 +316,7 @@ public class SessionController {
         final Double layerLowerBound = this.getPairValueAxisY((this.sessionModel.getLayerData().size() > 0)
             ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
         final Double sptLowerBound = this.getPairValueAxisY((this.sessionModel.getSptData().size() > 0)
-            ? -Math.ceil(this.searchMaxSptDepth() + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
+            ? -Math.ceil(Double.valueOf(this.sessionModel.getSptData().get(this.sessionModel.getSptData().size() - 1).getSptDepth()) + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
         if (this.sessionModel.getLayerData().size() == 0) {
             return sptLowerBound;
         }
