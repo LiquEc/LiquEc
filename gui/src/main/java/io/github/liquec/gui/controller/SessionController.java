@@ -302,16 +302,6 @@ public class SessionController {
         return max;
     }
 
-    private Double searchMaxSptDepth() {
-        Double max = 0.0;
-        for (SptRow sptRow : this.sessionModel.getSptData()) {
-            if (Double.valueOf(sptRow.getSptDepth()) > max) {
-                max = Double.valueOf(sptRow.getSptDepth());
-            }
-        }
-        return max;
-    }
-
     private Double lowerBoundAxisY() {
         final Double layerLowerBound = this.getPairValueAxisY((this.sessionModel.getLayerData().size() > 0)
             ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
