@@ -14,6 +14,16 @@ public class SptCorrectedRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         LOG.debug("::: Start SPT Corrected Mode " + this.mode.getDescription());
 
+        double sptCorrected = sptCalculationResult.getSptBlowCounts() * (sptCalculationResult.getEnergyRatio() / 60) * sptCalculationResult.getFactorEffectivePressure();
+
+        if (mode == Mode.EUROCODE) {
+            sptCorrected = sptCalculationResult.getDepth() < 3 ? 0.75 * sptCorrected : sptCorrected;
+        }
+
+        LOG.debug(":::::: FSPT corrected:" + sptCorrected);
+
+        sptCalculationResult.setSptCorrected(sptCorrected);
+
         LOG.debug("::: End SPT Corrected Mode " + this.mode.getDescription());
     }
 

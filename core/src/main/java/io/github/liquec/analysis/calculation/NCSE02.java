@@ -8,12 +8,16 @@ import io.github.liquec.analysis.calculation.steps.*;
 
 public enum NCSE02 implements Step {
 
-    CALCULATE_TOTAL_TENSION(TotalTensionRunnable.class),
+    CHECK_DEPTH_ABOVE_GWT(CheckDepthAboveGwtRunnable.class),
+    CALCULATE_TOTAL_STRESS(TotalStressRunnable.class),
     CALCULATE_INTERSTITIAL_PRESSURE(InterstitialPressureRunnable.class),
     CALCULATE_EFFECTIVE_PRESSURE(EffectivePressureRunnable.class),
+    CALCULATE_FACTOR_EFFECTIVE_PRESSURE(FactorEffectivePressureRunnable.class),
     CALCULATE_SPT_CORRECTED(SptCorrectedRunnable.class),
     CALCULATE_CYCLE_RESISTANCE_RATIO(CycleResistanceRatioRunnable.class),
+    CALCULATE_COEFFICIENT_OF_CONTRIBUTION(CoefficientOfContributionRunnable.class),
     CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTED(CycleResistanceRatioCorrectedRunnable.class),
+    CALCULATE_FACTOR_DEPTH(FactorDepthRunnable.class),
     CALCULATE_CYCLE_STRESS_RATIO(CycleStressRatioRunnable.class),
     CALCULATE_FACTOR_SAFETY(FactorSafetyRunnable.class);
 

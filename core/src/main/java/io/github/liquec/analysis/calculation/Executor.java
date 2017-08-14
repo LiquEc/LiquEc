@@ -44,9 +44,21 @@ public class Executor {
 
             for (Enum<? extends Step> step : this.mode.getSteps()) {
                 try {
+
                     (((Step) step).getStepClass().getConstructor(Mode.class)).newInstance(this.mode).execute(this.sessionState, sptCalculationResult);
+
+                } catch (LiquEcException e) {
+
+                    LOG.debug("::: SPT Error: " + e.getMessage());
+                    sptCalculationResult.setResult(false);
+                    sptCalculationResult.setErrorMessage(e.getMessage());
+                    break;
+
                 } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
+
+                    LOG.debug("::: Error: " + e.getMessage());
                     throw new LiquEcException(e.getMessage());
+
                 }
             }
 
@@ -67,8 +79,11 @@ public class Executor {
         if (this.sessionState == null) {
             throw new LiquEcException("Session state required");
         }
-        if (this.sessionState.getStandardPenetrationTestList() == null || this.sessionState.getStandardPenetrationTestList().size() == 0) {
-            throw new LiquEcException("Standard Penetration Test List required");
+        if (this.sessionState.getGeotechnicalProperties().getSoilLayers().size() == 0) {
+            throw new LiquEcException("Soil layers list required");
+        }
+        if (this.sessionState.getStandardPenetrationTestList().size() == 0) {
+            throw new LiquEcException("Standard penetration test list required");
         }
     }
 }

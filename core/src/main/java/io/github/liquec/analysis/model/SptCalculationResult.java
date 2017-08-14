@@ -5,21 +5,44 @@
 package io.github.liquec.analysis.model;
 
 public class SptCalculationResult {
+
+    private Boolean result;
+    private String errorMessage;
+
     private Float depth;
     private Integer sptBlowCounts;
     private Float energyRatio;
-    private Float totalTension;
-    private Float interstitialPressure;
-    private Float effectivePressure;
-    private Float sptCorrected;
-    private Float cycleStressRatio;
-    private Float cycleResistanceRatio;
-    private Float factorSafety;
+    private Double totalStress;
+    private Double interstitialPressure;
+    private Double effectivePressure;
+    private Double factorEffectivePressure;
+    private Double coefficientOfContribution;
+    private Double sptCorrected;
+    private Double cycleStressRatio;
+    private Double cycleResistanceRatio;
+    private Double factorSafety;
 
     public SptCalculationResult(final StandardPenetrationTest standardPenetrationTest) {
+        this.result = true;
         this.depth = standardPenetrationTest.getDepth();
         this.sptBlowCounts = standardPenetrationTest.getSptBlowCounts();
         this.energyRatio = standardPenetrationTest.getEnergyRatio();
+    }
+
+    public Boolean getResult() {
+        return result;
+    }
+
+    public void setResult(final Boolean result) {
+        this.result = result;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(final String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public Float getDepth() {
@@ -46,59 +69,75 @@ public class SptCalculationResult {
         this.energyRatio = energyRatio;
     }
 
-    public Float getTotalTension() {
-        return totalTension;
+    public Double getTotalStress() {
+        return totalStress;
     }
 
-    public void setTotalTension(final Float totalTension) {
-        this.totalTension = totalTension;
+    public void setTotalStress(final Double totalStress) {
+        this.totalStress = totalStress;
     }
 
-    public Float getInterstitialPressure() {
+    public Double getInterstitialPressure() {
         return interstitialPressure;
     }
 
-    public void setInterstitialPressure(final Float interstitialPressure) {
+    public void setInterstitialPressure(final Double interstitialPressure) {
         this.interstitialPressure = interstitialPressure;
     }
 
-    public Float getEffectivePressure() {
+    public Double getEffectivePressure() {
         return effectivePressure;
     }
 
-    public void setEffectivePressure(final Float effectivePressure) {
+    public void setEffectivePressure(final Double effectivePressure) {
         this.effectivePressure = effectivePressure;
     }
 
-    public Float getSptCorrected() {
+    public Double getFactorEffectivePressure() {
+        return factorEffectivePressure;
+    }
+
+    public void setFactorEffectivePressure(final Double factorEffectivePressure) {
+        this.factorEffectivePressure = factorEffectivePressure;
+    }
+
+    public Double getCoefficientOfContribution() {
+        return coefficientOfContribution;
+    }
+
+    public void setCoefficientOfContribution(final Double coefficientOfContribution) {
+        this.coefficientOfContribution = coefficientOfContribution;
+    }
+
+    public Double getSptCorrected() {
         return sptCorrected;
     }
 
-    public void setSptCorrected(final Float sptCorrected) {
+    public void setSptCorrected(final Double sptCorrected) {
         this.sptCorrected = sptCorrected;
     }
 
-    public Float getCycleStressRatio() {
+    public Double getCycleStressRatio() {
         return cycleStressRatio;
     }
 
-    public void setCycleStressRatio(final Float cycleStressRatio) {
+    public void setCycleStressRatio(final Double cycleStressRatio) {
         this.cycleStressRatio = cycleStressRatio;
     }
 
-    public Float getCycleResistanceRatio() {
+    public Double getCycleResistanceRatio() {
         return cycleResistanceRatio;
     }
 
-    public void setCycleResistanceRatio(final Float cycleResistanceRatio) {
+    public void setCycleResistanceRatio(final Double cycleResistanceRatio) {
         this.cycleResistanceRatio = cycleResistanceRatio;
     }
 
-    public Float getFactorSafety() {
+    public Double getFactorSafety() {
         return factorSafety;
     }
 
-    public void setFactorSafety(final Float factorSafety) {
+    public void setFactorSafety(final Double factorSafety) {
         this.factorSafety = factorSafety;
     }
 }
