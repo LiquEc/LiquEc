@@ -161,6 +161,7 @@ public class LayerController {
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddLayer();
         this.sessionModel.checkAbleToRemoveLastLayer();
+        this.sessionModel.checkAbleToAddSpt();
         this.exit();
     }
 

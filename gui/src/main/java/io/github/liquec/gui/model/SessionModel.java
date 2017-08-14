@@ -32,7 +32,7 @@ public final class SessionModel {
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToAddLayer = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToRemoveLastLayer = new SimpleBooleanProperty(false);
-    private final SimpleBooleanProperty ableToAddSpt = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty ableToAddSpt = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty ableToRemoveLastSpt = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty projectName;
@@ -63,6 +63,7 @@ public final class SessionModel {
         this.initializeSptChartData(state.getStandardPenetrationTestList());
         this.checkAbleToCalculate();
         this.checkAbleToRemoveLastLayer();
+        this.checkAbleToAddSpt();
         this.checkAbleToRemoveLastSpt();
     }
 
@@ -427,14 +428,35 @@ public final class SessionModel {
 
     public void checkAbleToRemoveLastLayer() {
         LOG.debug("Checking able to remove last layer...");
-        this.setAbleToRemoveLastLayer(this.layerData.size() > 0);
+        boolean ableToRemoveLastLayer = true;
+        try {
+            if (this.layerData.size() == 0) {
+                throw new LiquEcException("No layer to be removed");
+            }
+            if (this.isLastSptDepthInLastLayerDepth()) {
+                throw new LiquEcException("Last SPT depth in last layer depth");
+            }
+        } catch (LiquEcException e) {
+            LOG.debug("Reason: " + e.getMessage());
+            ableToRemoveLastLayer = false;
+        }
+        this.setAbleToRemoveLastLayer(ableToRemoveLastLayer);
+        LOG.debug("isAbleToRemoveLastLayer: " + this.isAbleToRemoveLastLayer());
+    }
+
+    private boolean isLastSptDepthInLastLayerDepth() {
+        if (this.sptData.size() == 0) {
+            return false;
+        }
+        final Float lastSptDepth = Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth());
+        final Float startLastLayerDepth = Float.valueOf(this.layerData.get(this.layerData.size() - 1).getStartDepth());
+        final Float finalLastLayerDepth = Float.valueOf(this.layerData.get(this.layerData.size() - 1).getFinalDepth());
+        return lastSptDepth > startLastLayerDepth && lastSptDepth <= finalLastLayerDepth;
     }
 
     public void checkAbleToAddSpt() {
         LOG.debug("Checking able to add spt...");
-        if (this.sptData.size() > 0) {
-            this.setAbleToAddSpt(Float.valueOf(this.sptData.get(this.sptData.size() - 1).getSptDepth()) <= BoundsEnum.MAX_DEPTH.getPositiveValue());
-        }
+        this.setAbleToAddSpt(this.layerData.size() > 0);
     }
 
     public void checkAbleToRemoveLastSpt() {

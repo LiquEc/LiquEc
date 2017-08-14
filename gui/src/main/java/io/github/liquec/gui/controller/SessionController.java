@@ -254,6 +254,7 @@ public class SessionController {
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddLayer();
         this.sessionModel.checkAbleToRemoveLastLayer();
+        this.sessionModel.checkAbleToAddSpt();
     }
 
     private void processSptProperties() {
@@ -267,6 +268,7 @@ public class SessionController {
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddSpt();
         this.sessionModel.checkAbleToRemoveLastSpt();
+        this.sessionModel.checkAbleToRemoveLastLayer();
     }
 
     private void manageChartsAutoRangingAndExtendedFeatures() {

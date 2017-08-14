@@ -101,6 +101,14 @@ public class SptController {
                 "Depth (m): " + this.textFieldSptDepth.getText() + ", Blow Counts (N): " + this.textFieldSptBlowCounts.getText());
             return;
         }
+        if (!this.checkDepthLayer()) {
+            AlertTool.filterErrorAlert(
+                "SPT Depth Below Layer Depth",
+                "You can't add this SPT.",
+                "Max Depth (m): " + (this.sessionModel.getLayerData().size() == 0 ? "0" : this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()));
+            return;
+        }
+
         this.sessionModel.getSptData().add(this.buildSptRow());
         Collections.sort(this.sessionModel.getSptData());
         this.addSptChartData();
@@ -108,6 +116,7 @@ public class SptController {
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddSpt();
         this.sessionModel.checkAbleToRemoveLastSpt();
+        this.sessionModel.checkAbleToRemoveLastLayer();
         this.exit();
     }
 
@@ -118,6 +127,13 @@ public class SptController {
             }
         }
         return true;
+    }
+
+    private boolean checkDepthLayer() {
+        if (this.sessionModel.getLayerData().size() == 0) {
+            return false;
+        }
+        return Float.valueOf(this.textFieldSptDepth.getText()) <= Float.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth());
     }
 
     private SptRow buildSptRow() {
