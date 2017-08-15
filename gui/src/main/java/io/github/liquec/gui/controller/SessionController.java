@@ -163,7 +163,7 @@ public class SessionController {
         this.textFieldGroundWaterTableDepth.textProperty().addListener((a, b, c) ->
             this.controllerHelper.validateNumberValue(this.textFieldGroundWaterTableDepth,"((1|2)?\\d{0,1}([\\.]\\d{0,2})?)|30|30\\.|30\\.0|30\\.00", b, c));
         this.textFieldGroundWaterTableDepth.focusedProperty().addListener((a, b, c) ->
-            this.manageGroundWaterTableDepth(this.textFieldGroundWaterTableDepth, b, c, "00", true));
+            this.manageGroundWaterTableDepth(this.textFieldGroundWaterTableDepth, b, c, "00", false));
 
         // Layer Table
         this.startDepthTableColumn.setCellValueFactory(cellData -> cellData.getValue().startDepthProperty());
@@ -235,7 +235,7 @@ public class SessionController {
     }
 
     private void manageGroundWaterTableDepth(final TextField textField, final Boolean b, final Boolean c, final String zeros, final boolean remove) {
-        this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", true);
+        this.controllerHelper.manageZerosValues(this.textFieldGroundWaterTableDepth, b, c, "00", remove);
         this.manageWaterDepthMarker();
     }
 

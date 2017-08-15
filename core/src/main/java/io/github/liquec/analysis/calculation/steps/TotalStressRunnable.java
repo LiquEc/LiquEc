@@ -69,6 +69,9 @@ public class TotalStressRunnable extends Runnable {
     }
 
     private int retrieveLayerIndexWithGwtInside(final GeotechnicalProperties geotechnicalProperties) {
+        if (geotechnicalProperties.getGroundWaterTableDepth() == 0) {
+            return 0;
+        }
         int index = 0;
         int layerIndexWithGwtInside = -1;
         for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {

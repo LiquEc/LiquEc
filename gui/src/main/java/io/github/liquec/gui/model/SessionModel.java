@@ -441,7 +441,7 @@ public final class SessionModel {
                 }
             }
             LOG.debug("groundWaterTableDepth: " + this.getGroundWaterTableDepth());
-            if (StringUtils.isEmpty(this.getGroundWaterTableDepth()) || Float.valueOf(this.getGroundWaterTableDepth()) == 0) {
+            if (StringUtils.isEmpty(this.getGroundWaterTableDepth())) { // can be zero
                 throw new LiquEcException("groundWaterTableDepth");
             }
             LOG.debug("layers: " + this.layerData.size());

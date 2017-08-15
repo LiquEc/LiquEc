@@ -61,7 +61,7 @@
                 </Label>
                 <TextField fx:id="textFieldSoilUnitWeightAboveGwt" alignment="CENTER_RIGHT" promptText="Enter the weight above GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <tooltip>
-                        <Tooltip text="Range of supported values: {0.1-50.0} (KN/m3)" />
+                        <Tooltip text="Range of supported values: {11.0-50.0} (KN/m3)" />
                     </tooltip>
                 </TextField>
 
@@ -76,7 +76,7 @@
                 </Label>
                 <TextField fx:id="textFieldSoilUnitWeightBelowGwt" alignment="CENTER_RIGHT" promptText="Enter the weight below GWT..." styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <tooltip>
-                        <Tooltip text="Range of supported values: {0.1-50.0} (KN/m3)" />
+                        <Tooltip text="Range of supported values: {11.0-50.0} (KN/m3)" />
                     </tooltip>
                 </TextField>
 

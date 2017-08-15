@@ -37,11 +37,35 @@ public class ControllerHelperImpl implements ControllerHelper {
     }
 
     @Override
+    public void manageLowRangeValue(TextField textField, Boolean oldValue, Boolean newValue, final String zeros, final Float lowRange, boolean remove) {
+        if (newValue) {
+            return;
+        }
+        if (lowRange == null) {
+            return;
+        }
+        if (remove) {
+            this.removeLowRangeValue(textField, lowRange);
+        }
+        this.fillZeros(textField, zeros);
+    }
+
+    @Override
     public void removeZeros(final TextField textField) {
         if (StringUtils.isEmpty(textField.getText())) {
             return;
         }
         if (textField.getText().matches("([0]|[0][0])(\\.|\\.[0]|\\.[0][0])?")) {
+            textField.setText("");
+        }
+    }
+
+    @Override
+    public void removeLowRangeValue(final TextField textField, final Float lowRange) {
+        if (StringUtils.isEmpty(textField.getText())) {
+            return;
+        }
+        if (Float.valueOf(textField.getText()) < lowRange) {
             textField.setText("");
         }
     }

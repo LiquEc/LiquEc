@@ -97,7 +97,7 @@ public class LayerController {
         this.textFieldSoilUnitWeightAboveGwt.textProperty().addListener((a, b, c) ->
             this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightAboveGwt,"((1|2|3|4)?\\d{0,1}([\\.]\\d{0,1})?)|50|50\\.|50\\.0", b, c));
         this.textFieldSoilUnitWeightAboveGwt.focusedProperty().addListener((a, b, c) ->
-            this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightAboveGwt, b, c, "0", true));
+            this.controllerHelper.manageLowRangeValue(this.textFieldSoilUnitWeightAboveGwt, b, c, "0", 11.0F, true));
 
         // Soil Unit Weight Below Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightBelowGwt.textProperty(), this.layerModel.soilUnitWeightBelowGwtProperty());
@@ -106,7 +106,7 @@ public class LayerController {
         this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
             this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"((1|2|3|4)?\\d{0,1}([\\.]\\d{0,1})?)|50|50\\.|50\\.0", b, c));
         this.textFieldSoilUnitWeightBelowGwt.focusedProperty().addListener((a, b, c) ->
-            this.controllerHelper.manageZerosValues(this.textFieldSoilUnitWeightBelowGwt, b, c, "0", true));
+            this.controllerHelper.manageLowRangeValue(this.textFieldSoilUnitWeightBelowGwt, b, c, "0", 11.0F, true));
 
         // Fines Content
         Bindings.bindBidirectional(this.textFieldFinesContent.textProperty(), this.layerModel.finesContentProperty());

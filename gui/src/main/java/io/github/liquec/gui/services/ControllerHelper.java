@@ -12,7 +12,11 @@ public interface ControllerHelper {
 
     void manageZerosValues(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros, final boolean remove);
 
+    void manageLowRangeValue(final TextField textField, final Boolean oldValue, final Boolean newValue, final String zeros, final Float lowRange, final boolean remove);
+
     void removeZeros(final TextField textField);
+
+    void removeLowRangeValue(final TextField textField, final Float lowRange);
 
     void fillZeros(final TextField textField, final String zeros);
 
