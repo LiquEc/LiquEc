@@ -12,14 +12,14 @@ public enum NCSE02 implements Step {
     CALCULATE_TOTAL_STRESS(TotalStressRunnable.class),
     CALCULATE_INTERSTITIAL_PRESSURE(InterstitialPressureRunnable.class),
     CALCULATE_EFFECTIVE_PRESSURE(EffectivePressureRunnable.class),
-    CALCULATE_FACTOR_EFFECTIVE_PRESSURE(FactorEffectivePressureRunnable.class),
-    CALCULATE_SPT_CORRECTED(SptCorrectedRunnable.class),
+    CALCULATE_EFFECTIVE_PRESSURE_FACTOR(EffectivePressureFactorRunnable.class),
+    CALCULATE_SPT_CORRECTION(SptCorrectionRunnable.class),
     CALCULATE_CYCLE_RESISTANCE_RATIO(CycleResistanceRatioRunnable.class),
     CALCULATE_COEFFICIENT_OF_CONTRIBUTION(CoefficientOfContributionRunnable.class),
-    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTED(CycleResistanceRatioCorrectedRunnable.class),
-    CALCULATE_FACTOR_DEPTH(FactorDepthRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTION(CycleResistanceRatioCorrectionRunnable.class),
+    CALCULATE_DEPTH_FACTOR(DepthFactorRunnable.class),
     CALCULATE_CYCLE_STRESS_RATIO(CycleStressRatioRunnable.class),
-    CALCULATE_FACTOR_SAFETY(FactorSafetyRunnable.class);
+    CALCULATE_SAFETY_FACTOR(SafetyFactorRunnable.class);
 
     private Class<? extends Runnable> step;
 

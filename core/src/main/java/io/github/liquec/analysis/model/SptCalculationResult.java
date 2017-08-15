@@ -15,12 +15,14 @@ public class SptCalculationResult {
     private Double totalStress;
     private Double interstitialPressure;
     private Double effectivePressure;
-    private Double factorEffectivePressure;
+    private Double effectivePressureFactor;
+    private Double earthquakeMagnitude;
     private Double coefficientOfContribution;
     private Double sptCorrected;
     private Double cycleStressRatio;
+    private Double depthFactor;
     private Double cycleResistanceRatio;
-    private Double factorSafety;
+    private Double safetyFactor;
 
     public SptCalculationResult(final StandardPenetrationTest standardPenetrationTest) {
         this.result = true;
@@ -93,12 +95,20 @@ public class SptCalculationResult {
         this.effectivePressure = effectivePressure;
     }
 
-    public Double getFactorEffectivePressure() {
-        return factorEffectivePressure;
+    public Double getEffectivePressureFactor() {
+        return effectivePressureFactor;
     }
 
-    public void setFactorEffectivePressure(final Double factorEffectivePressure) {
-        this.factorEffectivePressure = factorEffectivePressure;
+    public void setEffectivePressureFactor(final Double effectivePressureFactor) {
+        this.effectivePressureFactor = effectivePressureFactor;
+    }
+
+    public Double getEarthquakeMagnitude() {
+        return earthquakeMagnitude;
+    }
+
+    public void setEarthquakeMagnitude(final Double earthquakeMagnitude) {
+        this.earthquakeMagnitude = earthquakeMagnitude;
     }
 
     public Double getCoefficientOfContribution() {
@@ -125,6 +135,14 @@ public class SptCalculationResult {
         this.cycleStressRatio = cycleStressRatio;
     }
 
+    public Double getDepthFactor() {
+        return depthFactor;
+    }
+
+    public void setDepthFactor(final Double depthFactor) {
+        this.depthFactor = depthFactor;
+    }
+
     public Double getCycleResistanceRatio() {
         return cycleResistanceRatio;
     }
@@ -133,11 +151,11 @@ public class SptCalculationResult {
         this.cycleResistanceRatio = cycleResistanceRatio;
     }
 
-    public Double getFactorSafety() {
-        return factorSafety;
+    public Double getSafetyFactor() {
+        return safetyFactor;
     }
 
-    public void setFactorSafety(final Double factorSafety) {
-        this.factorSafety = factorSafety;
+    public void setSafetyFactor(final Double safetyFactor) {
+        this.safetyFactor = safetyFactor;
     }
 }
