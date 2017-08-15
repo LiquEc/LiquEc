@@ -102,7 +102,7 @@ public class LayerController {
         // Soil Unit Weight Below Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightBelowGwt.textProperty(), this.layerModel.soilUnitWeightBelowGwtProperty());
         this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
-            this.manageLayerModelState("SSoil Unit Weight Below Gwt", b, c));
+            this.manageLayerModelState("Soil Unit Weight Below Gwt", b, c));
         this.textFieldSoilUnitWeightBelowGwt.textProperty().addListener((a, b, c) ->
             this.controllerHelper.validateNumberValue(this.textFieldSoilUnitWeightBelowGwt,"((1|2|3|4)?\\d{0,1}([\\.]\\d{0,1})?)|50|50\\.|50\\.0", b, c));
         this.textFieldSoilUnitWeightBelowGwt.focusedProperty().addListener((a, b, c) ->
