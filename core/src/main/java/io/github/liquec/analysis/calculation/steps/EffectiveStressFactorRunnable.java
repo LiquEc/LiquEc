@@ -14,7 +14,7 @@ public class EffectiveStressFactorRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
-        double effectiveStressFactor = Math.pow(100 / sptCalculationResult.getEffectiveStress(), 1/2);
+        double effectiveStressFactor = Math.pow(100.0 / sptCalculationResult.getEffectiveStress(), 0.5);
 
         if (Mode.EUROCODE.equals(this.mode)) {
             effectiveStressFactor = effectiveStressFactor < 0.5 ? 0.5 : effectiveStressFactor > 2.0 ? 2.0 : effectiveStressFactor;

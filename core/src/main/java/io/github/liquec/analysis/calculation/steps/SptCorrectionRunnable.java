@@ -14,10 +14,10 @@ public class SptCorrectionRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
-        double sptCorrected = sptCalculationResult.getSptBlowCounts() * (sptCalculationResult.getEnergyRatio() / 60) * sptCalculationResult.getEffectiveStressFactor();
+        double sptCorrected = sptCalculationResult.getSptBlowCounts() * (sptCalculationResult.getEnergyRatio() / 60.0) * sptCalculationResult.getEffectiveStressFactor();
 
         if (Mode.EUROCODE.equals(this.mode)) {
-            sptCorrected = sptCalculationResult.getDepth() < 3 ? 0.75 * sptCorrected : sptCorrected;
+            sptCorrected = sptCalculationResult.getDepth() < 3.0 ? 0.75 * sptCorrected : sptCorrected;
         }
 
         LOG.debug(":::::: SPT Corrected: " + sptCorrected + " (N60)");

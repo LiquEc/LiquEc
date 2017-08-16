@@ -344,11 +344,13 @@ public final class SessionModel {
     public SessionState getSessionState() {
         SessionState sessionState = new SessionState();
         sessionState.setProjectName(this.getProjectName());
+        sessionState.setProjectLocation(this.getProjectLocation());
         sessionState.setOrganization(this.getOrganization());
 
         SiteConditions siteConditions = new SiteConditions();
         siteConditions.setPeakGroundAcceleration(StringUtils.isEmpty(this.getPeakGroundAcceleration()) ? null : Float.valueOf(this.getPeakGroundAcceleration()));
         siteConditions.setEarthquakeMagnitude(StringUtils.isEmpty(this.getEarthquakeMagnitude()) ? null : Float.valueOf(this.getEarthquakeMagnitude()));
+        siteConditions.setCoefficientOfContribution(StringUtils.isEmpty(this.getCoefficientOfContribution()) ? null : Float.valueOf(this.getCoefficientOfContribution()));
         sessionState.setSiteConditions(siteConditions);
 
         GeotechnicalProperties geotechnicalProperties = new GeotechnicalProperties();

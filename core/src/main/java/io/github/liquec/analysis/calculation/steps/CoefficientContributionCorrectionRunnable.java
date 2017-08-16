@@ -14,7 +14,7 @@ public class CoefficientContributionCorrectionRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
-        final double coefficientContributionCorrection = 1.5 - (1.8 * Math.pow(sessionState.getSiteConditions().getCoefficientOfContribution() - 1, 1/2));
+        final double coefficientContributionCorrection = 1.5 - (1.8 * Math.pow(sessionState.getSiteConditions().getCoefficientOfContribution() - 1.0, 0.5));
 
         LOG.debug(":::::: Coefficient contribution correction (KM): " + coefficientContributionCorrection);
 

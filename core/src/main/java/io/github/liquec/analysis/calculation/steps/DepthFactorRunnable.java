@@ -14,7 +14,7 @@ public class DepthFactorRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
-        final Double depthFactor = 1 - (0.015 * sptCalculationResult.getDepth());
+        final Double depthFactor = 1.0 - (0.015 * sptCalculationResult.getDepth());
 
         LOG.debug(":::::: Depth factor (rd): " + depthFactor);
 
