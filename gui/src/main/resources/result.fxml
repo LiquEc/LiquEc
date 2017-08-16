@@ -86,7 +86,7 @@
                                 <NumberAxis autoRanging="false" lowerBound="0" side="TOP" tickUnit="25" upperBound="50" fx:id="xAxisSafetyFactorChart" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="yAxiSsafetyFactorChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="5" upperBound="0" />
+                                <NumberAxis fx:id="yAxisSafetyFactorChart" autoRanging="false" lowerBound="-30" side="LEFT" tickUnit="5" upperBound="0" />
                             </yAxis>
                         </EnhancedLineChart>
                     </children>

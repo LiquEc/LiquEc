@@ -108,6 +108,7 @@ public final class SessionModel {
     }
 
     private void initializeSptChartData(final List<StandardPenetrationTest> standardPenetrationTestList) {
+        sptChartData.clear();
         // spt points
         final XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
         series.setName("SPT series");
@@ -248,11 +249,14 @@ public final class SessionModel {
     }
 
     public void removeLastChartSpt() {
-        if (this.getSptChartMainDataSeries().getData().size() > 1) {
-            this.getSptChartMainDataSeries().getData().remove(this.getSptChartMainDataSeries().getData().size() - 1);
-            return;
+        sptChartData.clear();
+        // spt points
+        final XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+        series.setName("SPT series");
+        for (SptRow sptRow : this.sptData) {
+            series.getData().add(LiquEcData.getChartInverseDataSpt(Integer.valueOf(sptRow.getSptBlowCounts()), Float.valueOf(sptRow.getSptDepth())));
         }
-        this.getSptChartMainDataSeries().getData().clear();
+        sptChartData.add(series);
     }
 
     //

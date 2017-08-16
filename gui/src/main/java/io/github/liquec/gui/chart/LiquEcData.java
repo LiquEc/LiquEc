@@ -22,4 +22,8 @@ public class LiquEcData {
     public static XYChart.Data<Number, Number> getChartInverseDataSpt(final Integer x, final Float y) {
         return new XYChart.Data<>(x, -y);
     }
+
+    public static XYChart.Data<Number, Number> getChartInverseDataSpt(final Double x, final Float y) {
+        return new XYChart.Data<>(x, -y);
+    }
 }
