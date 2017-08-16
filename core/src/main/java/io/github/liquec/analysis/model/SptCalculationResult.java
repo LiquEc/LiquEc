@@ -13,9 +13,9 @@ public class SptCalculationResult {
     private Integer sptBlowCounts;
     private Float energyRatio;
     private Double totalStress;
-    private Double interstitialPressure;
-    private Double effectivePressure;
-    private Double effectivePressureFactor;
+    private Double interstitialStress;
+    private Double effectiveStress;
+    private Double effectiveStressFactor;
     private Double earthquakeMagnitudeCorrection;
     private Double coefficientContributionCorrection;
     private Double sptCorrected; // chart
@@ -80,28 +80,28 @@ public class SptCalculationResult {
         this.totalStress = totalStress;
     }
 
-    public Double getInterstitialPressure() {
-        return interstitialPressure;
+    public Double getInterstitialStress() {
+        return interstitialStress;
     }
 
-    public void setInterstitialPressure(final Double interstitialPressure) {
-        this.interstitialPressure = interstitialPressure;
+    public void setInterstitialStress(final Double interstitialStress) {
+        this.interstitialStress = interstitialStress;
     }
 
-    public Double getEffectivePressure() {
-        return effectivePressure;
+    public Double getEffectiveStress() {
+        return effectiveStress;
     }
 
-    public void setEffectivePressure(final Double effectivePressure) {
-        this.effectivePressure = effectivePressure;
+    public void setEffectiveStress(final Double effectiveStress) {
+        this.effectiveStress = effectiveStress;
     }
 
-    public Double getEffectivePressureFactor() {
-        return effectivePressureFactor;
+    public Double getEffectiveStressFactor() {
+        return effectiveStressFactor;
     }
 
-    public void setEffectivePressureFactor(final Double effectivePressureFactor) {
-        this.effectivePressureFactor = effectivePressureFactor;
+    public void setEffectiveStressFactor(final Double effectiveStressFactor) {
+        this.effectiveStressFactor = effectiveStressFactor;
     }
 
     public Double getEarthquakeMagnitudeCorrection() {

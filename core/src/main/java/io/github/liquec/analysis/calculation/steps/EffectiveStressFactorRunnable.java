@@ -5,24 +5,24 @@ import io.github.liquec.analysis.calculation.Runnable;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.session.SessionState;
 
-public class SptCorrectionRunnable extends Runnable {
+public class EffectiveStressFactorRunnable extends Runnable {
 
-    public SptCorrectionRunnable(final Mode mode, final String description) {
+    public EffectiveStressFactorRunnable(final Mode mode, final String description) {
         super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
-        double sptCorrected = sptCalculationResult.getSptBlowCounts() * (sptCalculationResult.getEnergyRatio() / 60) * sptCalculationResult.getEffectiveStressFactor();
+        double effectiveStressFactor = Math.pow(100 / sptCalculationResult.getEffectiveStress(), 1/2);
 
         if (Mode.EUROCODE.equals(this.mode)) {
-            sptCorrected = sptCalculationResult.getDepth() < 3 ? 0.75 * sptCorrected : sptCorrected;
+            effectiveStressFactor = effectiveStressFactor < 0.5 ? 0.5 : effectiveStressFactor > 2.0 ? 2.0 : effectiveStressFactor;
         }
 
-        LOG.debug(":::::: SPT Corrected: " + sptCorrected + " (N60)");
+        LOG.debug(":::::: Effective stress factor: " + effectiveStressFactor);
 
-        sptCalculationResult.setSptCorrected(sptCorrected);
+        sptCalculationResult.setEffectiveStressFactor(effectiveStressFactor);
 
         this.logEnd();
     }

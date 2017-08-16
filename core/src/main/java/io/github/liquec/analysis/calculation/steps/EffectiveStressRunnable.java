@@ -5,20 +5,20 @@ import io.github.liquec.analysis.calculation.Runnable;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.session.SessionState;
 
-public class EffectivePressureRunnable extends Runnable {
+public class EffectiveStressRunnable extends Runnable {
 
-    public EffectivePressureRunnable(final Mode mode, final String description) {
+    public EffectiveStressRunnable(final Mode mode, final String description) {
         super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
-        final double effectivePressure = sptCalculationResult.getTotalStress()  - sptCalculationResult.getInterstitialPressure();
+        final double effectiveStress = sptCalculationResult.getTotalStress() - sptCalculationResult.getInterstitialStress();
 
-        LOG.debug(":::::: Effective pressure: " + effectivePressure + " KN/m2");
+        LOG.debug(":::::: Effective stress: " + effectiveStress + " KN/m2");
 
-        sptCalculationResult.setEffectivePressure(effectivePressure);
+        sptCalculationResult.setEffectiveStress(effectiveStress);
 
         this.logEnd();
     }
