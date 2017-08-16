@@ -18,11 +18,12 @@ public class SptCalculationResult {
     private Double effectivePressureFactor;
     private Double earthquakeMagnitude;
     private Double coefficientOfContribution;
-    private Double sptCorrected;
-    private Double cycleStressRatio;
+    private Double sptCorrected; // chart
+    private Double cycleStressRatio; // chart
     private Double depthFactor;
     private Double cycleResistanceRatio;
-    private Double safetyFactor;
+    private Double cycleResistanceRatioCorrected; // chart
+    private Double safetyFactor; // chart
 
     public SptCalculationResult(final StandardPenetrationTest standardPenetrationTest) {
         this.result = true;
@@ -149,6 +150,14 @@ public class SptCalculationResult {
 
     public void setCycleResistanceRatio(final Double cycleResistanceRatio) {
         this.cycleResistanceRatio = cycleResistanceRatio;
+    }
+
+    public Double getCycleResistanceRatioCorrected() {
+        return cycleResistanceRatioCorrected;
+    }
+
+    public void setCycleResistanceRatioCorrected(final Double cycleResistanceRatioCorrected) {
+        this.cycleResistanceRatioCorrected = cycleResistanceRatioCorrected;
     }
 
     public Double getSafetyFactor() {

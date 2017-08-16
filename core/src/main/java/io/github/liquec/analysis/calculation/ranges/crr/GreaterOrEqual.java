@@ -12,7 +12,7 @@ public class GreaterOrEqual implements Range {
     @Override
     public boolean contains(final Double finesContent) {
         final boolean contains = finesContent >= Fines.BOUND_35.getBound();
-        LOG.debug(":::::: Range greater or equals: " + contains);
+        LOG.debug(":::::: Range greater or equals [" + Fines.BOUND_35.getBound() + "]: " + contains);
         return contains;
     }
 

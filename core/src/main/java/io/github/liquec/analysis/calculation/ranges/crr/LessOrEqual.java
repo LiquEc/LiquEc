@@ -12,7 +12,7 @@ public class LessOrEqual implements Range {
     @Override
     public boolean contains(final Double sptCorrected) {
         final boolean contains = sptCorrected <= Fines.BOUND_05.getBound();
-        LOG.debug(":::::: Range less or equals: " + contains);
+        LOG.debug(":::::: Range less or equals [" + Fines.BOUND_05.getBound() + "]: " + contains);
         return contains;
     }
 

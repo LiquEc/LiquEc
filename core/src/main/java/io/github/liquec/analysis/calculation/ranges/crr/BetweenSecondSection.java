@@ -12,7 +12,7 @@ public class BetweenSecondSection implements Range {
     @Override
     public boolean contains(final Double sptCorrected) {
         final boolean contains = sptCorrected >= Fines.BOUND_15.getBound() && sptCorrected < Fines.BOUND_35.getBound();
-        LOG.debug(":::::: Range between second section: " + contains);
+        LOG.debug(":::::: Range between second section [" + Fines.BOUND_15.getBound() + "-" + Fines.BOUND_35.getBound() + "]: " + contains);
         return contains;
     }
 

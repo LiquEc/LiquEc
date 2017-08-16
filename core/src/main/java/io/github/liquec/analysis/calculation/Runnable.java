@@ -9,6 +9,8 @@ import io.github.liquec.analysis.session.SessionState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class Runnable {
 
     protected static final Logger LOG = LoggerFactory.getLogger(Runnable.class);
@@ -19,5 +21,5 @@ public abstract class Runnable {
         this.mode = mode;
     }
 
-    public abstract void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult);
+    public abstract void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
 }
