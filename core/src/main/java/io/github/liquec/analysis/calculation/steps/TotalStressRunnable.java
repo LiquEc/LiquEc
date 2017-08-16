@@ -4,8 +4,11 @@
 
 package io.github.liquec.analysis.calculation.steps;
 
+import io.github.liquec.analysis.calculation.Error;
+import io.github.liquec.analysis.calculation.Helper;
 import io.github.liquec.analysis.calculation.Mode;
 import io.github.liquec.analysis.calculation.Runnable;
+import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.GeotechnicalProperties;
 import io.github.liquec.analysis.model.SoilLayer;
 import io.github.liquec.analysis.model.SptCalculationResult;
@@ -25,19 +28,27 @@ public class TotalStressRunnable extends Runnable {
         LOG.debug("::: Start Total Stress Mode " + this.mode.getDescription());
 
         // Retrieve layer index with GWT inside
-        final int layerIndexWithGwtInside = this.retrieveLayerIndexWithGwtInside(sessionState.getGeotechnicalProperties());
+        final int layerIndexWithGwtInside = Helper.retrieveLayerIndexWithGwtInside(sessionState.getGeotechnicalProperties());
         LOG.debug(":::::: Layer index with GWT inside: " + layerIndexWithGwtInside);
 
+        if (layerIndexWithGwtInside == -1) {
+            throw new LiquEcException(Error.LAYER_WITH_GWT_INSIDE_NOT_FOUND.getMessage());
+        }
+
         // Retrieve layer index with SPT inside
-        final int layerIndexWithSptInside = this.retrieveLayerIndexWithSptInside(sessionState.getGeotechnicalProperties().getSoilLayers(), sptCalculationResult.getDepth());
+        final int layerIndexWithSptInside = Helper.retrieveLayerIndexWithSptInside(sessionState.getGeotechnicalProperties().getSoilLayers(), sptCalculationResult.getDepth());
         LOG.debug(":::::: Layer index with SPT inside: " + layerIndexWithSptInside);
 
+        if (layerIndexWithSptInside == -1) {
+            throw new LiquEcException(Error.LAYER_WITH_SPT_INSIDE_NOT_FOUND.getMessage());
+        }
+
         // Retrieve layer indexes above GWT
-        final List<Integer> layerIndexesAboveGwt = this.retrieveLayerIndexesAboveGwt(sessionState.getGeotechnicalProperties(), layerIndexWithSptInside);
+        final List<Integer> layerIndexesAboveGwt = Helper.retrieveLayerIndexesAboveGwt(sessionState.getGeotechnicalProperties(), layerIndexWithSptInside);
         LOG.debug(":::::: Layer indexes above GWT: " + Arrays.toString(layerIndexesAboveGwt.toArray()));
 
         // Retrieve layer indexes below GWT
-        final List<Integer> layerIndexesBelowGwt = this.retrieveLayerIndexesBelowGwt(sessionState.getGeotechnicalProperties(), layerIndexWithSptInside, sptCalculationResult.getDepth());
+        final List<Integer> layerIndexesBelowGwt = Helper.retrieveLayerIndexesBelowGwt(sessionState.getGeotechnicalProperties(), layerIndexWithSptInside, sptCalculationResult.getDepth());
         LOG.debug(":::::: Layer indexes below GWT: " + Arrays.toString(layerIndexesBelowGwt.toArray()));
 
         // Calculate total stress
@@ -66,64 +77,6 @@ public class TotalStressRunnable extends Runnable {
         sptCalculationResult.setTotalStress(totalStress);
 
         LOG.debug("::: End Total Stress Mode " + this.mode.getDescription());
-    }
-
-    private int retrieveLayerIndexWithGwtInside(final GeotechnicalProperties geotechnicalProperties) {
-        if (geotechnicalProperties.getGroundWaterTableDepth() == 0) {
-            return 0;
-        }
-        int index = 0;
-        int layerIndexWithGwtInside = -1;
-        for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {
-            if(geotechnicalProperties.getGroundWaterTableDepth() > soilLayer.getStartDepth() &&
-               geotechnicalProperties.getGroundWaterTableDepth() <= soilLayer.getFinalDepth()) {
-                layerIndexWithGwtInside = index;
-            }
-            index++;
-        }
-        return layerIndexWithGwtInside;
-    }
-
-    private int retrieveLayerIndexWithSptInside(final List<SoilLayer> soilLayers, final Float sptDepth) {
-        int index = 0;
-        int layerIndexWithSptInside = -1;
-        for (SoilLayer soilLayer : soilLayers) {
-            if(sptDepth > soilLayer.getStartDepth() &&
-               sptDepth <= soilLayer.getFinalDepth()) {
-                layerIndexWithSptInside = index;
-            }
-            index++;
-        }
-        return layerIndexWithSptInside;
-    }
-
-    private List<Integer> retrieveLayerIndexesAboveGwt(final GeotechnicalProperties geotechnicalProperties, final int layerIndexWithSptInside) {
-        int index = 0;
-        List<Integer> layerIndexesAboveGwt = new ArrayList<>();
-        for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {
-            if(soilLayer.getStartDepth() < geotechnicalProperties.getGroundWaterTableDepth() &&
-               soilLayer.getFinalDepth() <= geotechnicalProperties.getGroundWaterTableDepth() &&
-               index != layerIndexWithSptInside) {
-                layerIndexesAboveGwt.add(index);
-            }
-            index++;
-        }
-        return layerIndexesAboveGwt;
-    }
-
-    private List<Integer> retrieveLayerIndexesBelowGwt(final GeotechnicalProperties geotechnicalProperties, final int layerIndexWithSptInside, final Float sptDepth) {
-        int index = 0;
-        List<Integer> layerIndexesBelowGwt = new ArrayList<>();
-        for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {
-            if(soilLayer.getStartDepth() >= geotechnicalProperties.getGroundWaterTableDepth() &&
-               soilLayer.getFinalDepth() > geotechnicalProperties.getGroundWaterTableDepth() &&
-               index != layerIndexWithSptInside &&
-               soilLayer.getStartDepth() < sptDepth) {
-                layerIndexesBelowGwt.add(index);
-            }
-            index++;
-        }
-        return layerIndexesBelowGwt;
     }
 
     private double retrieveStressFromLayersAboveGwt(final List<SoilLayer> soilLayers, final List<Integer> layerIndexesAboveGwt) {

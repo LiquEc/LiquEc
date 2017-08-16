@@ -10,6 +10,7 @@ public enum Eurocode implements Step {
 
     CHECK_DEPTH_ABOVE_GWT(CheckDepthAboveGwtRunnable.class),
     CHECK_MAX_DEPTH(CheckMaxDepthRunnable.class),
+    CHECK_NO_LIQUEFACTION(CheckNoLiquefactionRunnable.class),
     CALCULATE_TOTAL_STRESS(TotalStressRunnable.class),
     CALCULATE_INTERSTITIAL_PRESSURE(InterstitialPressureRunnable.class),
     CALCULATE_EFFECTIVE_PRESSURE(EffectivePressureRunnable.class),

@@ -5,8 +5,11 @@
 package io.github.liquec.analysis.calculation;
 
 public enum Error {
-    NO_CHECK("> 20 (m)"),
-    ABOVE_GWT("Above GWT");
+    MAX_DEPTH_CHECK("> DEPTH (m)"),
+    ABOVE_GWT("Above GWT"),
+    NO_LIQUEFACTION("No liquefaction"),
+    LAYER_WITH_GWT_INSIDE_NOT_FOUND("GWT layer not found"),
+    LAYER_WITH_SPT_INSIDE_NOT_FOUND("SPT layer not found");
 
     private String message;
 
