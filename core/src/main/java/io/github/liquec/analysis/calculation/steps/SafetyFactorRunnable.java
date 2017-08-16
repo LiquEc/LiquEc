@@ -7,14 +7,14 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class SafetyFactorRunnable extends Runnable {
 
-    public SafetyFactorRunnable(final Mode mode) {
-        super(mode);
+    public SafetyFactorRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Safety Factor Mode " + this.mode.getDescription());
+        this.logStart();
 
-        LOG.debug("::: End Safety Factor Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

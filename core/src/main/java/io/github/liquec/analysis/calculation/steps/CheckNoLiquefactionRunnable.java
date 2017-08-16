@@ -16,14 +16,13 @@ import java.util.List;
 
 public class CheckNoLiquefactionRunnable extends Runnable {
 
-    public CheckNoLiquefactionRunnable(final Mode mode) {
-        super(mode);
+    public CheckNoLiquefactionRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Check No Liquefaction Mode " + this.mode.getDescription());
+        this.logStart();
 
-        // Retrieve layer index with SPT inside
         final int layerIndexWithSptInside = Helper.retrieveLayerIndexWithSptInside(sessionState.getGeotechnicalProperties().getSoilLayers(), sptCalculationResult.getDepth());
         LOG.debug(":::::: Layer index with SPT inside: " + layerIndexWithSptInside);
 
@@ -31,11 +30,12 @@ public class CheckNoLiquefactionRunnable extends Runnable {
             throw new LiquEcException(Error.LAYER_WITH_SPT_INSIDE_NOT_FOUND.getMessage());
         }
 
+        LOG.debug(":::::: Check liquefaction: " + sessionState.getGeotechnicalProperties().getSoilLayers().get(layerIndexWithSptInside).getCheckLiquefaction());
         if (!sessionState.getGeotechnicalProperties().getSoilLayers().get(layerIndexWithSptInside).getCheckLiquefaction()) {
             throw new LiquEcException(Error.NO_LIQUEFACTION.getMessage());
         }
 
-        LOG.debug("::: End Check No Liquefaction Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

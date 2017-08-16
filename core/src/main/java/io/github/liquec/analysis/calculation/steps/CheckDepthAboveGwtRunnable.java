@@ -13,17 +13,17 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class CheckDepthAboveGwtRunnable extends Runnable {
 
-    public CheckDepthAboveGwtRunnable(final Mode mode) {
-        super(mode);
+    public CheckDepthAboveGwtRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Check Depth Above GWT Mode " + this.mode.getDescription());
+        this.logStart();
 
         if (sptCalculationResult.getDepth() < sessionState.getGeotechnicalProperties().getGroundWaterTableDepth()) {
             throw new LiquEcException(Error.ABOVE_GWT.getMessage());
         }
 
-        LOG.debug("::: End Check Depth Above GWT Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 }

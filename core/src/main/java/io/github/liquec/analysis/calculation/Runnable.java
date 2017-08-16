@@ -17,9 +17,27 @@ public abstract class Runnable {
 
     protected Mode mode;
 
-    public Runnable(final Mode mode) {
+    protected String description;
+
+    public Runnable(final Mode mode, final String description) {
         this.mode = mode;
+        this.description = description;
     }
 
     public abstract void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
+
+    private void logMark() {
+        LOG.debug("::: ································································ ");
+    }
+
+    protected void logStart() {
+        this.logMark();
+        LOG.debug("::: START " + this.description + " - Mode " + this.mode.getDescription());
+    }
+
+    protected void logEnd() {
+        LOG.debug("::: " + this.description + " >>> OK");
+        LOG.debug("::: END " + this.description + " - Mode " + this.mode.getDescription());
+        this.logMark();
+    }
 }

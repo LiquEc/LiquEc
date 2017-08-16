@@ -7,14 +7,14 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class CycleStressRatioRunnable extends Runnable {
 
-    public CycleStressRatioRunnable(final Mode mode) {
-        super(mode);
+    public CycleStressRatioRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Cycle Stress Ratio Mode " + this.mode.getDescription());
+        this.logStart();
 
-        LOG.debug("::: End Cycle Stress Ratio Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

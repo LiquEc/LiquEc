@@ -7,12 +7,12 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class SptCorrectionRunnable extends Runnable {
 
-    public SptCorrectionRunnable(final Mode mode) {
-        super(mode);
+    public SptCorrectionRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start SPT Correction Mode " + this.mode.getDescription());
+        this.logStart();
 
         double sptCorrected = sptCalculationResult.getSptBlowCounts() * (sptCalculationResult.getEnergyRatio() / 60) * sptCalculationResult.getEffectivePressureFactor();
 
@@ -20,11 +20,11 @@ public class SptCorrectionRunnable extends Runnable {
             sptCorrected = sptCalculationResult.getDepth() < 3 ? 0.75 * sptCorrected : sptCorrected;
         }
 
-        LOG.debug(":::::: SPT Corrected:" + sptCorrected);
+        LOG.debug(":::::: SPT Corrected: " + sptCorrected + " (N60)");
 
         sptCalculationResult.setSptCorrected(sptCorrected);
 
-        LOG.debug("::: End SPT Correction Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

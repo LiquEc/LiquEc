@@ -7,24 +7,24 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class EffectivePressureFactorRunnable extends Runnable {
 
-    public EffectivePressureFactorRunnable(final Mode mode) {
-        super(mode);
+    public EffectivePressureFactorRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Effective Pressure Factor Mode " + this.mode.getDescription());
+        this.logStart();
 
-        double effectivePressureFactor = Math.pow(100/sptCalculationResult.getEffectivePressure(), 1/2);
+        double effectivePressureFactor = Math.pow(100 / sptCalculationResult.getEffectivePressure(), 1/2);
 
         if (mode == Mode.EUROCODE) {
             effectivePressureFactor = effectivePressureFactor < 0.5 ? 0.5 : effectivePressureFactor > 2.0 ? 2.0 : effectivePressureFactor;
         }
 
-        LOG.debug(":::::: Effective pressure factor:" + effectivePressureFactor);
+        LOG.debug(":::::: Effective pressure factor: " + effectivePressureFactor);
 
         sptCalculationResult.setEffectivePressureFactor(effectivePressureFactor);
 
-        LOG.debug("::: End Effective Pressure Factor Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

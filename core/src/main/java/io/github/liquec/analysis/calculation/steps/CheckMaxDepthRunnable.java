@@ -11,21 +11,20 @@ import io.github.liquec.analysis.calculation.Runnable;
 import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.session.SessionState;
-import org.apache.commons.lang3.StringUtils;
 
 public class CheckMaxDepthRunnable extends Runnable {
 
-    public CheckMaxDepthRunnable(final Mode mode) {
-        super(mode);
+    public CheckMaxDepthRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Check Max Depth Mode " + this.mode.getDescription());
+        this.logStart();
 
         if (sptCalculationResult.getDepth() > Constant.NO_CHECK_DEPTH.getValue(this.mode)) {
             throw new LiquEcException(Error.MAX_DEPTH_CHECK.getMessage().replace("DEPTH", String.valueOf(Constant.NO_CHECK_DEPTH.getValue(this.mode))));
         }
 
-        LOG.debug("::: End Check Max Depth Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 }

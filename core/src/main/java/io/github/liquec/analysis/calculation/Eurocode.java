@@ -8,24 +8,30 @@ import io.github.liquec.analysis.calculation.steps.*;
 
 public enum Eurocode implements Step {
 
-    CHECK_DEPTH_ABOVE_GWT(CheckDepthAboveGwtRunnable.class),
-    CHECK_MAX_DEPTH(CheckMaxDepthRunnable.class),
-    CHECK_NO_LIQUEFACTION(CheckNoLiquefactionRunnable.class),
-    CALCULATE_TOTAL_STRESS(TotalStressRunnable.class),
-    CALCULATE_INTERSTITIAL_PRESSURE(InterstitialPressureRunnable.class),
-    CALCULATE_EFFECTIVE_PRESSURE(EffectivePressureRunnable.class),
-    CALCULATE_EFFECTIVE_PRESSURE_FACTOR(EffectivePressureFactorRunnable.class),
-    CALCULATE_SPT_CORRECTION(SptCorrectionRunnable.class),
-    CALCULATE_CYCLE_RESISTANCE_RATIO(CycleResistanceRatioRunnable.class),
-    CALCULATE_EARTHQUAKE_MAGNITUDE(EarthquakeMagnitudeRunnable.class),
-    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTION(CycleResistanceRatioCorrectionRunnable.class),
-    CALCULATE_CYCLE_STRESS_RATIO(CycleStressRatioRunnable.class),
-    CALCULATE_SAFETY_FACTOR(SafetyFactorRunnable.class);
+    CHECK_DEPTH_ABOVE_GWT("Check Depth Above GWT", CheckDepthAboveGwtRunnable.class),
+    CHECK_MAX_DEPTH("Check Max Depth", CheckMaxDepthRunnable.class),
+    CHECK_NO_LIQUEFACTION("Check No Liquefaction", CheckNoLiquefactionRunnable.class),
+    CALCULATE_TOTAL_STRESS("Total Stress", TotalStressRunnable.class),
+    CALCULATE_INTERSTITIAL_PRESSURE("Interstitial Pressure", InterstitialPressureRunnable.class),
+    CALCULATE_EFFECTIVE_PRESSURE("Effective Pressure", EffectivePressureRunnable.class),
+    CALCULATE_EFFECTIVE_PRESSURE_FACTOR("Effective Pressure Factor", EffectivePressureFactorRunnable.class),
+    CALCULATE_SPT_CORRECTION("SPT Correction", SptCorrectionRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO("Cycle Resistance Ratio (CRR)", CycleResistanceRatioRunnable.class),
+    CALCULATE_EARTHQUAKE_MAGNITUDE("Earthquake Magnitude", EarthquakeMagnitudeRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTION("Cycle Resistance Ratio (CRR) Correction", CycleResistanceRatioCorrectionRunnable.class),
+    CALCULATE_CYCLE_STRESS_RATIO("Cycle Stress Ratio (CSR)", CycleStressRatioRunnable.class),
+    CALCULATE_SAFETY_FACTOR("Safety Factor", SafetyFactorRunnable.class);
 
+    private String description;
     private Class<? extends Runnable> step;
 
-    Eurocode(final Class<? extends Runnable> step) {
+    Eurocode(final String description, final Class<? extends Runnable> step) {
+        this.description = description;
         this.step = step;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Class<? extends Runnable> getStepClass() {

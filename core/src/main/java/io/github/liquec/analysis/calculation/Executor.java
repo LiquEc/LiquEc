@@ -39,14 +39,14 @@ public class Executor {
 
         for (StandardPenetrationTest standardPenetrationTest : this.sessionState.getStandardPenetrationTestList()) {
 
-            LOG.debug("::: START - SPT Blow Counts: " + standardPenetrationTest.getSptBlowCounts() + " (N) - Depth: " + standardPenetrationTest.getDepth() + " (m)");
+            this.logStart(standardPenetrationTest);
 
             final SptCalculationResult sptCalculationResult = new SptCalculationResult(standardPenetrationTest);
 
             for (Enum<? extends Step> step : this.mode.getSteps()) {
                 try {
 
-                    (((Step) step).getStepClass().getConstructor(Mode.class)).newInstance(this.mode).execute(this.sessionState, sptCalculationResult);
+                    (((Step) step).getStepClass().getConstructor(Mode.class, String.class)).newInstance(this.mode, ((Step) step).getDescription()).execute(this.sessionState, sptCalculationResult);
 
                 } catch (LiquEcException e) {
 
@@ -65,7 +65,7 @@ public class Executor {
 
             this.resultState.getSptCalculationResultList().add(sptCalculationResult);
 
-            LOG.debug("::: END - SPT Blow Counts: " + standardPenetrationTest.getSptBlowCounts() + " (N), Depth: " + standardPenetrationTest.getDepth() + " (m)");
+            this.logEnd(standardPenetrationTest);
         }
 
         LOG.debug("::: END CALCULATION");
@@ -132,5 +132,23 @@ public class Executor {
                 throw new LiquEcException("Energy ratio required");
             }
         }
+    }
+
+    private void logMark() {
+        LOG.debug("::: ================================================================ ");
+    }
+
+    private void logSpt(final StandardPenetrationTest standardPenetrationTest) {
+        LOG.debug("::: START - Depth: " + standardPenetrationTest.getDepth() + " (m) - SPT Blow Counts: " + standardPenetrationTest.getSptBlowCounts() + " (N)");
+    }
+
+    private void logStart(final StandardPenetrationTest standardPenetrationTest) {
+        this.logMark();
+        this.logSpt(standardPenetrationTest);
+    }
+
+    private void logEnd(final StandardPenetrationTest standardPenetrationTest) {
+        this.logSpt(standardPenetrationTest);
+        this.logMark();
     }
 }

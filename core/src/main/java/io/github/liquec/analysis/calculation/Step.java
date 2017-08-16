@@ -5,5 +5,6 @@
 package io.github.liquec.analysis.calculation;
 
 public interface Step {
+    String getDescription();
     Class<? extends Runnable> getStepClass();
 }

@@ -7,14 +7,14 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class DepthFactorRunnable extends Runnable {
 
-    public DepthFactorRunnable(final Mode mode) {
-        super(mode);
+    public DepthFactorRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Depth Factor Mode " + this.mode.getDescription());
+        this.logStart();
 
-        LOG.debug("::: End Depth Factor Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

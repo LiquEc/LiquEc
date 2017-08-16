@@ -7,20 +7,20 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class EffectivePressureRunnable extends Runnable {
 
-    public EffectivePressureRunnable(final Mode mode) {
-        super(mode);
+    public EffectivePressureRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Effective Pressure Mode " + this.mode.getDescription());
+        this.logStart();
 
         final double effectivePressure = sptCalculationResult.getTotalStress()  - sptCalculationResult.getInterstitialPressure();
 
-        LOG.debug(":::::: Effective pressure:" + effectivePressure + " KN/m2");
+        LOG.debug(":::::: Effective pressure: " + effectivePressure + " KN/m2");
 
         sptCalculationResult.setEffectivePressure(effectivePressure);
 
-        LOG.debug("::: End Effective Pressure Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

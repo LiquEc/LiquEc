@@ -7,14 +7,14 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class CycleResistanceRatioCorrectionRunnable extends Runnable {
 
-    public CycleResistanceRatioCorrectionRunnable(final Mode mode) {
-        super(mode);
+    public CycleResistanceRatioCorrectionRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Cycle Resistance Ratio Correction Mode " + this.mode.getDescription());
+        this.logStart();
 
-        LOG.debug("::: End Cycle Resistance Ratio Correction Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
-import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class ResultSessionService {
@@ -25,11 +24,6 @@ public class ResultSessionService {
         this.sessionState = sessionState;
 
         LOG.debug("Calculating...");
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         Executor executor = new Executor(this.getCalculationMode(mode), sessionState);
         final ResultState resultState = executor.calculate();

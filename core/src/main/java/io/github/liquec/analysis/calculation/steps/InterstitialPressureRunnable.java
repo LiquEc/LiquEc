@@ -8,20 +8,20 @@ import io.github.liquec.analysis.session.SessionState;
 
 public class InterstitialPressureRunnable extends Runnable {
 
-    public InterstitialPressureRunnable(final Mode mode) {
-        super(mode);
+    public InterstitialPressureRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Interstitial Pressure Mode " + this.mode.getDescription());
+        this.logStart();
 
         final double interstitialPressure = 10.0 * (sptCalculationResult.getDepth() - sessionState.getGeotechnicalProperties().getGroundWaterTableDepth());
 
-        LOG.debug(":::::: Interstitial pressure:" + interstitialPressure + " KN/m2");
+        LOG.debug(":::::: Interstitial pressure: " + interstitialPressure + " KN/m2");
 
         sptCalculationResult.setInterstitialPressure(interstitialPressure);
 
-        LOG.debug("::: End Interstitial Pressure Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
 }

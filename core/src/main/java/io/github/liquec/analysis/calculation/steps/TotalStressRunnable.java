@@ -20,14 +20,13 @@ import java.util.List;
 
 public class TotalStressRunnable extends Runnable {
 
-    public TotalStressRunnable(final Mode mode) {
-        super(mode);
+    public TotalStressRunnable(final Mode mode, final String description) {
+        super(mode, description);
     }
 
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
-        LOG.debug("::: Start Total Stress Mode " + this.mode.getDescription());
+        this.logStart();
 
-        // Retrieve layer index with GWT inside
         final int layerIndexWithGwtInside = Helper.retrieveLayerIndexWithGwtInside(sessionState.getGeotechnicalProperties());
         LOG.debug(":::::: Layer index with GWT inside: " + layerIndexWithGwtInside);
 
@@ -35,7 +34,6 @@ public class TotalStressRunnable extends Runnable {
             throw new LiquEcException(Error.LAYER_WITH_GWT_INSIDE_NOT_FOUND.getMessage());
         }
 
-        // Retrieve layer index with SPT inside
         final int layerIndexWithSptInside = Helper.retrieveLayerIndexWithSptInside(sessionState.getGeotechnicalProperties().getSoilLayers(), sptCalculationResult.getDepth());
         LOG.debug(":::::: Layer index with SPT inside: " + layerIndexWithSptInside);
 
@@ -43,15 +41,12 @@ public class TotalStressRunnable extends Runnable {
             throw new LiquEcException(Error.LAYER_WITH_SPT_INSIDE_NOT_FOUND.getMessage());
         }
 
-        // Retrieve layer indexes above GWT
         final List<Integer> layerIndexesAboveGwt = Helper.retrieveLayerIndexesAboveGwt(sessionState.getGeotechnicalProperties(), layerIndexWithSptInside);
         LOG.debug(":::::: Layer indexes above GWT: " + Arrays.toString(layerIndexesAboveGwt.toArray()));
 
-        // Retrieve layer indexes below GWT
         final List<Integer> layerIndexesBelowGwt = Helper.retrieveLayerIndexesBelowGwt(sessionState.getGeotechnicalProperties(), layerIndexWithSptInside, sptCalculationResult.getDepth());
         LOG.debug(":::::: Layer indexes below GWT: " + Arrays.toString(layerIndexesBelowGwt.toArray()));
 
-        // Calculate total stress
         double totalStress = this.retrieveStressFromLayersAboveGwt(sessionState.getGeotechnicalProperties().getSoilLayers(), layerIndexesAboveGwt);
 
         totalStress += this.retrieveAboveStressFromLayerWithGwtInside(sessionState.getGeotechnicalProperties().getSoilLayers().get(layerIndexWithGwtInside),
@@ -76,7 +71,7 @@ public class TotalStressRunnable extends Runnable {
 
         sptCalculationResult.setTotalStress(totalStress);
 
-        LOG.debug("::: End Total Stress Mode " + this.mode.getDescription());
+        this.logEnd();
     }
 
     private double retrieveStressFromLayersAboveGwt(final List<SoilLayer> soilLayers, final List<Integer> layerIndexesAboveGwt) {
