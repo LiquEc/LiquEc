@@ -10,7 +10,9 @@ public class BetweenFirstSection implements Range {
 
     @Override
     public boolean contains(final Double sptCorrected) {
-        return sptCorrected > 2 && sptCorrected <= 17;
+        final boolean contains = sptCorrected.doubleValue() > 2 && sptCorrected.doubleValue() <= 17;
+        LOG.debug(":::::: Range between first section: " + contains);
+        return contains;
     }
 
 }

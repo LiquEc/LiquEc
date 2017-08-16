@@ -8,7 +8,7 @@ import io.github.liquec.analysis.calculation.Evaluation;
 import io.github.liquec.analysis.calculation.Polynomial;
 import io.github.liquec.analysis.calculation.Range;
 
-public enum Fines35 implements Evaluation {
+public enum EurocodeFines35 implements Evaluation {
     LESS_OR_EQUAL(LessOrEqual.class, Polynomial.EUROCODE_F35_LESS_OR_EQUAL),
     BETWEEN_FIRST_SECTION(BetweenFirstSection.class, Polynomial.EUROCODE_F35_BETWEEN_FIST_SECTION),
     BETWEEN_SECOND_SECTION(BetweenSecondSection.class, Polynomial.EUROCODE_F35_BETWEEN_SECOND_SECTION),
@@ -17,7 +17,7 @@ public enum Fines35 implements Evaluation {
     private Class<? extends Range> evaluation;
     private Polynomial polynomial;
 
-    Fines35(final Class<? extends Range> evaluation, final Polynomial polynomial) {
+    EurocodeFines35(final Class<? extends Range> evaluation, final Polynomial polynomial) {
         this.evaluation = evaluation;
         this.polynomial = polynomial;
     }

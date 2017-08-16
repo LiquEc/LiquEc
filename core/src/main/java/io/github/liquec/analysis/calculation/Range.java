@@ -4,6 +4,10 @@
 
 package io.github.liquec.analysis.calculation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public interface Range {
-    boolean contains(final Double sptCorrected);
+    Logger LOG = LoggerFactory.getLogger(Range.class);
+    boolean contains(final Double value);
 }

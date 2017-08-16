@@ -80,15 +80,15 @@ public final class SptModel {
         boolean ableToAdd = true;
         try {
             LOG.debug("depth: " + this.getDepth());
-            if (StringUtils.isEmpty(this.getDepth())) {
+            if (StringUtils.isEmpty(this.getDepth()) || Float.valueOf(this.getDepth()) == 0) {
                 throw new LiquEcException("depth");
             }
             LOG.debug("sptBlowCounts: " + this.getSptBlowCounts());
-            if (StringUtils.isEmpty(this.getSptBlowCounts())) {
+            if (StringUtils.isEmpty(this.getSptBlowCounts())) { // can be zero
                 throw new LiquEcException("sptBlowCounts");
             }
             LOG.debug("energyRatio: " + this.getEnergyRatio());
-            if (StringUtils.isEmpty(this.getEnergyRatio())) {
+            if (StringUtils.isEmpty(this.getEnergyRatio())) { // can be zero
                 throw new LiquEcException("depth");
             }
         } catch (LiquEcException e) {

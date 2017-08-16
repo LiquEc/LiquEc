@@ -145,7 +145,7 @@ public final class LayerModel {
                 throw new LiquEcException("soilUnitWeightBelowGwt");
             }
             LOG.debug("finesContent: " + this.getFinesContent());
-            if (StringUtils.isEmpty(this.getFinesContent())) {
+            if (StringUtils.isEmpty(this.getFinesContent())) { //can be zero
                 throw new LiquEcException("finesContent");
             }
         } catch (LiquEcException e) {

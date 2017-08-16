@@ -5,6 +5,7 @@
 package io.github.liquec.analysis.calculation;
 
 import io.github.liquec.analysis.core.LiquEcException;
+import io.github.liquec.analysis.model.SoilLayer;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.model.StandardPenetrationTest;
 import io.github.liquec.analysis.session.ResultState;
@@ -79,11 +80,57 @@ public class Executor {
         if (this.sessionState == null) {
             throw new LiquEcException("Session state required");
         }
+        if (this.sessionState.getSiteConditions() == null) {
+            throw new LiquEcException("Site conditions required");
+        }
+        if (this.sessionState.getSiteConditions().getPeakGroundAcceleration() == null) {
+            throw new LiquEcException("Peak ground acceleration required");
+        }
+        if (this.mode.equals(Mode.EUROCODE) && this.sessionState.getSiteConditions().getEarthquakeMagnitude() == null) {
+            throw new LiquEcException("Earthquake magnitude required");
+        }
+        if (this.mode.equals(Mode.NCSE_02) && this.sessionState.getSiteConditions().getCoefficientOfContribution() == null) {
+            throw new LiquEcException("Coefficient of contribution required");
+        }
+        if (this.sessionState.getGeotechnicalProperties().getGroundWaterTableDepth() == null) {
+            throw new LiquEcException("Ground water table depth required");
+        }
         if (this.sessionState.getGeotechnicalProperties().getSoilLayers().size() == 0) {
             throw new LiquEcException("Soil layers list required");
         }
+        for (SoilLayer soilLayer : this.sessionState.getGeotechnicalProperties().getSoilLayers()) {
+            if (soilLayer.getStartDepth() == null) {
+                throw new LiquEcException("Start depth required");
+            }
+            if (soilLayer.getFinalDepth() == null) {
+                throw new LiquEcException("Final depth required");
+            }
+            if (soilLayer.getSoilUnitWeight() == null) {
+                throw new LiquEcException("Soil unit weight required");
+            }
+            if (soilLayer.getSoilUnitWeight().getAboveGwt() == null) {
+                throw new LiquEcException("Above GWT required");
+            }
+            if (soilLayer.getSoilUnitWeight().getBelowGwt() == null) {
+                throw new LiquEcException("Below GWT required");
+            }
+            if (soilLayer.getFinesContent() == null) {
+                throw new LiquEcException("Fines content required");
+            }
+        }
         if (this.sessionState.getStandardPenetrationTestList().size() == 0) {
             throw new LiquEcException("Standard penetration test list required");
+        }
+        for (StandardPenetrationTest standardPenetrationTest : this.sessionState.getStandardPenetrationTestList()) {
+            if (standardPenetrationTest.getDepth() == null) {
+                throw new LiquEcException("SPT depth required");
+            }
+            if (standardPenetrationTest.getSptBlowCounts() == null) {
+                throw new LiquEcException("SPT blow counts required");
+            }
+            if (standardPenetrationTest.getEnergyRatio() == null) {
+                throw new LiquEcException("Energy ratio required");
+            }
         }
     }
 }

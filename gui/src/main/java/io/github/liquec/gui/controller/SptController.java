@@ -79,7 +79,7 @@ public class SptController {
         this.textFieldSptEnergyRatio.textProperty().addListener((a, b, c) ->
             this.controllerHelper.validateNumberValue(this.textFieldSptEnergyRatio,"(\\d{0,2}([\\.]\\d{0,1})?)|100|100\\.|100\\.0", b, c));
         this.textFieldSptEnergyRatio.focusedProperty().addListener((a, b, c) ->
-            this.controllerHelper.manageZerosValues(this.textFieldSptEnergyRatio, b, c, "0", true));
+            this.controllerHelper.manageZerosValues(this.textFieldSptEnergyRatio, b, c, "0", false));
         this.textFieldSptEnergyRatio.textProperty().setValue(DefaultValuesEnum.ENERGY_RATIO.getValue());
 
         // Buttons

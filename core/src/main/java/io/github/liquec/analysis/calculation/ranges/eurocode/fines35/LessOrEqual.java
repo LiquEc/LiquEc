@@ -10,7 +10,9 @@ public class LessOrEqual implements Range {
 
     @Override
     public boolean contains(final Double sptCorrected) {
-        return sptCorrected <= 2;
+        final boolean contains = sptCorrected.doubleValue() <= 2;
+        LOG.debug(":::::: Range less or equals: " + contains);
+        return contains;
     }
 
 }
