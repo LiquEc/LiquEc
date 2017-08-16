@@ -10,7 +10,7 @@ public class GreaterOrEqual implements Range {
 
     @Override
     public boolean contains(final Double sptCorrected) {
-        final boolean contains = sptCorrected.doubleValue() >= 21;
+        final boolean contains = sptCorrected >= 21;
         LOG.debug(":::::: Range greater or equals: " + contains);
         return contains;
     }
