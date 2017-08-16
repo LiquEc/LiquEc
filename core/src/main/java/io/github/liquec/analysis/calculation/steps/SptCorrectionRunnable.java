@@ -16,7 +16,7 @@ public class SptCorrectionRunnable extends Runnable {
 
         double sptCorrected = sptCalculationResult.getSptBlowCounts() * (sptCalculationResult.getEnergyRatio() / 60) * sptCalculationResult.getEffectivePressureFactor();
 
-        if (mode == Mode.EUROCODE) {
+        if (Mode.EUROCODE.equals(this.mode)) {
             sptCorrected = sptCalculationResult.getDepth() < 3 ? 0.75 * sptCorrected : sptCorrected;
         }
 

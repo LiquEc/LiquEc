@@ -14,6 +14,18 @@ public class CycleResistanceRatioCorrectionRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
+        Double cycleResistanceRatioCorrection;
+
+        if (Mode.EUROCODE.equals(this.mode)) {
+            cycleResistanceRatioCorrection = sptCalculationResult.getCycleResistanceRatio() * sptCalculationResult.getEarthquakeMagnitudeCorrection();
+        } else {
+            cycleResistanceRatioCorrection = sptCalculationResult.getCycleResistanceRatio() * sptCalculationResult.getCoefficientContributionCorrection();
+        }
+
+        LOG.debug(":::::: Cycle resistance ratio correction: " + cycleResistanceRatioCorrection);
+
+        sptCalculationResult.setCycleResistanceRatioCorrected(cycleResistanceRatioCorrection);
+
         this.logEnd();
     }
 

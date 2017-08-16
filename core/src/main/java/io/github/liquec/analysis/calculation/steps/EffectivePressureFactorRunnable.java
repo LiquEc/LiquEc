@@ -16,7 +16,7 @@ public class EffectivePressureFactorRunnable extends Runnable {
 
         double effectivePressureFactor = Math.pow(100 / sptCalculationResult.getEffectivePressure(), 1/2);
 
-        if (mode == Mode.EUROCODE) {
+        if (Mode.EUROCODE.equals(this.mode)) {
             effectivePressureFactor = effectivePressureFactor < 0.5 ? 0.5 : effectivePressureFactor > 2.0 ? 2.0 : effectivePressureFactor;
         }
 

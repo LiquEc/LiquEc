@@ -40,7 +40,7 @@ public enum Polynomial {
     NCSE02_F35_GREATER_OR_EQUAL(+0000.6000000000, +0000.0000000000, +0000.0000000000, +0000.0000000000, +0000.0000000000, +0000.0000000000, +0000.0000000000),
 
     // Earthquake Magnitude
-    EARTHQUAKE_MAGNITUDE(+0298.8700000000, -0219.4910000000, -0066.3450000000, -0010.1500000000, +0000.7800000000, -0000.0240000000, +0000.0000000000);
+    EARTHQUAKE_MAGNITUDE_CORRECTION(+0298.8700000000, -0219.4910000000, -0066.3450000000, -0010.1500000000, +0000.7800000000, -0000.0240000000, +0000.0000000000);
 
     private double position0;
     private double position1;
@@ -98,13 +98,13 @@ public enum Polynomial {
 
     private double getConstant(final int position) {
         switch(position) {
-            case 0: return position0;
-            case 1: return position1;
-            case 2: return position2;
-            case 3: return position3;
-            case 4: return position4;
-            case 5: return position5;
-            case 6: return position6;
+            case 0: return this.getPosition0();
+            case 1: return this.getPosition1();
+            case 2: return this.getPosition2();
+            case 3: return this.getPosition3();
+            case 4: return this.getPosition4();
+            case 5: return this.getPosition5();
+            case 6: return this.getPosition6();
             default:return 0;
         }
     }

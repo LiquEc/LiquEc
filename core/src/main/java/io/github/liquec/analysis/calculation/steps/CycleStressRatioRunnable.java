@@ -14,6 +14,16 @@ public class CycleStressRatioRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
+        Double cycleStressRatio = 0.65 * (sptCalculationResult.getTotalStress() / sptCalculationResult.getEffectivePressure()) * sessionState.getSiteConditions().getPeakGroundAcceleration();
+
+        if (Mode.NCSE_02.equals(this.mode)) {
+            cycleStressRatio = cycleStressRatio * sptCalculationResult.getDepthFactor();
+        }
+
+        LOG.debug(":::::: Cycle stress ratio (CSR): " + cycleStressRatio);
+
+        sptCalculationResult.setCycleStressRatio(cycleStressRatio);
+
         this.logEnd();
     }
 

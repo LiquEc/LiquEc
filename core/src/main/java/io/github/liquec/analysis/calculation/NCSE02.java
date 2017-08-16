@@ -16,7 +16,7 @@ public enum NCSE02 implements Step {
     CALCULATE_EFFECTIVE_PRESSURE_FACTOR("Effective Pressure Factor", EffectivePressureFactorRunnable.class),
     CALCULATE_SPT_CORRECTION("SPT Correction", SptCorrectionRunnable.class),
     CALCULATE_CYCLE_RESISTANCE_RATIO("Cycle Resistance Ratio (CRR)", CycleResistanceRatioRunnable.class),
-    CALCULATE_COEFFICIENT_OF_CONTRIBUTION("Coefficient Of Contribution", CoefficientOfContributionRunnable.class),
+    CALCULATE_COEFFICIENT_CONTRIBUTION_CORRECTION("Coefficient Contribution Correction (KM)", CoefficientContributionCorrectionRunnable.class),
     CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTION("Cycle Resistance Ratio (CRR) Correction", CycleResistanceRatioCorrectionRunnable.class),
     CALCULATE_DEPTH_FACTOR("Depth Factor", DepthFactorRunnable.class),
     CALCULATE_CYCLE_STRESS_RATIO("Cycle Stress Ratio (CSR)", CycleStressRatioRunnable.class),

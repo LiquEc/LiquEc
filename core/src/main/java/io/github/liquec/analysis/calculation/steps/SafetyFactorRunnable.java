@@ -14,6 +14,12 @@ public class SafetyFactorRunnable extends Runnable {
     public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) {
         this.logStart();
 
+        final Double safetyFactor = sptCalculationResult.getCycleResistanceRatioCorrected() / sptCalculationResult.getCycleStressRatio();
+
+        LOG.debug(":::::: Safety factor: " + safetyFactor);
+
+        sptCalculationResult.setSafetyFactor(safetyFactor);
+
         this.logEnd();
     }
 

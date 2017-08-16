@@ -16,8 +16,8 @@ public class SptCalculationResult {
     private Double interstitialPressure;
     private Double effectivePressure;
     private Double effectivePressureFactor;
-    private Double earthquakeMagnitude;
-    private Double coefficientOfContribution;
+    private Double earthquakeMagnitudeCorrection;
+    private Double coefficientContributionCorrection;
     private Double sptCorrected; // chart
     private Double cycleStressRatio; // chart
     private Double depthFactor;
@@ -104,20 +104,20 @@ public class SptCalculationResult {
         this.effectivePressureFactor = effectivePressureFactor;
     }
 
-    public Double getEarthquakeMagnitude() {
-        return earthquakeMagnitude;
+    public Double getEarthquakeMagnitudeCorrection() {
+        return earthquakeMagnitudeCorrection;
     }
 
-    public void setEarthquakeMagnitude(final Double earthquakeMagnitude) {
-        this.earthquakeMagnitude = earthquakeMagnitude;
+    public void setEarthquakeMagnitudeCorrection(final Double earthquakeMagnitudeCorrection) {
+        this.earthquakeMagnitudeCorrection = earthquakeMagnitudeCorrection;
     }
 
-    public Double getCoefficientOfContribution() {
-        return coefficientOfContribution;
+    public Double getCoefficientContributionCorrection() {
+        return coefficientContributionCorrection;
     }
 
-    public void setCoefficientOfContribution(final Double coefficientOfContribution) {
-        this.coefficientOfContribution = coefficientOfContribution;
+    public void setCoefficientContributionCorrection(final Double coefficientContributionCorrection) {
+        this.coefficientContributionCorrection = coefficientContributionCorrection;
     }
 
     public Double getSptCorrected() {
