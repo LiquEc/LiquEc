@@ -187,7 +187,7 @@
     -fx-background-color: #ccffcc;
 }
 .no-check {
-    -fx-background-color: #ffb3b3;
+    -fx-background-color: #e6e6e6;
     -fx-opacity: 0.7;
 }
 .chart-series-line {

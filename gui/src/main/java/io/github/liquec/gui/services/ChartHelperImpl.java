@@ -7,6 +7,7 @@ package io.github.liquec.gui.services;
 import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.SessionModel;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 
@@ -49,10 +50,9 @@ public class ChartHelperImpl implements ChartHelper {
     }
 
     public Double ceil(final double value, final int precision) {
-        NumberFormat fmt = NumberFormat.getNumberInstance();
-        fmt.setMaximumFractionDigits(precision);
-        fmt.setRoundingMode(RoundingMode.CEILING);
-        return Double.valueOf(fmt.format(value).replace(",", "."));
+        BigDecimal a = new BigDecimal(value);
+        BigDecimal b = a.setScale(precision, RoundingMode.CEILING);
+        return b.doubleValue();
     }
 
 }

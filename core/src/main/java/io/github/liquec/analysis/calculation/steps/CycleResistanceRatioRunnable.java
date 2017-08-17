@@ -58,6 +58,7 @@ public class CycleResistanceRatioRunnable extends Runnable {
 
             if (contains) {
                 cycleResistanceRatio = ((Evaluation) fines).getPolynomial().getValue(sptCorrected);
+                LOG.debug(":::::: CRR: " + cycleResistanceRatio);
                 break;
             }
 
@@ -68,14 +69,14 @@ public class CycleResistanceRatioRunnable extends Runnable {
     private Double retrieveOffsetValue(final Crr crr, final Double sptCorrected, final Double finesContent)
         throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         final Double crr1 = this.retrieveValue(crr, 0, sptCorrected);
-        LOG.debug(":::::: Crr first: " + crr1);
+        LOG.debug(":::::: CRR first: " + crr1);
 
         final Double crr2 = this.retrieveValue(crr, 1, sptCorrected);
-        LOG.debug(":::::: Crr second: " + crr2);
+        LOG.debug(":::::: CRR second: " + crr2);
 
         final Double cycleResistanceRatio = ((crr1 * (finesContent - crr.getBounds()[0].getBound()))
             + (crr2 * (crr.getBounds()[1].getBound() - finesContent))) / (crr.getBounds()[1].getBound() - crr.getBounds()[0].getBound());
-        LOG.debug(":::::: cycleResistanceRatio: " + cycleResistanceRatio);
+        LOG.debug(":::::: Final CRR: " + cycleResistanceRatio);
 
         return cycleResistanceRatio;
     }
