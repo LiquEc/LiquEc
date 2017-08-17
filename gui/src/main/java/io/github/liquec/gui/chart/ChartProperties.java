@@ -7,7 +7,7 @@ package io.github.liquec.gui.chart;
 public enum ChartProperties {
     SPT("CHART_COLOR_1: #9933ff;", "(N) "),
     CSR("CHART_COLOR_1: #e67300;", "(CSR) "),
-    CRR("CHART_COLOR_1: #336699;", "(Crr) "),
+    CRR("CHART_COLOR_1: #336699;", "(CRR) "),
     SF("CHART_COLOR_1: #336600;", "(SF) ");
 
     private String color;

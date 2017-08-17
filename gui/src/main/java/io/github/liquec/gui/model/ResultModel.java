@@ -124,7 +124,7 @@ public final class ResultModel {
         final XYChart.Series<Number, Number> csrSeries = new XYChart.Series<Number, Number>();
         csrSeries.setName("CSR series");
         final XYChart.Series<Number, Number> crrSeries = new XYChart.Series<Number, Number>();
-        crrSeries.setName("Crr series");
+        crrSeries.setName("CRR series");
         final XYChart.Series<Number, Number> safetyFactorSeries = new XYChart.Series<Number, Number>();
         safetyFactorSeries.setName("Safety factor series");
         for (SptCalculationResult sptCalculationResult : sptCalculationResultList) {
