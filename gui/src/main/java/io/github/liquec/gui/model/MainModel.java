@@ -30,6 +30,8 @@ public class MainModel {
 
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
 
+    private final SimpleBooleanProperty resultOpen = new SimpleBooleanProperty(false);
+
     public void replaceSessionModel(final SessionModel sessionModel, final Path sessionFile) {
         unbindOldSession();
         this.sessionModel = sessionModel;
@@ -39,6 +41,7 @@ public class MainModel {
         this.ableToCalculate.bindBidirectional(sessionModel.ableToCalculateProperty());
         this.normativeMode.bindBidirectional(sessionModel.normativeModeProperty());
         this.changesSaved.bindBidirectional(sessionModel.changesSavedProperty());
+        this.resultOpen.bindBidirectional(sessionModel.resultOpenProperty());
     }
 
     private void unbindOldSession() {
@@ -46,6 +49,7 @@ public class MainModel {
             this.ableToCalculate.unbindBidirectional(this.sessionModel.ableToCalculateProperty());
             this.normativeMode.unbindBidirectional(this.sessionModel.normativeModeProperty());
             this.changesSaved.unbindBidirectional(this.sessionModel.changesSavedProperty());
+            this.resultOpen.unbindBidirectional(this.sessionModel.resultOpenProperty());
         }
     }
 
@@ -83,6 +87,10 @@ public class MainModel {
 
     public SimpleBooleanProperty normativeModeProperty() {
         return normativeMode;
+    }
+
+    public SimpleBooleanProperty resultOpenProperty() {
+        return resultOpen;
     }
 
     public void setSessionFile(final Path sessionFile) {

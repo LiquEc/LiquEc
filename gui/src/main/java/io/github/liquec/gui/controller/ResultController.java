@@ -90,7 +90,7 @@ public class ResultController {
         this.resultModel = resultModel;
 
         // enable calculation button
-        this.sessionModel.setAbleToCalculate(false);
+        this.sessionModel.setResultOpen(true);
         
         this.resultLabel.setText(this.buildTitle());
 
@@ -99,29 +99,6 @@ public class ResultController {
 
         // Table
         this.depthTableColumn.setCellValueFactory(cellData -> cellData.getValue().depthProperty());
-//        this.depthTableColumn.setCellFactory(column -> {
-//            return new TableCell<SptResultRow, String>() {
-//
-//                @Override
-//                protected void updateItem(String item, boolean empty) {
-//                    super.updateItem(item, empty);
-//
-//                    setText(empty ? "" : getItem().toString());
-//                    setGraphic(null);
-//
-//                    TableRow<SptResultRow> currentRow = getTableRow();
-//
-//                    if (!isEmpty()) {
-//
-//                        if(item.equals("a"))
-//                            currentRow.setStyle("-fx-background-color:lightcoral");
-//                        else
-//                            currentRow.setStyle("-fx-background-color:lightgreen");
-//                    }
-//                }
-//            };
-//        });
-
         this.sptBlowCountsTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptBlowCountsProperty());
         this.sptCorrectedTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptCorrectedProperty());
         this.csrTableColumn.setCellValueFactory(cellData -> cellData.getValue().csrProperty());
@@ -204,8 +181,7 @@ public class ResultController {
     }
 
     private void back() {
-        // enable calculation button
-        this.sessionModel.setAbleToCalculate(true);
+        this.sessionModel.setResultOpen(false);
         this.guiResultHandler.handleReturn();
     }
 

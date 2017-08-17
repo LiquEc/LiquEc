@@ -128,12 +128,12 @@ public class MainController {
         menuSaveAs.disableProperty().bind(not(model.sessionOpenProperty()));
         menuClear.disableProperty().bind(not(model.sessionOpenProperty()));
 
-        buttonCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
-        menuCalculate.disableProperty().bind(not(model.ableToCalculateProperty()));
-        buttonNormativeEurocode.disableProperty().bind(not(model.sessionOpenProperty()));
-        menuNormativeEurocode.disableProperty().bind(not(model.sessionOpenProperty()));
-        buttonNormativeNcse02.disableProperty().bind(not(model.sessionOpenProperty()));
-        menuNormativeNcse02.disableProperty().bind(not(model.sessionOpenProperty()));
+        buttonCalculate.disableProperty().bind(not(model.ableToCalculateProperty()).or(model.resultOpenProperty()));
+        menuCalculate.disableProperty().bind(not(model.ableToCalculateProperty()).or(model.resultOpenProperty()));
+        buttonNormativeEurocode.disableProperty().bind(not(model.sessionOpenProperty()).or(model.resultOpenProperty()));
+        menuNormativeEurocode.disableProperty().bind(not(model.sessionOpenProperty()).or(model.resultOpenProperty()));
+        buttonNormativeNcse02.disableProperty().bind(not(model.sessionOpenProperty()).or(model.resultOpenProperty()));
+        menuNormativeNcse02.disableProperty().bind(not(model.sessionOpenProperty()).or(model.resultOpenProperty()));
 
         buttonNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());
         menuNormativeEurocode.selectedProperty().bindBidirectional(model.normativeModeProperty());

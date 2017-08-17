@@ -29,6 +29,7 @@ public final class SessionModel {
 
     private final SimpleBooleanProperty changesSaved = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToCalculate = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty resultOpen = new SimpleBooleanProperty(false);
     private final SimpleBooleanProperty normativeMode = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToAddLayer = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty ableToRemoveLastLayer = new SimpleBooleanProperty(false);
@@ -283,6 +284,18 @@ public final class SessionModel {
 
     public void setAbleToCalculate(final boolean ableToCalculate) {
         this.ableToCalculate.set(ableToCalculate);
+    }
+
+    public boolean isResultOpen() {
+        return resultOpen.get();
+    }
+
+    public SimpleBooleanProperty resultOpenProperty() {
+        return resultOpen;
+    }
+
+    public void setResultOpen(final boolean resultOpen) {
+        this.resultOpen.set(resultOpen);
     }
 
     public boolean isNormativeMode() {
