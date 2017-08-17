@@ -302,6 +302,8 @@ public class SessionController {
     private void removeLastSpt() {
         this.sessionModel.removeLastSpt();
         this.sessionModel.removeLastChartSpt();
+        this.sessionModel.getSptChartMainDataSeries().getData().addListener((ListChangeListener.Change<? extends XYChart.Data<Number, Number>> c) -> this.manageChartsAutoRangingAndExtendedFeatures());
+        this.manageChartsAutoRangingAndExtendedFeatures();
         this.sessionModel.setChangesSaved(false);
         this.sessionModel.checkAbleToCalculate();
         this.sessionModel.checkAbleToAddSpt();

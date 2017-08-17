@@ -6,7 +6,10 @@ package io.github.liquec.gui.common;
 
 public enum BoundsEnum {
     MAX_SPT(50.0),
-    MAX_DEPTH(30.0);
+    MAX_DEPTH(30.0),
+    MAX_CSR(1.5),
+    MAX_CRR(1.5),
+    MAX_SAFETY_FACTOR(10.0);
 
     private double value;
 

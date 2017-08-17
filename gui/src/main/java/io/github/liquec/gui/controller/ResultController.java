@@ -6,16 +6,19 @@ package io.github.liquec.gui.controller;
 
 import com.emxsys.chart.EnhancedLineChart;
 import com.emxsys.chart.EnhancedStackedAreaChart;
+import com.emxsys.chart.extension.ValueMarker;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.*;
 import io.github.liquec.gui.services.ChartHelper;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -172,7 +175,8 @@ public class ResultController {
         this.safetyFactorChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.safetyFactorChart.setData(this.resultModel.getSafetyFactorChartData());
 
-        this.manageChartsAutoRangingAndExtendedFeatures();
+        this.manageWaterDepthMarker();
+        this.manageChartsAutoRanging();
 
     }
 
@@ -185,30 +189,48 @@ public class ResultController {
         this.guiResultHandler.handleReturn();
     }
 
-    private void manageChartsAutoRangingAndExtendedFeatures() {
+    private void manageWaterDepthMarker() {
+        this.soilProfileChart.getMarkers().clearRangeMarkers();
+        this.sptChart.getMarkers().clearRangeMarkers();
+        this.csrChart.getMarkers().clearRangeMarkers();
+        this.crrChart.getMarkers().clearRangeMarkers();
+        this.safetyFactorChart.getMarkers().clearRangeMarkers();
+        if (!StringUtils.isEmpty(this.sessionModel.getGroundWaterTableDepth())) {
+            this.soilProfileChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+            this.sptChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+            this.csrChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+            this.crrChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+            this.safetyFactorChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+        }
+    }
+
+    private void manageChartsAutoRanging() {
         // soil profile chart
         this.yAxisSoilProfileChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisSoilProfileChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // spt corrected chart
-        this.xAxisSptChart.setUpperBound(this.upperBoundAxisX());
-        this.xAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisX(this.upperBoundAxisX()));
+        this.xAxisSptChart.setUpperBound(this.upperBoundSptAxisX());
+        this.xAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisX(this.upperBoundSptAxisX()));
         this.yAxisSptChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // csr chart
+        this.xAxisCsrChart.setUpperBound(this.upperBoundCsrAxisX());
+        this.xAxisCsrChart.setTickUnit(0.2);
         this.yAxisCsrChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisCsrChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // crr chart
+        this.xAxisCrrChart.setUpperBound(this.upperBoundCrrAxisX());
+        this.xAxisCrrChart.setTickUnit(0.2);
         this.yAxisCrrChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisCrrChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // safety factor chart
+        this.xAxisSafetyFactorChart.setUpperBound(this.upperBoundSafetyFactorAxisX());
+        this.xAxisSafetyFactorChart.setTickUnit(2);
         this.yAxisSafetyFactorChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisSafetyFactorChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
-        // extended features
-//        this.manageSptLineChartTooltip();
-//        this.manageWaterDepthMarker();
     }
 
-    private Double upperBoundAxisX() {
+    private Double upperBoundSptAxisX() {
         return this.chartHelper.getPairValueAxisX((this.resultModel.getSptResultData().size() > 0)
             ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : BoundsEnum.MAX_SPT.getPositiveValue());
     }
@@ -218,6 +240,48 @@ public class ResultController {
         for (SptResultRow sptResultRow : this.resultModel.getSptResultData()) {
             if (sptResultRow.isResult() && Double.valueOf(sptResultRow.getSptCorrected()) > max) {
                 max = Double.valueOf(sptResultRow.getSptCorrected());
+            }
+        }
+        return max;
+    }
+
+    private Double upperBoundCsrAxisX() {
+        return (this.resultModel.getSptResultData().size() > 0) ? (this.searchMaxCsr() + 0.2) : BoundsEnum.MAX_CSR.getPositiveValue();
+    }
+
+    private Double searchMaxCsr() {
+        Double max = 0.0;
+        for (SptResultRow sptResultRow : this.resultModel.getSptResultData()) {
+            if (sptResultRow.isResult() && Double.valueOf(sptResultRow.getCsr()) > max) {
+                max = Double.valueOf(sptResultRow.getCsr());
+            }
+        }
+        return max;
+    }
+
+    private Double upperBoundCrrAxisX() {
+        return (this.resultModel.getSptResultData().size() > 0) ? (this.searchMaxCrr() + 0.2) : BoundsEnum.MAX_CRR.getPositiveValue();
+    }
+
+    private Double searchMaxCrr() {
+        Double max = 0.0;
+        for (SptResultRow sptResultRow : this.resultModel.getSptResultData()) {
+            if (sptResultRow.isResult() && Double.valueOf(sptResultRow.getCrr()) > max) {
+                max = Double.valueOf(sptResultRow.getCrr());
+            }
+        }
+        return max;
+    }
+
+    private Double upperBoundSafetyFactorAxisX() {
+        return (this.resultModel.getSptResultData().size() > 0) ? (this.searchMaxSafetyFactor() + 0.6) : BoundsEnum.MAX_SAFETY_FACTOR.getPositiveValue();
+    }
+
+    private Double searchMaxSafetyFactor() {
+        Double max = 0.0;
+        for (SptResultRow sptResultRow : this.resultModel.getSptResultData()) {
+            if (sptResultRow.isResult() && Double.valueOf(sptResultRow.getSafetyFactor()) > max) {
+                max = Double.valueOf(sptResultRow.getSafetyFactor());
             }
         }
         return max;
