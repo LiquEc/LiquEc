@@ -21,6 +21,7 @@
 
 <?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.text.Text?>
+<?import io.github.liquec.gui.chart.SptResultTableCellFactory?>
 <BorderPane prefHeight="510.0" prefWidth="1143.0" styleClass="result" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.ResultController">
     <top>
         <Label fx:id="resultLabel" styleClass="resultTitleLabel" text="Liquefaction Calculations Result">
@@ -110,6 +111,9 @@
                                   </padding>
                               </Label>
                           </graphic>
+                          <cellFactory>
+                              <SptResultTableCellFactory />
+                          </cellFactory>
                       </TableColumn>
                       <TableColumn fx:id="sptBlowCountsTableColumn" editable="false" sortable="false">
                           <graphic>
@@ -122,8 +126,11 @@
                                   </tooltip>
                               </Label>
                           </graphic>
+                          <cellFactory>
+                              <SptResultTableCellFactory />
+                          </cellFactory>
                       </TableColumn>
-                      <TableColumn fx:id="sptCorrectedTableColumn" editable="false" sortable="false">
+                      <TableColumn fx:id="sptCorrectedTableColumn" editable="false" sortable="false" minWidth="30.0">
                           <graphic>
                               <Label alignment="CENTER" styleClass="columnHeaderText" text="" textAlignment="CENTER" wrapText="true">
                                   <padding>
@@ -141,6 +148,9 @@
                                   </tooltip>
                               </Label>
                           </graphic>
+                          <cellFactory>
+                              <SptResultTableCellFactory />
+                          </cellFactory>
                       </TableColumn>
                       <TableColumn fx:id="csrTableColumn" editable="false" sortable="false">
                           <graphic>
@@ -153,6 +163,9 @@
                                   </tooltip>
                               </Label>
                           </graphic>
+                          <cellFactory>
+                              <SptResultTableCellFactory />
+                          </cellFactory>
                       </TableColumn>
                       <TableColumn fx:id="crrTableColumn" editable="false" sortable="false">
                           <graphic>
@@ -165,8 +178,11 @@
                                   </tooltip>
                               </Label>
                           </graphic>
+                          <cellFactory>
+                              <SptResultTableCellFactory />
+                          </cellFactory>
                       </TableColumn>
-                      <TableColumn fx:id="safetyFactorTableColumn" editable="false" sortable="false">
+                      <TableColumn fx:id="safetyFactorTableColumn" editable="false" sortable="false" minWidth="50.0">
                           <graphic>
                               <Label alignment="CENTER" styleClass="columnHeaderText" text="Safety &#10;Factor" textAlignment="CENTER" wrapText="true">
                                   <padding>
@@ -174,6 +190,9 @@
                                   </padding>
                               </Label>
                           </graphic>
+                          <cellFactory>
+                              <SptResultTableCellFactory />
+                          </cellFactory>
                       </TableColumn>
                   </columns>
                   <columnResizePolicy>

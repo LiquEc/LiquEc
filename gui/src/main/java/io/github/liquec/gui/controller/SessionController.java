@@ -11,6 +11,7 @@ import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.LayerRow;
 import io.github.liquec.gui.model.SessionModel;
 import io.github.liquec.gui.model.SptRow;
+import io.github.liquec.gui.services.ChartHelper;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
@@ -97,6 +98,9 @@ public class SessionController {
 
     @Inject
     private ControllerHelper controllerHelper;
+
+    @Inject
+    private ChartHelper chartHelper;
 
     @Inject
     private LayerHandler layerHandler;
@@ -294,25 +298,21 @@ public class SessionController {
 
     private void manageChartsAutoRangingAndExtendedFeatures() {
         // stacked area chart
-        this.yAxisStackedAreaChart.setLowerBound(this.lowerBoundAxisY());
-        this.yAxisStackedAreaChart.setTickUnit(this.tickUnitAxisY());
+        this.yAxisStackedAreaChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisStackedAreaChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // line chart
         this.xAxisLineChart.setUpperBound(this.upperBoundAxisX());
-        this.xAxisLineChart.setTickUnit(this.tickUnitAxisX());
-        this.yAxisLineChart.setLowerBound(this.lowerBoundAxisY());
-        this.yAxisLineChart.setTickUnit(this.tickUnitAxisY());
+        this.xAxisLineChart.setTickUnit(this.chartHelper.tickUnitAxisX(this.upperBoundAxisX()));
+        this.yAxisLineChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisLineChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // extended features
         this.manageSptLineChartTooltip();
         this.manageWaterDepthMarker();
     }
 
     private Double upperBoundAxisX() {
-        return this.getPairValueAxisX((this.sessionModel.getSptData().size() > 0)
+        return this.chartHelper.getPairValueAxisX((this.sessionModel.getSptData().size() > 0)
             ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : BoundsEnum.MAX_SPT.getPositiveValue());
-    }
-
-    private Double getPairValueAxisX(final Double value) {
-        return (value % 2 == 0) ? value : value + 1;
     }
 
     private Double searchMaxSptBlowCounts() {
@@ -323,50 +323,6 @@ public class SessionController {
             }
         }
         return max;
-    }
-
-    private Double lowerBoundAxisY() {
-        final Double layerLowerBound = this.getPairValueAxisY((this.sessionModel.getLayerData().size() > 0)
-            ? -Math.ceil(Double.valueOf(this.sessionModel.getLayerData().get(this.sessionModel.getLayerData().size() - 1).getFinalDepth()) + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
-        final Double sptLowerBound = this.getPairValueAxisY((this.sessionModel.getSptData().size() > 0)
-            ? -Math.ceil(Double.valueOf(this.sessionModel.getSptData().get(this.sessionModel.getSptData().size() - 1).getSptDepth()) + 1) : BoundsEnum.MAX_DEPTH.getNegativeValue());
-        if (this.sessionModel.getLayerData().size() == 0) {
-            return sptLowerBound;
-        }
-        if (this.sessionModel.getSptData().size() == 0) {
-            return layerLowerBound;
-        }
-        if (layerLowerBound < sptLowerBound) {
-            return layerLowerBound;
-        }
-        return sptLowerBound;
-    }
-
-    private Double getPairValueAxisY(final Double value) {
-        return (value % 2 == 0) ? value : value - 1;
-    }
-
-    private Double tickUnitAxisX() {
-        if (this.upperBoundAxisX() <= 5) {
-            return 1.0;
-        }
-        if (this.upperBoundAxisX() <= 10) {
-            return 2.0;
-        }
-        if (this.upperBoundAxisX() <= 30) {
-            return 5.0;
-        }
-        return 10.0;
-    }
-
-    private Double tickUnitAxisY() {
-        if (this.lowerBoundAxisY() >= -10) {
-            return 1.0;
-        }
-        if (this.lowerBoundAxisY() >= -20) {
-            return 2.0;
-        }
-        return 5.0;
     }
 
     private void manageSptLineChartTooltip() {

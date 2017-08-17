@@ -75,17 +75,15 @@ public final class ResultModel {
     }
 
     private SptResultRow buildSptResultRow(final SptCalculationResult sptCalculationResult) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.CEILING);
         if (sptCalculationResult.getResult()) {
             return new SptResultRow(
                 sptCalculationResult.getResult(),
                 this.getFormattedDepth(String.valueOf(sptCalculationResult.getDepth())),
                 String.valueOf(sptCalculationResult.getSptBlowCounts()),
-                String.valueOf(df.format(sptCalculationResult.getSptCorrected())),
-                String.valueOf(df.format(sptCalculationResult.getCycleStressRatio())),
-                String.valueOf(df.format(sptCalculationResult.getCycleResistanceRatioCorrected())),
-                String.valueOf(df.format(sptCalculationResult.getSafetyFactor())));
+                String.valueOf(this.round(sptCalculationResult.getSptCorrected())),
+                String.valueOf(this.round(sptCalculationResult.getCycleStressRatio())),
+                String.valueOf(this.round(sptCalculationResult.getCycleResistanceRatioCorrected())),
+                String.valueOf(this.round(sptCalculationResult.getSafetyFactor())));
         }
         return new SptResultRow(
             sptCalculationResult.getResult(),
@@ -102,6 +100,10 @@ public final class ResultModel {
             return depth + "0";
         }
         return depth;
+    }
+
+    private double round(final Double number) {
+        return Math.round(number * 100.0) / 100.0;
     }
 
     private void initializeLayerChartData(final List<SoilLayer> soilLayers) {

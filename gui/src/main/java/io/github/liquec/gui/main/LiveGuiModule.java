@@ -22,5 +22,6 @@ public class LiveGuiModule extends AbstractModule {
         bind(WebPageTool.class).to(WebPageToolImpl.class);
         bind(GuiTaskHandler.class).to(GuiTaskHandlerImpl.class);
         bind(ControllerHelper.class).to(ControllerHelperImpl.class);
+        bind(ChartHelper.class).to(ChartHelperImpl.class);
     }
 }

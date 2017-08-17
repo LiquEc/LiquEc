@@ -7,19 +7,15 @@ package io.github.liquec.gui.controller;
 import com.emxsys.chart.EnhancedLineChart;
 import com.emxsys.chart.EnhancedStackedAreaChart;
 import io.github.liquec.analysis.model.SptCalculationResult;
-import io.github.liquec.gui.model.LayerRow;
-import io.github.liquec.gui.model.ResultModel;
-import io.github.liquec.gui.model.SessionModel;
-import io.github.liquec.gui.model.SptResultRow;
+import io.github.liquec.gui.common.BoundsEnum;
+import io.github.liquec.gui.model.*;
+import io.github.liquec.gui.services.ChartHelper;
 import io.github.liquec.gui.services.ControllerHelper;
 import javafx.collections.ListChangeListener;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +82,9 @@ public class ResultController {
     @Inject
     private ControllerHelper controllerHelper;
 
+    @Inject
+    private ChartHelper chartHelper;
+
     public void initialise(final SessionModel sessionModel, final ResultModel resultModel) {
         this.sessionModel = sessionModel;
         this.resultModel = resultModel;
@@ -100,6 +99,29 @@ public class ResultController {
 
         // Table
         this.depthTableColumn.setCellValueFactory(cellData -> cellData.getValue().depthProperty());
+//        this.depthTableColumn.setCellFactory(column -> {
+//            return new TableCell<SptResultRow, String>() {
+//
+//                @Override
+//                protected void updateItem(String item, boolean empty) {
+//                    super.updateItem(item, empty);
+//
+//                    setText(empty ? "" : getItem().toString());
+//                    setGraphic(null);
+//
+//                    TableRow<SptResultRow> currentRow = getTableRow();
+//
+//                    if (!isEmpty()) {
+//
+//                        if(item.equals("a"))
+//                            currentRow.setStyle("-fx-background-color:lightcoral");
+//                        else
+//                            currentRow.setStyle("-fx-background-color:lightgreen");
+//                    }
+//                }
+//            };
+//        });
+
         this.sptBlowCountsTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptBlowCountsProperty());
         this.sptCorrectedTableColumn.setCellValueFactory(cellData -> cellData.getValue().sptCorrectedProperty());
         this.csrTableColumn.setCellValueFactory(cellData -> cellData.getValue().csrProperty());
@@ -171,7 +193,9 @@ public class ResultController {
         this.safetyFactorChart.setAnimated(false);
         this.safetyFactorChart.setLegendVisible(false);
         this.safetyFactorChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
-        this.safetyFactorChart.setData(this.resultModel.getCrrChartData());
+        this.safetyFactorChart.setData(this.resultModel.getSafetyFactorChartData());
+
+        this.manageChartsAutoRangingAndExtendedFeatures();
 
     }
 
@@ -183,6 +207,44 @@ public class ResultController {
         // enable calculation button
         this.sessionModel.setAbleToCalculate(true);
         this.guiResultHandler.handleReturn();
+    }
+
+    private void manageChartsAutoRangingAndExtendedFeatures() {
+        // soil profile chart
+        this.yAxisSoilProfileChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisSoilProfileChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
+        // spt corrected chart
+        this.xAxisSptChart.setUpperBound(this.upperBoundAxisX());
+        this.xAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisX(this.upperBoundAxisX()));
+        this.yAxisSptChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
+        // csr chart
+        this.yAxisCsrChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisCsrChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
+        // crr chart
+        this.yAxisCrrChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisCrrChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
+        // safety factor chart
+        this.yAxisSafetyFactorChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
+        this.yAxisSafetyFactorChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
+        // extended features
+//        this.manageSptLineChartTooltip();
+//        this.manageWaterDepthMarker();
+    }
+
+    private Double upperBoundAxisX() {
+        return this.chartHelper.getPairValueAxisX((this.resultModel.getSptResultData().size() > 0)
+            ? Math.ceil(this.searchMaxSptBlowCounts() + 1) : BoundsEnum.MAX_SPT.getPositiveValue());
+    }
+
+    private Double searchMaxSptBlowCounts() {
+        Double max = 0.0;
+        for (SptResultRow sptResultRow : this.resultModel.getSptResultData()) {
+            if (sptResultRow.isResult() && Double.valueOf(sptResultRow.getSptCorrected()) > max) {
+                max = Double.valueOf(sptResultRow.getSptCorrected());
+            }
+        }
+        return max;
     }
 
 }
