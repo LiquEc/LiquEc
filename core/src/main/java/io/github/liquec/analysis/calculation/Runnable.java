@@ -24,7 +24,8 @@ public abstract class Runnable {
         this.description = description;
     }
 
-    public abstract void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
+    public abstract void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
 
     private void logMark() {
         LOG.debug("::: ································································ ");

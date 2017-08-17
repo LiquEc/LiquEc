@@ -50,7 +50,7 @@ public enum Polynomial {
     private double position5;
     private double position6;
 
-    Polynomial(double position0, double position1, double position2, double position3, double position4, double position5, double position6) {
+    Polynomial(final double position0, final double position1, final double position2, final double position3, final double position4, final double position5, final double position6) {
         this.position0 = position0;
         this.position1 = position1;
         this.position2 = position2;
@@ -97,7 +97,7 @@ public enum Polynomial {
     }
 
     private double getConstant(final int position) {
-        switch(position) {
+        switch (position) {
             case 0: return this.getPosition0();
             case 1: return this.getPosition1();
             case 2: return this.getPosition2();
@@ -105,7 +105,7 @@ public enum Polynomial {
             case 4: return this.getPosition4();
             case 5: return this.getPosition5();
             case 6: return this.getPosition6();
-            default:return 0;
+            default: return 0;
         }
     }
 

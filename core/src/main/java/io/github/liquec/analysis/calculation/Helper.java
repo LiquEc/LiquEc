@@ -17,8 +17,8 @@ public final class Helper {
         int index = 0;
         int layerIndexWithGwtInside = -1;
         for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {
-            if(geotechnicalProperties.getGroundWaterTableDepth() > soilLayer.getStartDepth() &&
-                geotechnicalProperties.getGroundWaterTableDepth() <= soilLayer.getFinalDepth()) {
+            if (geotechnicalProperties.getGroundWaterTableDepth() > soilLayer.getStartDepth()
+                && geotechnicalProperties.getGroundWaterTableDepth() <= soilLayer.getFinalDepth()) {
                 layerIndexWithGwtInside = index;
             }
             index++;
@@ -30,8 +30,8 @@ public final class Helper {
         int index = 0;
         int layerIndexWithSptInside = -1;
         for (SoilLayer soilLayer : soilLayers) {
-            if(sptDepth > soilLayer.getStartDepth() &&
-                sptDepth <= soilLayer.getFinalDepth()) {
+            if (sptDepth > soilLayer.getStartDepth()
+                && sptDepth <= soilLayer.getFinalDepth()) {
                 layerIndexWithSptInside = index;
             }
             index++;
@@ -43,9 +43,9 @@ public final class Helper {
         int index = 0;
         List<Integer> layerIndexesAboveGwt = new ArrayList<>();
         for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {
-            if(soilLayer.getStartDepth() < geotechnicalProperties.getGroundWaterTableDepth() &&
-                soilLayer.getFinalDepth() <= geotechnicalProperties.getGroundWaterTableDepth() &&
-                index != layerIndexWithSptInside) {
+            if (soilLayer.getStartDepth() < geotechnicalProperties.getGroundWaterTableDepth()
+                && soilLayer.getFinalDepth() <= geotechnicalProperties.getGroundWaterTableDepth()
+                && index != layerIndexWithSptInside) {
                 layerIndexesAboveGwt.add(index);
             }
             index++;
@@ -57,10 +57,10 @@ public final class Helper {
         int index = 0;
         List<Integer> layerIndexesBelowGwt = new ArrayList<>();
         for (SoilLayer soilLayer : geotechnicalProperties.getSoilLayers()) {
-            if(soilLayer.getStartDepth() >= geotechnicalProperties.getGroundWaterTableDepth() &&
-                soilLayer.getFinalDepth() > geotechnicalProperties.getGroundWaterTableDepth() &&
-                index != layerIndexWithSptInside &&
-                soilLayer.getStartDepth() < sptDepth) {
+            if (soilLayer.getStartDepth() >= geotechnicalProperties.getGroundWaterTableDepth()
+                && soilLayer.getFinalDepth() > geotechnicalProperties.getGroundWaterTableDepth()
+                && index != layerIndexWithSptInside
+                && soilLayer.getStartDepth() < sptDepth) {
                 layerIndexesBelowGwt.add(index);
             }
             index++;

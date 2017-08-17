@@ -9,24 +9,25 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
+@SuppressWarnings("unchecked")
 public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, T>, TableCell<S, T>> {
 
     public SptResultTableCellFactory() {}
 
     @Override
-    public TableCell<S, T> call(TableColumn<S, T> p) {
+    public TableCell<S, T> call(final TableColumn<S, T> p) {
 
         TableCell<S, T> cell = new TableCell<S, T>() {
 
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(final Object item, final boolean empty) {
 
                 String check = "check";
                 String noCheck = "no-check";
                 String cssStyle = "";
 
                 SptResultRow sptResultRow = null;
-                if(getTableRow() != null) {
+                if (getTableRow() != null) {
                     sptResultRow = (SptResultRow) getTableRow().getItem();
                 }
 
@@ -43,7 +44,7 @@ public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, 
                 if (item != null) {
                     setText(item.toString());
                 } else {
-                    setText( "" );
+                    setText("");
                 }
             }
         };

@@ -15,12 +15,12 @@ import io.github.liquec.analysis.calculation.ranges.ncse.fines05.NcseFines05;
 import io.github.liquec.analysis.calculation.ranges.ncse.fines15.NcseFines15;
 import io.github.liquec.analysis.calculation.ranges.ncse.fines35.NcseFines35;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public enum CRR {
+@SuppressWarnings("unchecked")
+public enum Crr {
     LESS_OR_EQUAL(
         LessOrEqual.class,
         new Fines[] {Fines.BOUND_05},
@@ -42,23 +42,23 @@ public enum CRR {
         new List[]{Arrays.asList(EurocodeFines35.values())},
         new List[]{Arrays.asList(NcseFines35.values())});
 
-    private Class<? extends Range> CRREvaluation;
+    private Class<? extends Range> crrEvaluation;
     private Fines[] fines;
     private Collection<Enum<? extends Evaluation>>[] eurocodeEvaluations;
     private Collection<Enum<? extends Evaluation>>[] nsceEvaluations;
 
-    CRR(final Class<? extends Range> CRREvaluation,
+    Crr(final Class<? extends Range> crrEvaluation,
         final Fines[] fines,
-        final Collection<Enum<? extends Evaluation>> eurocodeEvaluations[],
-        final Collection<Enum<? extends Evaluation>> nsceEvaluations[]) {
-        this.CRREvaluation = CRREvaluation;
+        final Collection<Enum<? extends Evaluation>>[] eurocodeEvaluations,
+        final Collection<Enum<? extends Evaluation>>[] nsceEvaluations) {
+        this.crrEvaluation = crrEvaluation;
         this.fines = fines;
         this.eurocodeEvaluations = eurocodeEvaluations;
         this.nsceEvaluations = nsceEvaluations;
     }
 
-    public Class<? extends Range> getCRREvaluationClass() {
-        return CRREvaluation;
+    public Class<? extends Range> getCrrEvaluationClass() {
+        return crrEvaluation;
     }
 
     public Fines[] getBounds() {

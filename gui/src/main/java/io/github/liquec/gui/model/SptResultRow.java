@@ -46,7 +46,7 @@ public final class SptResultRow {
         return result;
     }
 
-    public void setResult(boolean result) {
+    public void setResult(final boolean result) {
         this.result.set(result);
     }
 
@@ -58,7 +58,7 @@ public final class SptResultRow {
         return depth;
     }
 
-    public void setDepth(String depth) {
+    public void setDepth(final String depth) {
         this.depth.set(depth);
     }
 
@@ -70,7 +70,7 @@ public final class SptResultRow {
         return sptBlowCounts;
     }
 
-    public void setSptBlowCounts(String sptBlowCounts) {
+    public void setSptBlowCounts(final String sptBlowCounts) {
         this.sptBlowCounts.set(sptBlowCounts);
     }
 
@@ -82,7 +82,7 @@ public final class SptResultRow {
         return sptCorrected;
     }
 
-    public void setSptCorrected(String sptCorrected) {
+    public void setSptCorrected(final String sptCorrected) {
         this.sptCorrected.set(sptCorrected);
     }
 
@@ -94,7 +94,7 @@ public final class SptResultRow {
         return csr;
     }
 
-    public void setCsr(String csr) {
+    public void setCsr(final String csr) {
         this.csr.set(csr);
     }
 
@@ -106,7 +106,7 @@ public final class SptResultRow {
         return crr;
     }
 
-    public void setCrr(String crr) {
+    public void setCrr(final String crr) {
         this.crr.set(crr);
     }
 
@@ -118,7 +118,7 @@ public final class SptResultRow {
         return safetyFactor;
     }
 
-    public void setSafetyFactor(String safetyFactor) {
+    public void setSafetyFactor(final String safetyFactor) {
         this.safetyFactor.set(safetyFactor);
     }
 }

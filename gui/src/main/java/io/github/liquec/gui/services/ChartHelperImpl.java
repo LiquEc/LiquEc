@@ -48,7 +48,7 @@ public class ChartHelperImpl implements ChartHelper {
         return 5.0;
     }
 
-    public Double ceil(double value, int precision) {
+    public Double ceil(final double value, final int precision) {
         NumberFormat fmt = NumberFormat.getNumberInstance();
         fmt.setMaximumFractionDigits(precision);
         fmt.setRoundingMode(RoundingMode.CEILING);

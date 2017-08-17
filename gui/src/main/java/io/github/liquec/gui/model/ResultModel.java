@@ -68,7 +68,7 @@ public final class ResultModel {
         return safetyFactorChartData;
     }
 
-    private void initializeSptResultData(List<SptCalculationResult> sptCalculationResultList) {
+    private void initializeSptResultData(final List<SptCalculationResult> sptCalculationResultList) {
         for (SptCalculationResult sptCalculationResult : sptCalculationResultList) {
             this.sptResultData.add(this.buildSptResultRow(sptCalculationResult));
         }
@@ -118,17 +118,17 @@ public final class ResultModel {
         }
     }
 
-    private void initializeResultChartsData(List<SptCalculationResult> sptCalculationResultList) {
+    private void initializeResultChartsData(final List<SptCalculationResult> sptCalculationResultList) {
         final XYChart.Series<Number, Number> sptCorrectedSeries = new XYChart.Series<Number, Number>();
         sptCorrectedSeries.setName("SPT series");
         final XYChart.Series<Number, Number> csrSeries = new XYChart.Series<Number, Number>();
         csrSeries.setName("CSR series");
         final XYChart.Series<Number, Number> crrSeries = new XYChart.Series<Number, Number>();
-        crrSeries.setName("CRR series");
+        crrSeries.setName("Crr series");
         final XYChart.Series<Number, Number> safetyFactorSeries = new XYChart.Series<Number, Number>();
         safetyFactorSeries.setName("Safety factor series");
         for (SptCalculationResult sptCalculationResult : sptCalculationResultList) {
-            if(sptCalculationResult.getResult()) {
+            if (sptCalculationResult.getResult()) {
                 sptCorrectedSeries.getData().add(LiquEcData.getChartInverseDataSpt(sptCalculationResult.getSptCorrected(), sptCalculationResult.getDepth()));
                 csrSeries.getData().add(LiquEcData.getChartInverseDataSpt(sptCalculationResult.getCycleStressRatio(), sptCalculationResult.getDepth()));
                 crrSeries.getData().add(LiquEcData.getChartInverseDataSpt(sptCalculationResult.getCycleResistanceRatioCorrected(), sptCalculationResult.getDepth()));

@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public enum Mode {
     EUROCODE("Eurocode", Arrays.asList(Eurocode.values())),
-    NCSE_02("NCSE-02", Arrays.asList(NCSE02.values()));
+    NCSE_02("NCSE-02", Arrays.asList(Ncse02.values()));
 
     private String description;
     private Collection<Enum<? extends Step>> steps;

@@ -2,7 +2,7 @@ package io.github.liquec.analysis.calculation.steps;
 
 import io.github.liquec.analysis.calculation.*;
 import io.github.liquec.analysis.calculation.Runnable;
-import io.github.liquec.analysis.calculation.ranges.crr.CRR;
+import io.github.liquec.analysis.calculation.ranges.crr.Crr;
 import io.github.liquec.analysis.core.LiquEcException;
 import io.github.liquec.analysis.model.SptCalculationResult;
 import io.github.liquec.analysis.session.SessionState;
@@ -15,7 +15,8 @@ public class CycleResistanceRatioRunnable extends Runnable {
         super(mode, description);
     }
 
-    public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void execute(final SessionState sessionState, final SptCalculationResult sptCalculationResult)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         this.logStart();
 
         final int layerIndexWithSptInside = Helper.retrieveLayerIndexWithSptInside(sessionState.getGeotechnicalProperties().getSoilLayers(), sptCalculationResult.getDepth());
@@ -28,15 +29,15 @@ public class CycleResistanceRatioRunnable extends Runnable {
         final Float finesContent = sessionState.getGeotechnicalProperties().getSoilLayers().get(layerIndexWithSptInside).getFinesContent();
         LOG.debug(":::::: Layer fines content: " + finesContent + " (%)");
 
-        for (CRR crr : CRR.values()) {
+        for (Crr crr : Crr.values()) {
 
-            final boolean contains = crr.getCRREvaluationClass().getConstructor().newInstance().contains(Double.valueOf(finesContent));
+            final boolean contains = crr.getCrrEvaluationClass().getConstructor().newInstance().contains(Double.valueOf(finesContent));
             LOG.debug(":::::: Fines contains: " + contains);
 
             if (contains) {
-                final Double cycleResistanceRatio =  crr.getBounds().length == 1 ?
-                    this.retrieveValue(crr, 0, sptCalculationResult.getSptCorrected()) :
-                    this.retrieveOffsetValue(crr, sptCalculationResult.getSptCorrected(), (Double.valueOf(finesContent)));
+                final Double cycleResistanceRatio =  crr.getBounds().length == 1
+                    ? this.retrieveValue(crr, 0, sptCalculationResult.getSptCorrected())
+                    : this.retrieveOffsetValue(crr, sptCalculationResult.getSptCorrected(), (Double.valueOf(finesContent)));
                 sptCalculationResult.setCycleResistanceRatio(cycleResistanceRatio);
                 break;
             }
@@ -46,7 +47,8 @@ public class CycleResistanceRatioRunnable extends Runnable {
         this.logEnd();
     }
 
-    private Double retrieveValue(final CRR crr, final int index, final Double sptCorrected) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    private Double retrieveValue(final Crr crr, final int index, final Double sptCorrected)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Double cycleResistanceRatio = 0.0;
         LOG.debug(":::::: SPT Corrected: " + sptCorrected + " (N60)");
         for (Enum<? extends Evaluation> fines : crr.getEvaluations(this.mode)[index]) {
@@ -63,14 +65,16 @@ public class CycleResistanceRatioRunnable extends Runnable {
         return cycleResistanceRatio;
     }
 
-    private Double retrieveOffsetValue(final CRR crr, final Double sptCorrected, final Double finesContent) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    private Double retrieveOffsetValue(final Crr crr, final Double sptCorrected, final Double finesContent)
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         final Double crr1 = this.retrieveValue(crr, 0, sptCorrected);
-        LOG.debug(":::::: CRR first: " + crr1);
+        LOG.debug(":::::: Crr first: " + crr1);
 
         final Double crr2 = this.retrieveValue(crr, 1, sptCorrected);
-        LOG.debug(":::::: CRR second: " + crr2);
+        LOG.debug(":::::: Crr second: " + crr2);
 
-        final Double cycleResistanceRatio = ((crr1 * (finesContent - crr.getBounds()[0].getBound())) + (crr2 * (crr.getBounds()[1].getBound() - finesContent))) / (crr.getBounds()[1].getBound() - crr.getBounds()[0].getBound());
+        final Double cycleResistanceRatio = ((crr1 * (finesContent - crr.getBounds()[0].getBound()))
+            + (crr2 * (crr.getBounds()[1].getBound() - finesContent))) / (crr.getBounds()[1].getBound() - crr.getBounds()[0].getBound());
         LOG.debug(":::::: cycleResistanceRatio: " + cycleResistanceRatio);
 
         return cycleResistanceRatio;

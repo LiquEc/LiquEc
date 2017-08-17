@@ -61,7 +61,7 @@ public final class SptRow implements Comparable<SptRow> {
     }
 
     public int compareTo(final SptRow sptRow) {
-        if(Float.valueOf(this.sptDepth.getValue()).equals(Float.valueOf(sptRow.getSptDepth()))) {
+        if (Float.valueOf(this.sptDepth.getValue()).equals(Float.valueOf(sptRow.getSptDepth()))) {
             return 0;
         }
         return Float.valueOf(this.sptDepth.getValue()) < Float.valueOf(sptRow.getSptDepth()) ? -1 : 1;

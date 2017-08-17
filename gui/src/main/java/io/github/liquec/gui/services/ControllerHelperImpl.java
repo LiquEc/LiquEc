@@ -37,7 +37,8 @@ public class ControllerHelperImpl implements ControllerHelper {
     }
 
     @Override
-    public void manageLowRangeValue(TextField textField, Boolean oldValue, Boolean newValue, final String zeros, final Float lowRange, boolean remove) {
+    public void manageLowRangeValue(final TextField textField, final Boolean oldValue, final Boolean newValue,
+                                    final String zeros, final Float lowRange, final boolean remove) {
         if (newValue) {
             return;
         }

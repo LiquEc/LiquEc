@@ -18,9 +18,9 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-
 import java.util.Collections;
+
+import javax.inject.Inject;
 
 import static javafx.beans.binding.Bindings.not;
 

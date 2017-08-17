@@ -44,7 +44,7 @@ public class StandardPenetrationTest implements Comparable<StandardPenetrationTe
     }
 
     public int compareTo(final StandardPenetrationTest standardPenetrationTest) {
-        if(this.depth.equals(standardPenetrationTest.getDepth())) {
+        if (this.depth.equals(standardPenetrationTest.getDepth())) {
             return 0;
         }
         return this.depth < standardPenetrationTest.getDepth() ? -1 : 1;

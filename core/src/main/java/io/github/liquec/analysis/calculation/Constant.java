@@ -22,7 +22,7 @@ public enum Constant {
    }
 
    public Double getValue(final Mode mode) {
-       if(Mode.EUROCODE == mode) {
+       if (Mode.EUROCODE == mode) {
            return eurocode;
        }
        return ncse02;
