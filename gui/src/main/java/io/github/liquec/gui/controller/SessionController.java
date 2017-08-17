@@ -122,6 +122,8 @@ public class SessionController {
         handler(addNewSptButton, this::processSptProperties);
         handler(removeLastSptButton, this::removeLastSpt);
 
+        this.disableUnnecessaryData();
+
         // Normative Mode
         this.sessionModel.normativeModeProperty().addListener((a, b, c) -> this.manageNormativeMode(b, c));
         // Project Name
@@ -224,8 +226,19 @@ public class SessionController {
         this.manageWaterDepthMarker();
     }
 
+    private void disableUnnecessaryData() {
+        this.textFieldEarthquakeMagnitude.setDisable(false);
+        this.textFieldCoefficientOfContribution.setDisable(false);
+        if (this.sessionModel.normativeModeProperty().get()) {
+            this.textFieldCoefficientOfContribution.setDisable(true);
+        } else {
+            this.textFieldEarthquakeMagnitude.setDisable(true);
+        }
+    }
+
     private void manageNormativeMode(final Boolean b, final Boolean c) {
         this.controllerHelper.trackValues("Normative Mode", b.toString(), c.toString());
+        this.disableUnnecessaryData();
         this.sessionModel.checkAbleToCalculate();
     }
 
