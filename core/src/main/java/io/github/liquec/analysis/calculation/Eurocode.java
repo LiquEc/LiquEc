@@ -16,9 +16,9 @@ public enum Eurocode implements Step {
     CALCULATE_EFFECTIVE_STRESS("Effective Stress", EffectiveStressRunnable.class),
     CALCULATE_EFFECTIVE_STRESS_FACTOR("Effective Stress Factor", EffectiveStressFactorRunnable.class),
     CALCULATE_SPT_CORRECTION("SPT Correction", SptCorrectionRunnable.class),
-    CALCULATE_CYCLE_RESISTANCE_RATIO("Cycle Resistance Ratio (Crr)", CycleResistanceRatioRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO("Cycle Resistance Ratio (CRR)", CycleResistanceRatioRunnable.class),
     CALCULATE_EARTHQUAKE_MAGNITUDE_CORRECTION("Earthquake Magnitude Correction (CM)", EarthquakeMagnitudeCorrectionRunnable.class),
-    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTION("Cycle Resistance Ratio (Crr) Correction", CycleResistanceRatioCorrectionRunnable.class),
+    CALCULATE_CYCLE_RESISTANCE_RATIO_CORRECTION("Cycle Resistance Ratio (CRR) Correction", CycleResistanceRatioCorrectionRunnable.class),
     CALCULATE_CYCLE_STRESS_RATIO("Cycle Stress Ratio (CSR)", CycleStressRatioRunnable.class),
     CALCULATE_SAFETY_FACTOR("Safety Factor", SafetyFactorRunnable.class);
 
