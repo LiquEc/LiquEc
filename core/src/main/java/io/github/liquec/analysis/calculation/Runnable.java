@@ -28,7 +28,7 @@ public abstract class Runnable {
         throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
 
     private void logMark() {
-        LOG.debug("::: ································································ ");
+        LOG.debug("::: ................................................................ ");
     }
 
     protected void logStart() {
