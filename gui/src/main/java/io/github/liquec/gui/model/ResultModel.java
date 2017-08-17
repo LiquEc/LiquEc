@@ -78,16 +78,16 @@ public final class ResultModel {
         if (sptCalculationResult.getResult()) {
             return new SptResultRow(
                 sptCalculationResult.getResult(),
-                this.getFormattedDepth(String.valueOf(sptCalculationResult.getDepth())),
+                this.getFormattedNumer(String.valueOf(sptCalculationResult.getDepth())),
                 String.valueOf(sptCalculationResult.getSptBlowCounts()),
                 String.valueOf(this.round(sptCalculationResult.getSptCorrected())),
-                String.valueOf(this.round(sptCalculationResult.getCycleStressRatio())),
-                String.valueOf(this.round(sptCalculationResult.getCycleResistanceRatioCorrected())),
-                String.valueOf(this.round(sptCalculationResult.getSafetyFactor())));
+                this.getFormattedNumer(String.valueOf(this.round(sptCalculationResult.getCycleStressRatio()))),
+                this.getFormattedNumer(String.valueOf(this.round(sptCalculationResult.getCycleResistanceRatioCorrected()))),
+                this.getFormattedNumer(String.valueOf(this.round(sptCalculationResult.getSafetyFactor()))));
         }
         return new SptResultRow(
             sptCalculationResult.getResult(),
-            this.getFormattedDepth(String.valueOf(sptCalculationResult.getDepth())),
+            this.getFormattedNumer(String.valueOf(sptCalculationResult.getDepth())),
             String.valueOf(sptCalculationResult.getSptBlowCounts()),
             DASH,
             DASH,
@@ -95,11 +95,11 @@ public final class ResultModel {
             sptCalculationResult.getErrorMessage());
     }
 
-    private String getFormattedDepth(final String depth) {
-        if (depth.matches("(\\d)+[\\.]\\d")) {
-            return depth + "0";
+    private String getFormattedNumer(final String number) {
+        if (number.matches("(\\d)+[\\.]\\d")) {
+            return number + "0";
         }
-        return depth;
+        return number;
     }
 
     private double round(final Double number) {

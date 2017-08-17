@@ -17,4 +17,6 @@ public interface ChartHelper {
     Double tickUnitAxisX(final Double upperBoundAxisX);
 
     Double tickUnitAxisY(final Double lowerBoundAxisY);
+
+    Double ceil(double value, int precision);
 }

@@ -183,11 +183,18 @@
     -fx-font-size: 0.9em;
     -fx-padding: 0 10 0 0;
 }
-/* cell spt result */
 .check {
     -fx-background-color: #ccffcc;
 }
 .no-check {
     -fx-background-color: #ffb3b3;
     -fx-opacity: 0.7;
+}
+.chart-series-line {
+    -fx-stroke-width: 1.8px;
+    -fx-effect: null;
+}
+.chart-line-symbol {
+    -fx-background-radius: 4px ;
+    -fx-padding: 4px ;
 }

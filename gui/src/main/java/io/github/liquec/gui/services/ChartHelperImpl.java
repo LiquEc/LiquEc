@@ -7,6 +7,9 @@ package io.github.liquec.gui.services;
 import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.SessionModel;
 
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+
 public class ChartHelperImpl implements ChartHelper {
 
     public Double lowerBoundAxisY(final SessionModel sessionModel) {
@@ -43,6 +46,13 @@ public class ChartHelperImpl implements ChartHelper {
             return 2.0;
         }
         return 5.0;
+    }
+
+    public Double ceil(double value, int precision) {
+        NumberFormat fmt = NumberFormat.getNumberInstance();
+        fmt.setMaximumFractionDigits(precision);
+        fmt.setRoundingMode(RoundingMode.CEILING);
+        return Double.valueOf(fmt.format(value).replace(",", "."));
     }
 
 }

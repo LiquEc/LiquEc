@@ -7,17 +7,20 @@ package io.github.liquec.gui.controller;
 import com.emxsys.chart.EnhancedLineChart;
 import com.emxsys.chart.EnhancedStackedAreaChart;
 import com.emxsys.chart.extension.ValueMarker;
-import io.github.liquec.analysis.model.SptCalculationResult;
+import com.emxsys.chart.extension.XYAnnotations;
+import com.emxsys.chart.extension.XYFieldAnnotation;
+import com.emxsys.chart.extension.XYTextAnnotation;
+import io.github.liquec.gui.chart.ChartProperties;
 import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.*;
 import io.github.liquec.gui.services.ChartHelper;
 import io.github.liquec.gui.services.ControllerHelper;
-import javafx.collections.ListChangeListener;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +95,7 @@ public class ResultController {
         this.sessionModel = sessionModel;
         this.resultModel = resultModel;
 
-        // enable calculation button
+        // disable calculation buttons
         this.sessionModel.setResultOpen(true);
         
         this.resultLabel.setText(this.buildTitle());
@@ -138,6 +141,7 @@ public class ResultController {
         this.sptChart.setLegendVisible(false);
         this.sptChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.sptChart.setData(this.resultModel.getSptChartData());
+        this.sptChart.setStyle(ChartProperties.SPT.getColor());
 
         // CSR Chart
         this.yAxisCsrChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisCsrChart) {
@@ -150,6 +154,7 @@ public class ResultController {
         this.csrChart.setLegendVisible(false);
         this.csrChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.csrChart.setData(this.resultModel.getCsrChartData());
+        this.csrChart.setStyle(ChartProperties.CSR.getColor());
 
         // CCR Chart
         this.yAxisCrrChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisCrrChart) {
@@ -162,8 +167,10 @@ public class ResultController {
         this.crrChart.setLegendVisible(false);
         this.crrChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.crrChart.setData(this.resultModel.getCrrChartData());
+        this.crrChart.setStyle(ChartProperties.CRR.getColor());
 
         // Safety Factor Chart
+        this.xAxisSafetyFactorChart.setMinorTickVisible(false);
         this.yAxisSafetyFactorChart.setTickLabelFormatter(new NumberAxis.DefaultFormatter(this.yAxisSafetyFactorChart) {
             @Override
             public String toString(final Number value) {
@@ -174,9 +181,11 @@ public class ResultController {
         this.safetyFactorChart.setLegendVisible(false);
         this.safetyFactorChart.setAxisSortingPolicy(LineChart.SortingPolicy.Y_AXIS);
         this.safetyFactorChart.setData(this.resultModel.getSafetyFactorChartData());
+        this.safetyFactorChart.setStyle(ChartProperties.SF.getColor());
 
         this.manageWaterDepthMarker();
         this.manageChartsAutoRanging();
+        this.manageChartsAnnotations();
 
     }
 
@@ -185,6 +194,7 @@ public class ResultController {
     }
 
     private void back() {
+        // enable calculation buttons
         this.sessionModel.setResultOpen(false);
         this.guiResultHandler.handleReturn();
     }
@@ -197,10 +207,10 @@ public class ResultController {
         this.safetyFactorChart.getMarkers().clearRangeMarkers();
         if (!StringUtils.isEmpty(this.sessionModel.getGroundWaterTableDepth())) {
             this.soilProfileChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
-            this.sptChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
-            this.csrChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
-            this.crrChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
-            this.safetyFactorChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth()), "GWT", Pos.BOTTOM_RIGHT));
+            this.sptChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth())));
+            this.csrChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth())));
+            this.crrChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth())));
+            this.safetyFactorChart.getMarkers().addRangeMarker(new ValueMarker(-Float.valueOf(this.sessionModel.getGroundWaterTableDepth())));
         }
     }
 
@@ -210,7 +220,7 @@ public class ResultController {
         this.yAxisSoilProfileChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // spt corrected chart
         this.xAxisSptChart.setUpperBound(this.upperBoundSptAxisX());
-        this.xAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisX(this.upperBoundSptAxisX()));
+        this.xAxisSptChart.setTickUnit(10.0);
         this.yAxisSptChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisSptChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // csr chart
@@ -220,7 +230,7 @@ public class ResultController {
         this.yAxisCsrChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // crr chart
         this.xAxisCrrChart.setUpperBound(this.upperBoundCrrAxisX());
-        this.xAxisCrrChart.setTickUnit(0.2);
+        this.xAxisCrrChart.setTickUnit(0.4);
         this.yAxisCrrChart.setLowerBound(this.chartHelper.lowerBoundAxisY(this.sessionModel));
         this.yAxisCrrChart.setTickUnit(this.chartHelper.tickUnitAxisY(this.chartHelper.lowerBoundAxisY(this.sessionModel)));
         // safety factor chart
@@ -246,7 +256,7 @@ public class ResultController {
     }
 
     private Double upperBoundCsrAxisX() {
-        return (this.resultModel.getSptResultData().size() > 0) ? (this.searchMaxCsr() + 0.2) : BoundsEnum.MAX_CSR.getPositiveValue();
+        return (this.resultModel.getSptResultData().size() > 0) ? (this.chartHelper.ceil(this.searchMaxCsr(), 1) + 0.1) : BoundsEnum.MAX_CSR.getPositiveValue();
     }
 
     private Double searchMaxCsr() {
@@ -260,7 +270,7 @@ public class ResultController {
     }
 
     private Double upperBoundCrrAxisX() {
-        return (this.resultModel.getSptResultData().size() > 0) ? (this.searchMaxCrr() + 0.2) : BoundsEnum.MAX_CRR.getPositiveValue();
+        return (this.resultModel.getSptResultData().size() > 0) ? (this.chartHelper.ceil(this.searchMaxCrr(), 1) + 0.2) : BoundsEnum.MAX_CRR.getPositiveValue();
     }
 
     private Double searchMaxCrr() {
@@ -274,7 +284,7 @@ public class ResultController {
     }
 
     private Double upperBoundSafetyFactorAxisX() {
-        return (this.resultModel.getSptResultData().size() > 0) ? (this.searchMaxSafetyFactor() + 0.6) : BoundsEnum.MAX_SAFETY_FACTOR.getPositiveValue();
+        return (this.resultModel.getSptResultData().size() > 0) ? (this.chartHelper.ceil(this.searchMaxSafetyFactor(), 0) + 1) : BoundsEnum.MAX_SAFETY_FACTOR.getPositiveValue();
     }
 
     private Double searchMaxSafetyFactor() {
@@ -285,6 +295,25 @@ public class ResultController {
             }
         }
         return max;
+    }
+
+    private void manageChartsAnnotations() {
+        // text
+        this.sptChart.getAnnotations().add(new XYTextAnnotation(ChartProperties.SPT.getText(),
+            xAxisSptChart.getUpperBound(), yAxisSptChart.getLowerBound(), Pos.BOTTOM_RIGHT), XYAnnotations.Layer.FOREGROUND);
+        this.csrChart.getAnnotations().add(new XYTextAnnotation(ChartProperties.CSR.getText(),
+            xAxisCsrChart.getUpperBound(), yAxisCsrChart.getLowerBound(), Pos.BOTTOM_RIGHT), XYAnnotations.Layer.FOREGROUND);
+        this.crrChart.getAnnotations().add(new XYTextAnnotation(ChartProperties.CRR.getText(),
+            xAxisCrrChart.getUpperBound(), yAxisCrrChart.getLowerBound(), Pos.BOTTOM_RIGHT), XYAnnotations.Layer.FOREGROUND);
+        this.safetyFactorChart.getAnnotations().add(new XYTextAnnotation(ChartProperties.SF.getText(),
+            xAxisSafetyFactorChart.getUpperBound(), yAxisSafetyFactorChart.getLowerBound(), Pos.BOTTOM_RIGHT), XYAnnotations.Layer.FOREGROUND);
+        // field
+        this.safetyFactorChart.getAnnotations().add(
+            new XYFieldAnnotation(0, 1.1, Orientation.VERTICAL, 0, null,
+                new Color(1, 0, 1, 0.2)),  XYAnnotations.Layer.BACKGROUND);
+        this.safetyFactorChart.getAnnotations().add(
+            new XYFieldAnnotation(1.1, 1.5, Orientation.VERTICAL, 0, null,
+                new Color(0, 1, 0, 0.3)),  XYAnnotations.Layer.BACKGROUND);
     }
 
 }
