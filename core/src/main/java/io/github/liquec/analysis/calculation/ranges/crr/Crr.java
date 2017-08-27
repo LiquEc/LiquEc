@@ -29,13 +29,13 @@ public enum Crr {
     BETWEEN_FIRST_SECTION(
         BetweenFirstSection.class,
         new Fines[] {Fines.BOUND_05, Fines.BOUND_15},
-        new List[]{Arrays.asList(EurocodeFines05.values()), Arrays.asList(EurocodeFines15.values())},
-        new List[]{Arrays.asList(NcseFines05.values()), Arrays.asList(NcseFines15.values())}),
+        new List[]{Arrays.asList(EurocodeFines15.values()), Arrays.asList(EurocodeFines05.values())},
+        new List[]{Arrays.asList(NcseFines15.values()), Arrays.asList(NcseFines05.values())}),
     BETWEEN_SECOND_SECTION(
         BetweenSecondSection.class,
         new Fines[] {Fines.BOUND_15, Fines.BOUND_35},
-        new List[]{Arrays.asList(EurocodeFines15.values()), Arrays.asList(EurocodeFines35.values())},
-        new List[]{Arrays.asList(NcseFines15.values()), Arrays.asList(NcseFines35.values())}),
+        new List[]{Arrays.asList(EurocodeFines35.values()), Arrays.asList(EurocodeFines15.values())},
+        new List[]{Arrays.asList(NcseFines35.values()), Arrays.asList(NcseFines15.values())}),
     GREATER_OR_EQUAL(
         GreaterOrEqual.class,
         new Fines[] {Fines.BOUND_35},
