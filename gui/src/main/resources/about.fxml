@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Open Source Software published under the Apache Licence, Version 2.0.
+  ~ Open Source Software published under the GNU Licence, Version 2.0.
   -->
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
@@ -26,7 +26,7 @@
             <left>
                 <VBox>
                     <children>
-                        <Label text="LiquEc is Open Source Software,&#10;published under the Apache Licence, Version 2.0." />
+                        <Label text="LiquEc is Open Source Software,&#10;published under the GNU Licence, Version 2.0." />
                         <Label fx:id="labelVersion" text="LiquEc Version: %s." />
                         <Label text="Copyright (c) 2017 José Luis Pastor Navarro | Pablo Benito González." />
                         <Hyperlink fx:id="linkWebsite" text="https://liquec.github.io/" styleClass="website" >
