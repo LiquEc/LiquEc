@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javax.inject.Inject;
+import javax.swing.text.html.ImageView;
 
 public class AboutController {
     private final WebPageTool webPageTool;
@@ -20,8 +21,6 @@ public class AboutController {
     public Button buttonClose;
 
     public Hyperlink linkWebsite;
-
-    public Hyperlink linkTwitter;
 
     public Label labelVersion;
 
@@ -33,7 +32,6 @@ public class AboutController {
     public void initialise(final Stage stage) {
         buttonClose.setOnAction(e -> stage.close());
         linkWebsite.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBSITE));
-        linkTwitter.setOnAction(e -> webPageTool.showWebPage(GuiConstants.TWITTER));
         setupVersion();
     }
 
