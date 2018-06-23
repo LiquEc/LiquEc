@@ -5,43 +5,64 @@
   -->
 
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <Pane fx:id="aboutDialogue" styleClass="about" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.AboutController">
     <children>
-        <BorderPane>
+        <BorderPane prefWidth="522.0">
             <top>
-                <HBox>
+                <HBox alignment="CENTER">
                     <children>
-                        <Text styleClass="title" text="Liqu" />
-                        <Text styleClass="title" text="Ec" />
+                        <ImageView fx:id="aboutImageView" fitHeight="152.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                <Image url="@images/liquec-about.png" />
+                             </image>
+                             <HBox.margin>
+                                <Insets top="30.0" />
+                             </HBox.margin>
+                        </ImageView>
                     </children>
                 </HBox>
             </top>
-            <right>
-                <Button fx:id="buttonClose" mnemonicParsing="false" text="Close" BorderPane.alignment="BOTTOM_RIGHT" />
-            </right>
-            <left>
-                <VBox>
+         <bottom>
+                <Button fx:id="buttonClose" mnemonicParsing="false" text="Close" BorderPane.alignment="CENTER">
+                   <BorderPane.margin>
+                      <Insets bottom="30.0" />
+                   </BorderPane.margin>
+                </Button>
+         </bottom>
+         <center>
+                <VBox BorderPane.alignment="CENTER">
                     <children>
-                        <Label text="LiquEc is Open Source Software,&#10;published under the GNU Licence, Version 2.0." />
-                        <Label fx:id="labelVersion" text="LiquEc Version: %s." />
-                        <Label text="Copyright (c) 2018 José Luis Pastor Navarro &amp; Pablo Benito González." />
-                        <Hyperlink fx:id="linkWebsite" styleClass="website" text="https://personal.ua.es/es/">
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="LiquEc is Open Source Software" textAlignment="CENTER">
+                             <VBox.margin>
+                                <Insets top="30.0" />
+                             </VBox.margin>
+                        </Label>
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Published under the GNU Licence, Version 2.0" textAlignment="CENTER" />
+                        <Label fx:id="labelVersion" minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="LiquEc Version: %s" textAlignment="CENTER" />
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="José Luis Pastor Navarro &amp; Pablo Benito González" textAlignment="CENTER" />
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Copyright (c) 2018" textAlignment="CENTER" />
+                        <Hyperlink fx:id="linkWebsite" minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Liquec Home" textAlignment="CENTER">
                             <graphic>
                                 <MaterialIconView styleClass="websiteIcon" />
                             </graphic>
+                             <VBox.margin>
+                                <Insets bottom="30.0" />
+                             </VBox.margin>
                         </Hyperlink>
                     </children>
                 </VBox>
-            </left>
+         </center>
         </BorderPane>
     </children>
 </Pane>

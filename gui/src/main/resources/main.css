@@ -63,12 +63,9 @@
 .websiteIcon {
     -glyph-name: HOME;
 }
-.twitterIcon {
-    -glyph-name: TWITTER;
-}
-.websiteIcon, .twitterIcon {
+.websiteIcon {
     -fx-fill: -colour-about-link;
-    -glyph-size: 30;
+    -glyph-size: 20;
 }
 .noSession .new {
     -fx-padding: 10 0 10 5;
@@ -197,4 +194,12 @@
 .chart-line-symbol {
     -fx-background-radius: 4px ;
     -fx-padding: 4px ;
+}
+.about, .about-first {
+    -fx-font-size: 1em;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-fill-width: true;
 }

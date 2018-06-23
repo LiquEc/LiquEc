@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javax.inject.Inject;
-import javax.swing.text.html.ImageView;
 
 public class AboutController {
     private final WebPageTool webPageTool;
