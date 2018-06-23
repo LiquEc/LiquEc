@@ -2,6 +2,8 @@
 
 Liquefaction According to Eurocode
 
+[[!LiquEc](assets/liquec-start-view.png)]
+
 ## Prerequisites
 
 You will need Java 8 to build and run LiquEc.  You can download it from the [Oracle Website](http://www.oracle.com/technetwork/java/javase/downloads/index.html).  Everything else, including Gradle, will be downloaded by the build process.
@@ -17,7 +19,7 @@ $ ./gradlew :gui:run
 
 ## How to Use LiquEc
 
-Do you want to use LiquEc to calculate liquefaction?  You'll find everything you need to know to get you started in the guide [How to Use LiquEc](https://personal.ua.es/es/).
+Do you want to use LiquEc to calculate liquefaction?  You'll find everything you need to know to get you started in the guide [How to Use LiquEc](https://personal.ua.es/es/jlpastor/liquec.html).
 
 ## How To Build LiquEc
 
@@ -44,3 +46,17 @@ LiquEc works well if you choose the OpenJDK 8 instead of the Oracle JDK.  If you
 $ sudo apt-get install openjdk-8-jdk
 $ sudo apt-get install openjfx
 ~~~
+
+## Screenshots
+
+[[!LiquEc](assets/liquec-main-view.png)]
+
+[[!LiquEc](assets/liquec-result-view.png)]
+
+[[!LiquEc](assets/liquec-about-view.png)]
+
+## Special Thanks
+
+This project is based on the structure of the great [VocabHunter](https://github.com/VocanHunter/VocanHunter), developed by [@AdamCarroll](https://github.com/AdamCarroll).
+This project uses [emxsys](https://bitbucket.org/emxsys/javafx-chart-extensions/wiki/Home) chart extensions.
+
