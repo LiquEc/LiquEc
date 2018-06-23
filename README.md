@@ -12,14 +12,14 @@ LiquEc is built for Java 8.
 
 ## How To Run LiquEc
 
-Go to the [download](https://personal.ua.es/es/) page of the website to get the latest release of LiquEc.  Alternatively, you can run the development version from the command line as follows:
+Go to the [download](https://personal.ua.es/es/joseluis-pastor/liquec.html) page of the website to get the latest release of LiquEc.  Alternatively, you can run the development version from the command line as follows:
 ~~~
 $ ./gradlew :gui:run
 ~~~
 
 ## How to Use LiquEc
 
-Do you want to use LiquEc to calculate liquefaction?  You'll find everything you need to know to get you started in the guide [How to Use LiquEc](https://personal.ua.es/es/jlpastor/liquec.html).
+Do you want to use LiquEc to calculate liquefaction?  You'll find everything you need to know to get you started in the guide [How to Use LiquEc](https://personal.ua.es/es/joseluis-pastor/liquec.html).
 
 ## How To Build LiquEc
 
