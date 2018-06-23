@@ -60,8 +60,9 @@
                                         </Menu>
                                         <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
                                             <items>
-                                                <MenuItem fx:id="menuWebsite" mnemonicParsing="false" text="LiquEc Website" />
-                                                <MenuItem fx:id="menuHowTo" mnemonicParsing="false" text="How to Use LiquEc" />
+                                                <MenuItem fx:id="menuWebsite" mnemonicParsing="false" text="LiquEc UA Website" />
+                                                <MenuItem fx:id="menuProject" mnemonicParsing="false" text="LiquEc Github Project" />
+                                                <MenuItem fx:id="menuSources" mnemonicParsing="false" text="LiquEc Github Sources" />
                                                 <MenuItem fx:id="menuIssue" mnemonicParsing="false" text="How to Report a Bug" />
                                                 <MenuItem fx:id="menuAbout" mnemonicParsing="false" text="About" />
                                             </items>

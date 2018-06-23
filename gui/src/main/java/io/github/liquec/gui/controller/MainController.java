@@ -46,7 +46,9 @@ public class MainController {
 
     public MenuItem menuWebsite;
 
-    public MenuItem menuHowTo;
+    public MenuItem menuProject;
+
+    public MenuItem menuSources;
 
     public MenuItem menuIssue;
 
@@ -140,8 +142,9 @@ public class MainController {
         menuNormativeNcse02.selectedProperty().bindBidirectional(buttonNormativeNcse02.selectedProperty());
 
         menuWebsite.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBSITE));
-        menuHowTo.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBPAGE_HELP));
-        menuIssue.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBPAGE_ISSUE));
+        menuProject.setOnAction(e -> webPageTool.showWebPage(GuiConstants.GITHUB_PROJECT));
+        menuSources.setOnAction(e -> webPageTool.showWebPage(GuiConstants.GITHUB_SOURCES));
+        menuIssue.setOnAction(e -> webPageTool.showWebPage(GuiConstants.GITHUB_ISSUES));
         menuAbout.setOnAction(e -> processAbout());
 
         prepareStatusInformation();
