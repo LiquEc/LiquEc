@@ -2,7 +2,7 @@
 
 Liquefaction According to Eurocode
 
-[[!LiquEc](assets/liquec-start-view.png)]
+[![LiquEc](assets/liquec-start-view.png)]
 
 ## Prerequisites
 
@@ -49,14 +49,15 @@ $ sudo apt-get install openjfx
 
 ## Screenshots
 
-[[!LiquEc](assets/liquec-main-view.png)]
+[![LiquEc](assets/liquec-main-view.png)]
 
-[[!LiquEc](assets/liquec-result-view.png)]
+[![LiquEc](assets/liquec-result-view.png)]
 
-[[!LiquEc](assets/liquec-about-view.png)]
+[![LiquEc](assets/liquec-about-view.png)]
 
 ## Special Thanks
 
 This project is based on the structure of the great [VocabHunter](https://github.com/VocanHunter/VocanHunter), developed by [@AdamCarroll](https://github.com/AdamCarroll).
+
 This project uses [emxsys](https://bitbucket.org/emxsys/javafx-chart-extensions/wiki/Home) chart extensions.
 
