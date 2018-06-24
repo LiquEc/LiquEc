@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class FileNameTool {
-    public static final String SESSION_SUFFIX = ".liquec";
+    public static final String SESSION_SUFFIX = ".liq";
 
     private FileNameTool() {
         // Prevent instantiation - all methods are static
