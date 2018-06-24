@@ -65,7 +65,7 @@ jfx {
     fileAssociations = [
         [
             description: 'LiquEc session',
-            extensions: 'liquec',
+            extensions: 'liq',
             contentType: 'application/x-vnd.LiquEcSession',
             icon: sessionIcon
         ]
