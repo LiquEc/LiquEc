@@ -181,7 +181,16 @@
     -fx-padding: 0 10 0 0;
 }
 .check {
-    -fx-background-color: #ccffcc;
+    -fx-background-color: #ecf9ec;
+    -fx-opacity: 1;
+}
+.check-below-sf {
+    -fx-background-color: #ffebcc;
+    -fx-opacity: 1;
+}
+.check-below-one {
+    -fx-background-color: #ffcccc;
+    -fx-opacity: 1;
 }
 .no-check {
     -fx-background-color: #e6e6e6;

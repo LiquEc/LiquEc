@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane fx:id="aboutDialogue" styleClass="about" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.AboutController">
+<Pane fx:id="aboutDialogue" styleClass="about" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.AboutController">
     <children>
         <BorderPane prefWidth="522.0">
             <top>
@@ -50,7 +50,15 @@
                         </Label>
                         <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Published under the GNU Licence, Version 2.0" textAlignment="CENTER" />
                         <Label fx:id="labelVersion" minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="LiquEc Version: %s" textAlignment="CENTER" />
-                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="José Luis Pastor Navarro &amp; Pablo Benito González" textAlignment="CENTER" />
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="José Luis Pastor Navarro ()" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin></Label>
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Pablo Benito González (Civil Engineer &amp; Java Developer)" textAlignment="CENTER" />
+                        <Label maxHeight="0.0" minHeight="50.0" minWidth="412.0" prefHeight="20.0" prefWidth="412.0" style="-fx-font-size: 11; -fx-font-style: italic;" styleClass="about" text="Authors are not responsible for any potential harm that may arise from the use and/or the interpretation of results obtained when running LiquEc." textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                     </VBox.margin></Label>
                         <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Copyright (c) 2018" textAlignment="CENTER" />
                         <Hyperlink fx:id="linkWebsite" minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="Liquec Home" textAlignment="CENTER">
                             <graphic>

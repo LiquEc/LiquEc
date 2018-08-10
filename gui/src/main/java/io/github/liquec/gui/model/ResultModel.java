@@ -1,5 +1,5 @@
 /*
- * Open Source Software published under the Apache Licence, Version 2.0.
+ * Open Source Software published under the GNU Licence, Version 2.0.
  */
 
 package io.github.liquec.gui.model;
@@ -77,6 +77,7 @@ public final class ResultModel {
     private SptResultRow buildSptResultRow(final SptCalculationResult sptCalculationResult) {
         if (sptCalculationResult.getResult()) {
             return new SptResultRow(
+                this.getCalculationMode(),
                 sptCalculationResult.getResult(),
                 this.getFormattedNumer(String.valueOf(sptCalculationResult.getDepth())),
                 String.valueOf(sptCalculationResult.getSptBlowCounts()),
@@ -86,6 +87,7 @@ public final class ResultModel {
                 this.getFormattedNumer(String.valueOf(this.round(sptCalculationResult.getSafetyFactor()))));
         }
         return new SptResultRow(
+            this.getCalculationMode(),
             sptCalculationResult.getResult(),
             this.getFormattedNumer(String.valueOf(sptCalculationResult.getDepth())),
             String.valueOf(sptCalculationResult.getSptBlowCounts()),

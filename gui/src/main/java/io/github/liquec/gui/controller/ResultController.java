@@ -6,10 +6,8 @@ package io.github.liquec.gui.controller;
 
 import com.emxsys.chart.EnhancedLineChart;
 import com.emxsys.chart.EnhancedStackedAreaChart;
-import com.emxsys.chart.extension.ValueMarker;
-import com.emxsys.chart.extension.XYAnnotations;
-import com.emxsys.chart.extension.XYFieldAnnotation;
-import com.emxsys.chart.extension.XYTextAnnotation;
+import com.emxsys.chart.extension.*;
+import io.github.liquec.analysis.calculation.Mode;
 import io.github.liquec.gui.chart.ChartProperties;
 import io.github.liquec.gui.common.BoundsEnum;
 import io.github.liquec.gui.model.*;
@@ -190,7 +188,14 @@ public class ResultController {
     }
 
     private String buildTitle() {
-        return "Liquefaction Calculations: " + this.resultModel.getCalculationMode();
+        return "Liquefaction Analysis: " + this.resultModel.getCalculationMode() + " (Safety Factor " + this.getSafetyFactor(this.resultModel.getCalculationMode()) + ")";
+    }
+
+    public Float getSafetyFactor(final String description) {
+        for(Mode mode: Mode.values()) {
+            if (mode.getDescription().equals(description)) return mode.getSafetyFactor();
+        }
+        return null;
     }
 
     private void back() {
@@ -309,11 +314,15 @@ public class ResultController {
             xAxisSafetyFactorChart.getUpperBound(), yAxisSafetyFactorChart.getLowerBound(), Pos.BOTTOM_RIGHT), XYAnnotations.Layer.FOREGROUND);
         // field
         this.safetyFactorChart.getAnnotations().add(
-            new XYFieldAnnotation(0, 1.1, Orientation.VERTICAL, 0, null,
-                new Color(1, 0, 1, 0.2)),  XYAnnotations.Layer.BACKGROUND);
+            new XYFieldAnnotation(0, 1, Orientation.VERTICAL, 0, null,
+                new Color(1, 0.8, 0.8, 1)),  XYAnnotations.Layer.BACKGROUND);
         this.safetyFactorChart.getAnnotations().add(
-            new XYFieldAnnotation(1.1, 1.5, Orientation.VERTICAL, 0, null,
-                new Color(0, 1, 0, 0.3)),  XYAnnotations.Layer.BACKGROUND);
+            new XYFieldAnnotation(1, this.getSafetyFactor(this.resultModel.getCalculationMode()), Orientation.VERTICAL, 0, null,
+                new Color(1, 0.92, 0.8, 1)),  XYAnnotations.Layer.BACKGROUND);
+        this.safetyFactorChart.getMarkers().addDomainMarker(new ValueMarker(this.getSafetyFactor(this.resultModel.getCalculationMode()), String.format("  SF: %s", this.getSafetyFactor(this.resultModel.getCalculationMode())), Pos.TOP_RIGHT));
+        this.safetyFactorChart.getAnnotations().add(
+            new XYFieldAnnotation(this.getSafetyFactor(this.resultModel.getCalculationMode()), 999, Orientation.VERTICAL, 0, null,
+                new Color(0.925, 0.976, 0.925, 1)),  XYAnnotations.Layer.BACKGROUND);
     }
 
 }

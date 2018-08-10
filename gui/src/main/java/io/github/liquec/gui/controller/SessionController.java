@@ -23,6 +23,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -224,6 +225,17 @@ public class SessionController {
 
         // Initialize Water Makers
         this.manageWaterDepthMarker();
+
+        // Set Wrapping Soil Type Text
+        soilTypeTableColumn.setCellFactory(param -> {
+            TableCell<LayerRow, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(soilTypeTableColumn.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
     }
 
     private void disableUnnecessaryData() {

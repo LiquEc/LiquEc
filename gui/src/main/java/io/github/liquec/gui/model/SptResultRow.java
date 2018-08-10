@@ -1,5 +1,5 @@
 /*
- * Open Source Software published under the Apache Licence, Version 2.0.
+ * Open Source Software published under the GNU Licence, Version 2.0.
  */
 
 package io.github.liquec.gui.model;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 public final class SptResultRow {
     private static final Logger LOG = LoggerFactory.getLogger(SptResultRow.class);
 
+    private final SimpleStringProperty mode;
     private final SimpleBooleanProperty result;
 
     private final SimpleStringProperty depth;
@@ -22,6 +23,7 @@ public final class SptResultRow {
     private final SimpleStringProperty safetyFactor;
 
     public SptResultRow(
+        final String mode,
         final Boolean result,
         final String depth,
         final String sptBlowCounts,
@@ -29,6 +31,7 @@ public final class SptResultRow {
         final String csr,
         final String crr,
         final String safetyFactor) {
+        this.mode = new SimpleStringProperty(mode);
         this.result = new SimpleBooleanProperty(result);
         this.depth = new SimpleStringProperty(depth);
         this.sptBlowCounts = new SimpleStringProperty(sptBlowCounts);
@@ -36,6 +39,14 @@ public final class SptResultRow {
         this.csr = new SimpleStringProperty(csr);
         this.crr = new SimpleStringProperty(crr);
         this.safetyFactor = new SimpleStringProperty(safetyFactor);
+    }
+
+    public String getMode() {
+        return mode.get();
+    }
+
+    public SimpleStringProperty modeProperty() {
+        return mode;
     }
 
     public boolean isResult() {

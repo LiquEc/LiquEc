@@ -88,7 +88,7 @@ public class LayerController {
         this.textFieldSoilType.textProperty().addListener((a, b, c) ->
             this.manageLayerModelState("Soil Type", b, c));
         this.textFieldSoilType.textProperty().addListener((a, b, c) ->
-            this.controllerHelper.manageStringsValues(this.textFieldSoilType, b, c, 12));
+            this.controllerHelper.manageStringsValues(this.textFieldSoilType, b, c, 60));
 
         // Soil Unit Weight Above Gwt
         Bindings.bindBidirectional(this.textFieldSoilUnitWeightAboveGwt.textProperty(), this.layerModel.soilUnitWeightAboveGwtProperty());

@@ -4,6 +4,11 @@ Liquefaction According to Eurocode
 
 [![LiquEc](assets/liquec-start-view.png)](https://github.com/LiquEc)
 
+## Authors
+José Luis Pastor Navarro ()
+
+Pablo Benito González (Civil Engineer & Java Developer)
+
 ## Prerequisites
 
 You will need Java 8 to build and run LiquEc.  You can download it from the [Oracle Website](http://www.oracle.com/technetwork/java/javase/downloads/index.html).  Everything else, including Gradle, will be downloaded by the build process.
@@ -61,3 +66,5 @@ This project is based on the structure of the great [VocabHunter](https://github
 
 This project uses [emxsys](https://bitbucket.org/emxsys/javafx-chart-extensions/wiki/Home) chart extensions.
 
+## Responsability
+Authors are not responsible for any potential harm that may arise from the use and/or the interpretation of results obtained when running LiquEc.

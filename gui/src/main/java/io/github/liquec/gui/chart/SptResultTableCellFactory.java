@@ -4,10 +4,13 @@
 
 package io.github.liquec.gui.chart;
 
+import io.github.liquec.analysis.calculation.Mode;
 import io.github.liquec.gui.model.SptResultRow;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
+
+import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, T>, TableCell<S, T>> {
@@ -23,6 +26,8 @@ public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, 
             protected void updateItem(final Object item, final boolean empty) {
 
                 String check = "check";
+                String checkBelowSF = "check-below-sf";
+                String checkBelowOne = "check-below-one";
                 String noCheck = "no-check";
                 String cssStyle = "";
 
@@ -32,12 +37,31 @@ public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, 
                 }
 
                 getStyleClass().remove(check);
+                getStyleClass().remove(checkBelowSF);
+                getStyleClass().remove(checkBelowOne);
                 getStyleClass().remove(noCheck);
 
                 super.updateItem((T) item, empty);
 
                 if (sptResultRow != null) {
-                    cssStyle = (sptResultRow.isResult()) ? check : noCheck;
+                    if (!sptResultRow.isResult()) {
+                        cssStyle = noCheck;
+                    } else {
+                        final Mode mode = Mode.getMode(sptResultRow.getMode());
+                        Double safetyFactor;
+                        try {
+                            safetyFactor = Double.valueOf(sptResultRow.getSafetyFactor());
+                        } catch (NumberFormatException e) {
+                            safetyFactor = 0.0;
+                        }
+                        if (safetyFactor < 1) {
+                            cssStyle = checkBelowOne;
+                        } else if (safetyFactor < Optional.ofNullable(mode).map(Mode::getSafetyFactor).orElse(1.25f)) {
+                            cssStyle = checkBelowSF;
+                        } else {
+                            cssStyle = check;
+                        }
+                    }
                 }
 
                 getStyleClass().add(cssStyle);

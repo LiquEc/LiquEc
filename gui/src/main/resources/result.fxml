@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Open Source Software published under the Apache Licence, Version 2.0.
+  ~ Open Source Software published under the GNU Licence, Version 2.0.
   -->
 
 <?import com.emxsys.chart.EnhancedLineChart?>
 <?import com.emxsys.chart.EnhancedStackedAreaChart?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import io.github.liquec.gui.chart.SptResultTableCellFactory?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -18,13 +19,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-
-<?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.text.Text?>
-<?import io.github.liquec.gui.chart.SptResultTableCellFactory?>
-<BorderPane prefHeight="510.0" prefWidth="1143.0" styleClass="result" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.ResultController">
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane prefHeight="510.0" prefWidth="1143.0" styleClass="result" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.liquec.gui.controller.ResultController">
     <top>
-        <Label fx:id="resultLabel" styleClass="resultTitleLabel" text="Liquefaction Calculations Result">
+        <Label fx:id="resultLabel" styleClass="resultTitleLabel" text="Liquefaction Analysis Result">
          <BorderPane.margin>
             <Insets bottom="20.0" />
          </BorderPane.margin></Label>
@@ -105,7 +105,7 @@
                   <columns>
                       <TableColumn fx:id="depthTableColumn" editable="false" sortable="false">
                           <graphic>
-                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true" >
+                              <Label alignment="CENTER" styleClass="columnHeaderText" text="Depth (m)" textAlignment="CENTER" wrapText="true">
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>
@@ -130,7 +130,7 @@
                               <SptResultTableCellFactory />
                           </cellFactory>
                       </TableColumn>
-                      <TableColumn fx:id="sptCorrectedTableColumn" editable="false" sortable="false" minWidth="30.0">
+                      <TableColumn fx:id="sptCorrectedTableColumn" editable="false" minWidth="30.0" sortable="false">
                           <graphic>
                               <Label alignment="CENTER" styleClass="columnHeaderText" text="" textAlignment="CENTER" wrapText="true">
                                   <padding>
@@ -138,7 +138,8 @@
                                   </padding>
                                   <graphic>
                                       <TextFlow>
-                                          <Text styleClass="cellText">SPT &#10;(N</Text>
+                                          <Text styleClass="cellText">SPT 
+(N</Text>
                                           <Text styleClass="cellTextLower">(60)</Text>
                                           <Text styleClass="cellText">)</Text>
                                       </TextFlow>
@@ -182,7 +183,7 @@
                               <SptResultTableCellFactory />
                           </cellFactory>
                       </TableColumn>
-                      <TableColumn fx:id="safetyFactorTableColumn" editable="false" sortable="false" minWidth="50.0">
+                      <TableColumn fx:id="safetyFactorTableColumn" editable="false" minWidth="50.0" sortable="false">
                           <graphic>
                               <Label alignment="CENTER" styleClass="columnHeaderText" text="Safety &#10;Factor" textAlignment="CENTER" wrapText="true">
                                   <padding>
