@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -323,6 +324,23 @@ public class ResultController {
         this.safetyFactorChart.getAnnotations().add(
             new XYFieldAnnotation(this.getSafetyFactor(this.resultModel.getCalculationMode()), 999, Orientation.VERTICAL, 0, null,
                 new Color(0.925, 0.976, 0.925, 1)),  XYAnnotations.Layer.BACKGROUND);
+        // watermark
+        final Image logo = new Image(getClass().getResourceAsStream("/images/liquec-watermark.png"));
+        this.soilProfileChart.getAnnotations().add(
+            new XYImageAnnotation(logo, xAxisSoilProfileChart.getLowerBound(), yAxisSoilProfileChart.getLowerBound(), Pos.BOTTOM_LEFT), XYAnnotations.Layer.BACKGROUND);
+        this.sptChart.requestLayout();
+        this.sptChart.getAnnotations().add(
+            new XYImageAnnotation(logo, xAxisSptChart.getLowerBound(), yAxisSptChart.getLowerBound(), Pos.BOTTOM_LEFT), XYAnnotations.Layer.BACKGROUND);
+        this.sptChart.requestLayout();
+        this.csrChart.getAnnotations().add(
+            new XYImageAnnotation(logo, xAxisCsrChart.getLowerBound(), yAxisCsrChart.getLowerBound(), Pos.BOTTOM_LEFT), XYAnnotations.Layer.BACKGROUND);
+        this.csrChart.requestLayout();
+        this.crrChart.getAnnotations().add(
+            new XYImageAnnotation(logo, xAxisCrrChart.getLowerBound(), yAxisCrrChart.getLowerBound(), Pos.BOTTOM_LEFT), XYAnnotations.Layer.BACKGROUND);
+        this.crrChart.requestLayout();
+        this.safetyFactorChart.getAnnotations().add(
+            new XYImageAnnotation(logo, xAxisSafetyFactorChart.getLowerBound(), yAxisSafetyFactorChart.getLowerBound(), Pos.BOTTOM_LEFT), XYAnnotations.Layer.BACKGROUND);
+        this.safetyFactorChart.requestLayout();
     }
 
 }
