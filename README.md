@@ -96,4 +96,5 @@ This project is based on the structure of the great [VocabHunter](https://github
 This project uses [emxsys](https://bitbucket.org/emxsys/javafx-chart-extensions/wiki/Home) chart extensions.
 
 ## Responsability
+
 Authors are not responsible for any potential harm that may arise from the use and/or the interpretation of results obtained when running LiquEc.
