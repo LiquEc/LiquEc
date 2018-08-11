@@ -189,7 +189,7 @@ public class ResultController {
     }
 
     private String buildTitle() {
-        return "Liquefaction Analysis: " + this.resultModel.getCalculationMode() + " (Safety Factor " + this.getSafetyFactor(this.resultModel.getCalculationMode()) + ")";
+        return "Liquefaction Analysis: " + this.resultModel.getCalculationMode();
     }
 
     public Float getSafetyFactor(final String description) {

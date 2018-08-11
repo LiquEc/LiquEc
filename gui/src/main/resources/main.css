@@ -61,11 +61,46 @@
     -fx-padding: 7 0 7 0;
 }
 .websiteIcon {
-    -glyph-name: HOME;
+    -glyph-name: TURNED_IN;
 }
 .websiteIcon {
-    -fx-fill: -colour-about-link;
+    -fx-fill: #1c2224;
     -glyph-size: 20;
+}
+.linkWebsite {
+    -fx-font-size: 1em;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-fill-width: true;
+    -fx-text-fill: #1c2224 !important;
+    -fx-underline: false;
+}
+.linkWebsite:link, .linkWebsite:visited, .linkWebsite:hover, .linkWebsite:active {
+    -fx-text-fill: #1c2224 !important;
+    -fx-underline: false;
+}
+.authorIcon {
+    -glyph-name: ACCOUNT_CIRCLE;
+}
+.authorIcon {
+    -fx-fill: #1c2224;
+    -glyph-size: 20;
+}
+.linkAuthor {
+    -fx-font-size: 1em;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-fill-width: true;
+    -fx-text-fill: #1c2224 !important;
+    -fx-underline: false;
+}
+.linkAuthor:link, .linkAuthor:visited, .linkAuthor:hover, .linkAuthor:active {
+    -fx-text-fill: #1c2224 !important;
+    -fx-underline: false;
 }
 .noSession .new {
     -fx-padding: 10 0 10 5;

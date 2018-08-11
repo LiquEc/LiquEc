@@ -21,6 +21,10 @@ public class AboutController {
 
     public Hyperlink linkWebsite;
 
+    public Hyperlink linkJose;
+
+    public Hyperlink linkPablo;
+
     public Label labelVersion;
 
     @Inject
@@ -30,6 +34,8 @@ public class AboutController {
 
     public void initialise(final Stage stage) {
         buttonClose.setOnAction(e -> stage.close());
+        linkJose.setOnAction(e -> webPageTool.showWebPage(GuiConstants.LINKEDIN_JOSE));
+        linkPablo.setOnAction(e -> webPageTool.showWebPage(GuiConstants.LINKEDIN_PABLO));
         linkWebsite.setOnAction(e -> webPageTool.showWebPage(GuiConstants.WEBSITE));
         setupVersion();
     }

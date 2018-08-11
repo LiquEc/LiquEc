@@ -5,9 +5,9 @@ Liquefaction According to Eurocode
 [![LiquEc](assets/liquec-start-view.png)](https://github.com/LiquEc)
 
 ## Authors
-José Luis Pastor Navarro ()
+Dr. José Luis Pastor Navarro (_Civil and Geological Engineer_)
 
-Pablo Benito González (Civil Engineer & Java Developer)
+Pablo Benito González (_Civil Engineer and Java Developer_)
 
 ## Prerequisites
 
