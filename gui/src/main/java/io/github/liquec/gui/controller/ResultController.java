@@ -193,8 +193,10 @@ public class ResultController {
     }
 
     public Float getSafetyFactor(final String description) {
-        for(Mode mode: Mode.values()) {
-            if (mode.getDescription().equals(description)) return mode.getSafetyFactor();
+        for (Mode mode: Mode.values()) {
+            if (mode.getDescription().equals(description)) {
+                return mode.getSafetyFactor();
+            }
         }
         return null;
     }
@@ -318,9 +320,11 @@ public class ResultController {
             new XYFieldAnnotation(0, 1, Orientation.VERTICAL, 0, null,
                 new Color(1, 0.8, 0.8, 1)),  XYAnnotations.Layer.BACKGROUND);
         this.safetyFactorChart.getAnnotations().add(
-            new XYFieldAnnotation(1, this.getSafetyFactor(this.resultModel.getCalculationMode()), Orientation.VERTICAL, 0, null,
-                new Color(1, 0.92, 0.8, 1)),  XYAnnotations.Layer.BACKGROUND);
-        this.safetyFactorChart.getMarkers().addDomainMarker(new ValueMarker(this.getSafetyFactor(this.resultModel.getCalculationMode()), String.format("  SF: %s", this.getSafetyFactor(this.resultModel.getCalculationMode())), Pos.TOP_RIGHT));
+            new XYFieldAnnotation(1, this.getSafetyFactor(this.resultModel.getCalculationMode()),
+                Orientation.VERTICAL, 0, null, new Color(1, 0.92, 0.8, 1)),  XYAnnotations.Layer.BACKGROUND);
+        this.safetyFactorChart.getMarkers().addDomainMarker(
+            new ValueMarker(this.getSafetyFactor(this.resultModel.getCalculationMode()),
+                String.format("  SF: %s", this.getSafetyFactor(this.resultModel.getCalculationMode())), Pos.TOP_RIGHT));
         this.safetyFactorChart.getAnnotations().add(
             new XYFieldAnnotation(this.getSafetyFactor(this.resultModel.getCalculationMode()), 999, Orientation.VERTICAL, 0, null,
                 new Color(0.925, 0.976, 0.925, 1)),  XYAnnotations.Layer.BACKGROUND);

@@ -25,10 +25,10 @@ public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, 
             @Override
             protected void updateItem(final Object item, final boolean empty) {
 
-                String check = "check";
-                String checkBelowSF = "check-below-sf";
-                String checkBelowOne = "check-below-one";
-                String noCheck = "no-check";
+                final String check = "check";
+                final String checkBelowSf = "check-below-sf";
+                final String checkBelowOne = "check-below-one";
+                final String noCheck = "no-check";
                 String cssStyle = "";
 
                 SptResultRow sptResultRow = null;
@@ -37,7 +37,7 @@ public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, 
                 }
 
                 getStyleClass().remove(check);
-                getStyleClass().remove(checkBelowSF);
+                getStyleClass().remove(checkBelowSf);
                 getStyleClass().remove(checkBelowOne);
                 getStyleClass().remove(noCheck);
 
@@ -57,7 +57,7 @@ public class SptResultTableCellFactory<S, T> implements Callback<TableColumn<S, 
                         if (safetyFactor < 1) {
                             cssStyle = checkBelowOne;
                         } else if (safetyFactor < Optional.ofNullable(mode).map(Mode::getSafetyFactor).orElse(1.25f)) {
-                            cssStyle = checkBelowSF;
+                            cssStyle = checkBelowSf;
                         } else {
                             cssStyle = check;
                         }

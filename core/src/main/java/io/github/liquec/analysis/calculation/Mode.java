@@ -34,8 +34,10 @@ public enum Mode {
     }
 
     public static final Mode getMode(final String description) {
-        for(Mode mode: Mode.values()) {
-            if (mode.getDescription().equals(description)) return mode;
+        for (Mode mode: Mode.values()) {
+            if (mode.getDescription().equals(description)) {
+                return mode;
+            }
         }
         return null;
     }
