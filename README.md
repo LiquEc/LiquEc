@@ -65,22 +65,22 @@ $ sudo apt-get install openjfx
 
 ### Microsoft Windows
 
-The latest release of LiquEc can be downloaded as a Zip file: LiquEc-1.0.0.zip.
+The latest release of LiquEc can be downloaded as a Zip file [here](https://github.com/LiquEc/LiquEc/releases).
 
 First extract the contents of the Zip file into a directory. Then run the LiquEc.bat file found in the bin directory. Depending on your Windows version and settings you may see an error preventing you from running the program. If you do, click the ‘More Info’ hyperlink and then choose the ‘Run Anyway’ option.
 
-Alternatively, you can try the experimental new Windows installer: LiquEc-1.0.0.exe.
+Alternatively, you can try the experimental new Windows installer (.exe).
 
 Double click on the file and you will be taken through the process of installing LiquEc on your PC.
 
 ### Linux
 
-The latest release of Linux can be downloaded as a Deb file here: LiquEc-1.0.0.deb.
+The latest release of Linux can be downloaded as a Deb file [here](https://github.com/LiquEc/LiquEc/releases).
 
-You can install the package as follows:
+You can install the package as follows (changing the release version in the file name for de downloaded one):
 
 ~~~
-$ sudo dpkg -i LiquEc-1.0.0.deb
+$ sudo dpkg -i LiquEc-0.0.0.deb
 ~~~
 
 LiquEc will now run like any other Linux desktop application.
