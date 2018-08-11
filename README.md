@@ -5,6 +5,7 @@ Liquefaction According to Eurocode
 [![LiquEc](assets/liquec-start-view.png)](https://github.com/LiquEc)
 
 ## Authors
+
 Dr. José Luis Pastor Navarro (_Civil and Geological Engineer_)
 
 Pablo Benito González (_Civil Engineer and Java Developer_)
@@ -59,6 +60,34 @@ $ sudo apt-get install openjfx
 [![LiquEc](assets/liquec-result-view.png)](https://github.com/LiquEc)
 
 [![LiquEc](assets/liquec-about-view.png)](https://github.com/LiquEc)
+
+## Download Releases
+
+### Microsoft Windows
+
+The latest release of LiquEc can be downloaded as a Zip file: LiquEc-1.0.0.zip.
+
+First extract the contents of the Zip file into a directory. Then run the LiquEc.bat file found in the bin directory. Depending on your Windows version and settings you may see an error preventing you from running the program. If you do, click the ‘More Info’ hyperlink and then choose the ‘Run Anyway’ option.
+
+Alternatively, you can try the experimental new Windows installer: LiquEc-1.0.0.exe.
+
+Double click on the file and you will be taken through the process of installing LiquEc on your PC.
+
+### Linux
+
+The latest release of Linux can be downloaded as a Deb file here: LiquEc-1.0.0.deb.
+
+You can install the package as follows:
+
+~~~
+$ sudo dpkg -i LiquEc-1.0.0.deb
+~~~
+
+LiquEc will now run like any other Linux desktop application.
+
+### Apple Mac
+
+At the moment there is no installable version for MAC and it is not planned to develop it in the immediate future.
 
 ## Special Thanks
 
