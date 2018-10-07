@@ -43,7 +43,7 @@
          <center>
                 <VBox BorderPane.alignment="CENTER">
                     <children>
-                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="LiquEc is Open Source Software" textAlignment="CENTER">
+                        <Label minWidth="512.0" prefHeight="20.0" prefWidth="512.0" styleClass="about" text="LiquEc is an Open-Source Software" textAlignment="CENTER">
                              <VBox.margin>
                                 <Insets top="30.0" />
                              </VBox.margin>

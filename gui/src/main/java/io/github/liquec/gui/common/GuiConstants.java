@@ -7,7 +7,7 @@ package io.github.liquec.gui.common;
 public final class GuiConstants {
     public static final String UNTITLED = "Untitled";
 
-    public static final String WEBSITE = "https://personal.ua.es/es/joseluis-pastor/liquec.html";
+    public static final String WEBSITE = "https://personal.ua.es/es/joseluis-pastor/liquec/liquec.html";
 
     public static final String LINKEDIN_JOSE = "https://www.linkedin.com/in/jos%C3%A9-luis-pastor-navarro-a30145145/";
 
